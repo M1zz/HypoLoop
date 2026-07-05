@@ -140,6 +140,21 @@ nav{
 .problem-quote .strike::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:2.5px;background:var(--break);transform:rotate(-1.2deg)}
 .problem-quote .fix{color:#8FD3BE}
 .problem-sub{margin-top:22px;font-size:15px;color:rgba(244,247,243,.72);max-width:640px}
+.why-wrap{margin-top:44px;border:1px solid rgba(244,247,243,.18);border-radius:16px;padding:26px 28px;max-width:720px}
+.why-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8FD3BE;margin-bottom:18px}
+.why-chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.wc-tag{flex-basis:100%;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:rgba(244,247,243,.5)}
+.wc-tag.good{color:#8FD3BE}
+.wc{font-size:13.5px;line-height:1.5;background:rgba(244,247,243,.07);border:1px solid rgba(244,247,243,.22);padding:8px 14px;border-radius:100px;color:rgba(244,247,243,.85)}
+.wc.bad{border-color:rgba(228,87,46,.7);background:rgba(228,87,46,.14);color:#FFB39B}
+.wc.good{border-color:rgba(143,211,190,.7);background:rgba(143,211,190,.1);color:#8FD3BE}
+.wc-arr{color:rgba(244,247,243,.45);font-family:'IBM Plex Mono',monospace;font-size:13px}
+.why-wrap>p{margin-top:6px;font-size:14.5px;line-height:1.8;color:rgba(244,247,243,.75)}
+.why-wrap>p b{color:#8FD3BE}
+@media(max-width:680px){
+  .why-wrap{padding:20px 18px}
+  .wc{font-size:12.5px;padding:7px 12px}
+}
 
 /* CONCEPTS */
 .concept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
@@ -341,6 +356,27 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
       <span class="fix">“학습은 의도될 때만 보장된다”</span>
     </p>
     <p class="problem-sub">HypoLoop은 이 전제의 교체에서 출발합니다. 우발적 학습에 걸었던 판돈을 회수하고, 학습을 처음부터 이름 붙여진 목표로 만듭니다.</p>
+
+    <div class="why-wrap">
+      <div class="why-k">왜 “문제 해결”이 아니라 “학습”인가</div>
+      <div class="why-chain">
+        <span class="wc-tag">문제만 풀면</span>
+        <span class="wc">지금 실력으로 풀리는 문제만 해결</span>
+        <span class="wc-arr">→</span>
+        <span class="wc">결과물은 쌓이지만 실력은 제자리</span>
+        <span class="wc-arr">→</span>
+        <span class="wc bad">더 어려운 문제 앞에서 멈춤</span>
+      </div>
+      <div class="why-chain">
+        <span class="wc-tag good">학습하며 풀면</span>
+        <span class="wc">작은 챌린지를 학습하며 해결</span>
+        <span class="wc-arr">→</span>
+        <span class="wc">해결 능력 자체가 자람</span>
+        <span class="wc-arr">→</span>
+        <span class="wc good">궁극의 어려운 문제까지 도달</span>
+      </div>
+      <p>문제 해결을 버리자는 것이 아니라 순서를 바꾸자는 것입니다. 궁극의 진짜 문제는 오늘의 실력으로는 풀리지 않습니다. <b>학습만이 내일 더 어려운 문제를 풀 수 있게 하기 때문에</b>, HypoLoop은 산출물보다 학습을 우선합니다. 작은 챌린지는 우회로가 아니라 궁극의 문제로 올라가는 유일한 계단입니다.</p>
+    </div>
   </div>
 </section>
 
