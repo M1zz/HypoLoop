@@ -53,10 +53,22 @@ nav{
 .nav-links{display:flex;gap:22px;align-items:center}
 .nav-links a{font-size:13.5px;color:var(--ink-soft);text-decoration:none;font-weight:500}
 .nav-links a:hover{color:var(--loop)}
+.nav-links a.active{color:var(--loop);font-weight:700}
 .nav-cta{
   font-size:13px!important;color:#fff!important;background:var(--ink);padding:8px 16px;border-radius:100px;
 }
-@media(max-width:680px){.nav-links a:not(.nav-cta){display:none}}
+@media(max-width:680px){
+  .nav-in{gap:12px}
+  .nav-links{gap:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{white-space:nowrap;font-size:13px}
+  .nav-cta{display:none}
+}
+
+/* PAGE ROUTING */
+[data-page]{display:none}
+[data-page].pg-on{display:block;animation:pgIn .3s ease}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* HERO */
 .hero{padding:100px 0 90px;text-align:center;position:relative}
@@ -201,9 +213,11 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
   <div class="nav-in">
     <a class="brand" href="#top">Hypo<span>Loop</span></a>
     <div class="nav-links">
+      <a href="#top">홈</a>
       <a href="#who">누구를 위한</a>
       <a href="#concepts">핵심 개념</a>
       <a href="#playbook">운영 가이드</a>
+      <a href="#template">템플릿</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#playbook">지금 시작하기</a>
     </div>
@@ -211,7 +225,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </nav>
 
 <!-- HERO -->
-<header class="hero" id="top">
+<header class="hero" id="top" data-page="home">
   <div class="wrap">
     <svg class="mark" viewBox="0 0 74 74" aria-hidden="true">
       <circle class="o" cx="37" cy="37" r="30"/>
@@ -232,7 +246,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </header>
 
 <!-- WHO -->
-<section id="who">
+<section id="who" data-page="who">
   <div class="wrap">
     <div class="eyebrow">For Whom</div>
     <h2>이런 분들을 위해 만들었습니다</h2>
@@ -257,7 +271,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </section>
 
 <!-- PROBLEM -->
-<section class="problem">
+<section class="problem" data-page="home">
   <div class="wrap">
     <div class="eyebrow">The Problem</div>
     <h2>팀은 전진하는데,<br>개인은 배우고 있습니까?</h2>
@@ -271,7 +285,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </section>
 
 <!-- CONCEPTS -->
-<section id="concepts">
+<section id="concepts" data-page="concepts">
   <div class="wrap">
     <div class="eyebrow">Core Concepts</div>
     <h2>네 개의 기둥</h2>
@@ -338,7 +352,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </section>
 
 <!-- PLAYBOOK -->
-<section class="playbook" id="playbook">
+<section class="playbook" id="playbook" data-page="playbook">
   <div class="wrap">
     <div class="eyebrow">Playbook</div>
     <h2>여섯 단계로 운영합니다</h2>
@@ -395,7 +409,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </section>
 
 <!-- TEMPLATE -->
-<section class="tmpl-section" id="template">
+<section class="tmpl-section" id="template" data-page="template">
   <div class="wrap">
     <div class="eyebrow">Hypothesis Template</div>
     <h2>가설 문장 템플릿</h2>
@@ -418,7 +432,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </section>
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" data-page="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
     <h2>자주 받는 질문</h2>
@@ -452,7 +466,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </section>
 
 <!-- FINAL CTA -->
-<section class="final">
+<section class="final" data-page="home">
   <div class="wrap">
     <h2>다음 프로젝트에서<br>첫 가설을 세워 보세요</h2>
     <p>필요한 것은 진짜 문제 하나, 트리 한 장, 그리고 틀릴 준비가 된 가설 하나입니다.</p>
@@ -471,6 +485,23 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 </footer>
 
 <script>
+/* PAGE ROUTER — 탭 클릭 시 스크롤 대신 페이지 전환 */
+const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',faq:'faq'};
+function route(){
+  const hash=location.hash.replace('#','');
+  const pg=routes[hash]||'home';
+  document.querySelectorAll('[data-page]').forEach(el=>{
+    el.classList.toggle('pg-on',el.dataset.page===pg);
+  });
+  document.querySelectorAll('.nav-links a:not(.nav-cta)').forEach(a=>{
+    const target=routes[a.getAttribute('href').replace('#','')]||'home';
+    a.classList.toggle('active',target===pg);
+  });
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+}
+window.addEventListener('hashchange',route);
+route();
+
 const copyBtn=document.getElementById('copyBtn');
 copyBtn.addEventListener('click',async()=>{
   const text=`나는 지금 [대상 X]를\n[이렇게 이해/예상]한다.\n\n[검증 행동 Y]를 해보면\n이 이해가 맞는지 드러날 것이다.\n\n이 가설이 깨지면 나는\n[알게 될 것]을 알게 된다.`;
