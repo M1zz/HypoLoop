@@ -216,7 +216,9 @@ h2{font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(26px,4.2vw,
 .tree-section .lede{color:rgba(244,247,243,.75)}
 .tree-section .lede strong{color:#fff}
 .tree-stage{margin-top:48px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:34px 20px 26px}
-.tree-stage svg{width:100%;height:auto;overflow:visible;display:block}
+.tree-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tree-scroll svg{width:100%;height:auto;overflow:visible;display:block}
+.tree-scroll-hint{display:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(244,247,243,.55);margin-bottom:12px}
 .t-edge{fill:none;stroke:rgba(244,247,243,.28);stroke-width:1.6;transition:all .35s ease}
 .t-edge.lit{stroke:#8FD3BE;stroke-width:3}
 .t-node{cursor:pointer}
@@ -296,6 +298,23 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
   .expert-cell + .expert-cell{border-left:none;border-top:1px solid var(--line)}
   .pr-item{flex-direction:column;gap:6px}
   .pr-item h3{min-width:0}
+}
+@media (max-width:680px){
+  section{padding:56px 0}
+  .hero{padding:56px 0 24px}
+  .origin-card,.dev-card{padding:22px 18px}
+  .expert-cell{padding:24px 20px}
+  .expert-common{padding:16px 20px}
+  .phase-panel{padding:24px 20px;min-height:0}
+  .lc-conflict{padding:20px 18px}
+  /* 프랙탈 다이어그램: viewBox 축소에 맞춰 라벨 확대 보정 */
+  .f-name{font-size:15px}
+  .f-label{font-size:12.5px}
+  /* 계층 트리: 축소하면 글자가 깨알이 되므로 원본 크기 유지 + 가로 스크롤 */
+  .tree-stage{padding:22px 14px 18px}
+  .tree-scroll svg{min-width:780px}
+  .tree-scroll-hint{display:block}
+  .lineage-readout{padding:14px 16px;font-size:13.5px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -614,6 +633,8 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
     <p class="lede">궁극의 챌린지는 도전 가능한 크기까지 계층적으로 분해됩니다. <strong>리프 노드를 눌러보세요</strong> — 그 작은 챌린지가 진짜 문제와 어떻게 연결되어 있는지 혈통이 점등됩니다.</p>
 
     <div class="tree-stage">
+      <p class="tree-scroll-hint">← 옆으로 밀어서 트리 전체를 볼 수 있습니다 →</p>
+      <div class="tree-scroll">
       <svg viewBox="0 0 900 470" id="treeSvg" aria-label="챌린지 계층 트리">
         <!-- edges -->
         <path class="t-edge" id="e-r-a" d="M450 92 C 450 130, 190 130, 190 168"/>
@@ -683,6 +704,7 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 
         <text x="450" y="430" text-anchor="middle" style="font-family:'IBM Plex Mono',monospace;font-size:11px;fill:rgba(244,247,243,.5);letter-spacing:.12em">LEAF = 개인이 고르는 챌린지 · “못하는 것을 고른다”</text>
       </svg>
+      </div>
 
       <div class="lineage-readout" id="lineage">
         <span class="path">리프를 선택하면 혈통이 표시됩니다</span>
