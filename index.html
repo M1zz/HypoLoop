@@ -113,6 +113,24 @@ nav{
 .problem h2{color:#fff}
 .problem .lede{color:rgba(244,247,243,.75)}
 .problem .lede strong{color:#fff}
+.pcurve{margin-top:52px;max-width:620px}
+.pc-legend{display:flex;gap:20px;margin-bottom:14px}
+.pc-key{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;color:rgba(244,247,243,.72)}
+.pc-key i{width:16px;height:2px;border-radius:2px;display:inline-block}
+.pc-key i.k-team{background:#25A87C}
+.pc-key i.k-ind{background:#E4572E}
+.pcurve svg{width:100%;height:auto;display:block;overflow:visible}
+.pc-grid{stroke:rgba(244,247,243,.09);stroke-width:1}
+.pc-base{stroke:rgba(244,247,243,.22)}
+.pc-line{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-team{stroke:#25A87C}
+.pc-ind{stroke:#E4572E}
+.pc-dot{stroke-width:2;stroke:#132B1F}
+.pc-dot-team{fill:#25A87C}
+.pc-dot-ind{fill:#E4572E}
+.pc-lbl{font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:13px;font-weight:600;fill:rgba(244,247,243,.92)}
+.pc-cap{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:rgba(244,247,243,.5);letter-spacing:.08em}
+.pc-note{margin-top:12px;font-size:13px;color:rgba(244,247,243,.6)}
 .problem-quote{
   margin-top:44px;font-family:'Noto Serif KR',serif;font-weight:700;
   font-size:clamp(19px,3.4vw,27px);line-height:1.65;max-width:700px;color:#fff;
@@ -276,6 +294,28 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
     <div class="eyebrow">The Problem</div>
     <h2>팀은 전진하는데,<br>개인은 배우고 있습니까?</h2>
     <p class="lede">팀 프로젝트는 합리적으로 굴러갈수록 각자 <strong>이미 잘하는 일</strong>을 맡게 됩니다. 결과물의 질은 오르지만 개인의 학습 곡선은 평평해집니다. 학습은 문제를 풀다 운 좋게 얻는 부산물로 밀려납니다.</p>
+
+    <figure class="pcurve" role="img" aria-label="프로젝트가 진행될수록 팀 산출물은 상승하지만 개인 학습 곡선은 평평하게 유지되어 간극이 벌어지는 추세 비교 차트">
+      <div class="pc-legend">
+        <span class="pc-key"><i class="k-team"></i>팀 산출물</span>
+        <span class="pc-key"><i class="k-ind"></i>개인 학습</span>
+      </div>
+      <svg viewBox="0 0 640 270" aria-hidden="true">
+        <line class="pc-grid" x1="50" y1="66" x2="540" y2="66"/>
+        <line class="pc-grid" x1="50" y1="146" x2="540" y2="146"/>
+        <line class="pc-grid pc-base" x1="50" y1="226" x2="540" y2="226"/>
+        <path class="pc-line pc-team" d="M60 222 C200 214 330 148 540 70"/>
+        <path class="pc-line pc-ind" d="M60 222 C150 204 240 198 540 196"/>
+        <circle class="pc-dot pc-dot-team" cx="540" cy="70" r="4.5"/>
+        <circle class="pc-dot pc-dot-ind" cx="540" cy="196" r="4.5"/>
+        <text class="pc-lbl" x="552" y="74">팀 산출물</text>
+        <text class="pc-lbl" x="552" y="200">개인 학습</text>
+        <text class="pc-cap" x="50" y="48">성장 ↑</text>
+        <text class="pc-cap" x="540" y="248" text-anchor="end">프로젝트 진행 →</text>
+      </svg>
+      <figcaption class="pc-note">팀이 합리적으로 굴러갈수록, 두 곡선의 간극은 벌어집니다.</figcaption>
+    </figure>
+
     <p class="problem-quote">
       <span class="strike">“가치 있는 문제를 풀면 학습은 자연히 따라온다”</span><br>
       <span class="fix">“학습은 의도될 때만 보장된다”</span>
