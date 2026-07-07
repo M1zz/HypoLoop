@@ -207,6 +207,48 @@ nav{
 @media(max-width:680px){.pb-tmpl{padding:14px 14px}.pb-tmpl pre{font-size:12px;padding-right:0;padding-top:26px}}
 @media(max-width:680px){.pb-step{grid-template-columns:1fr;gap:8px}}
 
+/* HOW-TO SCAFFOLD */
+.pb-how{margin-top:14px;max-width:620px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.55)}
+.pb-how summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:12px 16px;font-size:13.5px;font-weight:700;color:var(--loop)}
+.pb-how summary::-webkit-details-marker{display:none}
+.pb-how summary::before{content:"▸";font-family:'IBM Plex Mono',monospace;transition:transform .2s ease}
+.pb-how[open] summary::before{transform:rotate(90deg)}
+.pb-how .how-in{padding:2px 18px 18px;font-size:13.5px;color:var(--ink-soft)}
+.how-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.how-meta span{font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--loop-soft);color:var(--loop);padding:4px 10px;border-radius:100px}
+.how-in ol{margin:0 0 4px 18px;display:flex;flex-direction:column;gap:6px}
+.how-in ol li{line-height:1.7}
+.how-in ol li b{color:var(--ink)}
+.how-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);margin:14px 0 6px}
+.how-in ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.how-in ul li{padding:8px 12px;background:var(--loop-soft);border-radius:8px;font-size:13px;line-height:1.65}
+.how-in ul li b{color:var(--ink)}
+.how-ex{margin-top:12px;border-left:3px solid var(--loop);padding:10px 14px;background:var(--card);border-radius:0 8px 8px 0;font-size:13px;line-height:1.75}
+.how-ex .ex-t{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);display:block;margin-bottom:4px}
+
+/* SAMPLES */
+.case-list{margin-top:44px;display:flex;flex-direction:column;gap:16px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.case summary{cursor:pointer;list-style:none;padding:22px 24px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.case summary::-webkit-details-marker{display:none}
+.case .c-no{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--loop);letter-spacing:.14em;flex-shrink:0}
+.case .c-title{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;flex:1;min-width:200px}
+.case .c-who{font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
+.case summary::after{content:"+";font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--loop)}
+.case[open] summary::after{content:"−"}
+.case .c-body{padding:0 24px 26px;border-top:1px solid var(--line)}
+.c-flow{display:flex;flex-direction:column;margin-top:16px}
+.c-row{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.c-row:last-child{border-bottom:none}
+.c-row .c-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--loop);padding-top:3px}
+.c-row .c-v{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+.c-row .c-v b{color:var(--ink)}
+.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8}
+.c-quote.break{background:var(--break-soft)}
+.c-delta{margin:14px 0;background:var(--ink);color:var(--paper);border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.8}
+.c-delta b{color:#8FD3BE}
+@media(max-width:680px){.c-row{grid-template-columns:1fr;gap:4px}.case summary{padding:18px 18px}.case .c-body{padding:0 18px 20px}}
+
 /* MENTOR */
 .mentor-box{margin-top:72px;background:var(--card);border:1.5px solid var(--loop);border-radius:18px;padding:36px}
 .mentor-box .m-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:14px}
@@ -301,6 +343,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
       <a href="#concepts">コア概念</a>
       <a href="#playbook">運用ガイド</a>
       <a href="#template">テンプレート</a>
+      <a href="#samples">事例</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#playbook">今すぐ始める</a>
     </div>
@@ -516,6 +559,26 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
           <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>私たちのチームは[世界の本物の問題P]を解決しようとしている。
 この問題は[誰が、どんな状況で]実際に直面している問題だ。
 解決されれば[何が変わったか]で確認できる。</pre></div>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>チーム全体</span><span>60〜90分</span><span>付箋・ホワイトボード</span></div>
+              <ol>
+                <li><b>収集(15分)</b> — 各自「直近6か月以内に自分が直接経験したか、すぐそばで目撃した不便」を付箋1枚に1つずつ、5個以上書きます。大げさなものである必要はありません。</li>
+                <li><b>グルーピング(10分)</b> — すべて壁に貼り、似たもの同士をまとめて、まとまりごとに名前を付けます。</li>
+                <li><b>実在検証(10分)</b> — まとまりごとに一緒に問います:「これを実際に経験している人を、私たちは一人でも名指しできるか?」名指しできなければ除外します。</li>
+                <li><b>投票(5分)</b> — 残った候補に1人2票:「最も興味深いもの」に1票 +「自分たちの規模で対応できるもの」に1票。</li>
+                <li><b>宣言(15分)</b> — 最多得票の問題でテンプレートの3行を一緒に埋め、全員が声に出して読み、同意すれば確定します。</li>
+              </ol>
+              <div class="how-k">空欄を埋めるヒント質問</div>
+              <ul>
+                <li><b>[世界の本物の問題P]</b> — 誰かがすでに時間やお金を費やしながら耐えている不便か? 誰も惜しがらないなら、それは問題ではなくアイデアです。</li>
+                <li><b>[誰が、どんな状況で]</b> — ペルソナではなく実在の人物レベルで。「20代の会社員」✗ →「通勤途中に朝食を取りそこねている隣のチームの田中さん」✓</li>
+                <li><b>[何が変わったか]</b> — 解決された翌日に、目で観察できる場面一つで。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 記入例</span>「私たちのチームは『地元で焼きたての健康的なパンを買える場所がない』という問題を解決しようとしている。この問題は、朝食をパンで済ませる通勤途中の隣人たちが毎日直面している問題だ。解決されれば、朝7時に店の前に行列ができることで確認できる。」</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -529,6 +592,25 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 リーフ判定 — 一人が1〜2週間で仮説を
 壊してみられるサイズか?(いいえ → もう一段分解)</pre></div>
           <span class="pb-tip">ヒント: リーフ1つ = 1〜2週間で仮説を壊してみられるサイズ</span>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>チーム全体</span><span>60分</span><span>大きな紙・Miro/FigJam</span></div>
+              <ol>
+                <li><b>ルート掲示</b> — 究極チャレンジを一番上に書きます。</li>
+                <li><b>分解質問の繰り返し</b> — 「これが実現するには、先に何ができていなければならないか?」と問い、答えを2〜4個の下位チャレンジとして書きます。<b>技術・ユーザー・運用</b>の3方向から一度ずつ問えば、抜け漏れが起きにくくなります。</li>
+                <li><b>リーフ判定</b> — 各ノードに問います:「一人が1〜2週間で仮説を壊してみられるサイズか?」いいえなら、そのノードで2を繰り返します。</li>
+                <li><b>掲示</b> — 完成したツリーをチームの共有スペース(Notion・壁)に貼ります。どのリーフからでもルートまでの経路が一目で見えなければなりません。</li>
+              </ol>
+              <div class="how-k">ヒント</div>
+              <ul>
+                <li>ノードは名詞ではなく<b>行動</b>で — 「発酵の知識」✗ →「天然酵母種をつくってみる」✓</li>
+                <li>深さは3〜4段で十分です。リーフが15個を超えたら、今回のサイクルで使う枝だけ残して畳んでおきましょう。</li>
+                <li>ツリーは完成品ではなく<b>地図の草案</b>です — サイクルごとに更新されます。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 記入例</span>パン屋を開く → 看板となる健康パンの開発 → サワードウを焼く → <b>天然酵母種をつくる</b>(リーフ)</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -541,6 +623,25 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 このリーフは[リーフ → 中間 → 究極]の経路で
 チームチャレンジとつながっている。</pre></div>
           <span class="pb-tip warn">注意: 得意なことを選んだ瞬間、このフレームワークを使う理由が消えます</span>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>個人</span><span>20分</span><span>完成したツリー</span></div>
+              <ol>
+                <li><b>スキャン</b> — ツリーのリーフを眺めながら、「今やれと言われたらできないもの」に各自印を付けます。</li>
+                <li><b>選択</b> — 印を付けたものの中から、今回のチームサイクルで実際に使われるリーフを1つ選びます。</li>
+                <li><b>根拠の記述</b> — 「できないという根拠」を一行で書きます:今試みたら実際に起きること。</li>
+                <li><b>経路の朗読</b> — リーフから究極チャレンジまでの経路を、仲間に声に出して説明します。言葉に詰まったら、先にツリーを直します。</li>
+              </ol>
+              <div class="how-k">ヒント</div>
+              <ul>
+                <li>根拠が「やったことがないから」だけでは弱いです — <b>「やってみるとこの地点で詰まる」</b>と書ければ良いリーフです。</li>
+                <li>2つの間で迷ったら、<b>より分からない方</b>を選びます。</li>
+                <li>専門家なら — 技術のリーフが全部簡単に見えるときがサインです。デザイン・ドメイン・市場の枝から選んでください。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 記入例</span>「私は『天然酵母種をつくる』を選ぶ。根拠: 小麦粉と水を置いておけば、ただカビが生えるだけだと思っている — 発酵と腐敗を区別できない。経路: 酵母種 → サワードウ → 看板パン → パン屋。」</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -551,6 +652,25 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
           <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>私は今[対象X]を[このように理解/予想]している。
 [検証行動Y]をやってみれば、この理解が正しいか分かるはずだ。
 この仮説が壊れたら、私は[分かるはずのこと]を知ることになる。</pre></div>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>個人</span><span>15分</span><span>検索禁止</span></div>
+              <ol>
+                <li><b>遮断</b> — タイマー15分。検索窓・講義・AIをすべて閉じます。</li>
+                <li><b>作成</b> — いま頭の中にある理解だけで、テンプレートの3行を埋めます。</li>
+                <li><b>そのままにする</b> — ぎこちなくて間違っている気がしても、直しません。この文書の目的は正解ではなく<b>壊れるための標的</b>です。</li>
+                <li><b>サイズ確認</b> — 検証行動Yが1〜2週間で実行できるサイズかどうかだけを確認します。</li>
+              </ol>
+              <div class="how-k">空欄を埋めるヒント質問</div>
+              <ul>
+                <li><b>[対象X]</b>が思い浮かばなければ — リーフを始めたとき最初にぶつかるものがXです。</li>
+                <li><b>[検証行動Y]</b>は机の外の行動で — 読む・視聴する ✗、つくる・測る・自分で経験する ✓</li>
+                <li><b>[分かるはずのこと]</b>が書けなければ、仮説がまだ予測になっていないということ — Xをもっと絞りましょう。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 記入例</span>「私は今、パンはベーキングパウダーのおかげで膨らむと理解している。イーストを抜いて焼いてみれば、この理解が正しいか分かるはずだ。この仮説が壊れたら、私は生地を膨らませる本当の原理を知ることになる。」</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -563,6 +683,26 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 差し戻し — 検証行動が曖昧だ / 知ることになるものがない
        / すでに知っていることだ。
 差し戻されたら、仮説を磨いて書き直す。</pre></div>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>2人1組</span><span>1人あたり10分</span></div>
+              <ol>
+                <li><b>朗読</b> — 仮説を声に出して読みます。</li>
+                <li><b>質問</b> — 仲間が尋ねます:「この仮説が壊れたら、君は何を知ることになる?」</li>
+                <li><b>判定</b> — 30秒以内に、具体的な理解一つで答えられれば合格。</li>
+                <li><b>差し戻し基準</b> — 検証行動が曖昧だ / 知ることになるものがない / すでに知っていることだ。</li>
+                <li><b>再挑戦</b> — 差し戻されたら、その場で直してもう一度尋ねます。往復3分を超えないようにします。</li>
+              </ol>
+              <div class="how-k">ヒント</div>
+              <ul>
+                <li>尋ねる側は<b>アドバイス禁止</b> — 質問だけをします。直すのは本人の仕事です。</li>
+                <li>最高の差し戻しは「それ、君はもう知っているよね。」</li>
+                <li>メンターがいる場合は、このリチュアルが回っているかだけを見ます — 問答には割り込みません。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 問答例</span>Q「壊れたら何を知ることになる?」— A「膨らみの原因が化学膨張剤なのか、生物学的な発酵なのかを区別できるようになる。」→ <b>合格</b></div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -575,6 +715,23 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 現実: [実際に起きたこと]
 ギャップから学んだこと: [更新された理解]</pre></div>
           <span class="pb-tip">仮説が壊れる瞬間が最大の学習ポイント — 後回しにせず、その場で記録</span>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>個人</span><span>サイクルの間ずっと</span><span>探究ログ</span></div>
+              <ol>
+                <li><b>いつもどおり</b> — 別枠の勉強時間はつくりません。チームの作業をそのまま進めます。</li>
+                <li><b>即時記録</b> — 「あれ、予想と違う?」と思った瞬間ごとに、ログ3行(予想/現実/学んだこと)をその場で5分以内に書きます。</li>
+                <li><b>週次共有</b> — 週1回のスタンドアップで、各自壊れた仮説を1つ共有します。自慢する場です。</li>
+              </ol>
+              <div class="how-k">ヒント</div>
+              <ul>
+                <li>ログは上手に書く必要はありません — <b>残しさえすれば</b>いいのです。写真・ボイスメモもログです。</li>
+                <li>1週間経っても何も壊れないなら — 検証行動をもっと強く、あるいは仮説をもっと危険に。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 ログ例</span>予想: イーストがなければまったく膨らまない / 現実: 1日置いたら少し膨らんでいた / 学んだこと: 空気中にも野生酵母がいる。</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -588,6 +745,25 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 解決への貢献: [この学びがチームチャレンジを
 どこまで前進させたか]</pre></div>
           <span class="pb-tip warn">採点されるのは成果物ではなくデルタ — 結果が拙くても、デルタが大きければ成功です</span>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>チーム全体</span><span>60分</span><span>STEP 4の仮説の原文</span></div>
+              <ol>
+                <li><b>原文朗読</b> — 各自、STEP 4の仮説を修正せずそのまま読み直します。</li>
+                <li><b>デルタ作成</b> — 「サイクル開始時の自分」に説明するつもりで、デルタのテンプレートを埋めます。</li>
+                <li><b>発表</b> — 順番に1人3分。成果物のデモではなく、<b>理解の変化</b>だけを話します。</li>
+                <li><b>チーム層を一文で</b> — 今回のサイクルがチーム仮説をどこまで前進(または棄却)させたかを合意します。</li>
+              </ol>
+              <div class="how-k">ヒント</div>
+              <ul>
+                <li>デルタがつかめなければ、STEP 6のログをもう一度開いてください — 壊れた瞬間ごとにデルタが1つずつあります。</li>
+                <li>「知らなかった → 知っている」よりも、<b>「こう理解していた → ああ理解している」</b>の方が良いデルタです。</li>
+                <li>振り返りの冒頭で、この一文を声に出して読んでください — 「結果が拙くても、デルタが大きければ成功だ。」</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 記入例</span>「始まりの私は、膨らみは膨張剤のおかげだと理解していた。今の私は、酵母が糖を分解しながら出すCO₂が原理であり、膨張剤はその近道だと知っている。Δ: 化学 → 生物。貢献: 看板サワードウ試作品1号。」</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -599,6 +775,24 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 次の仮説: [更新された理解で書き直す]
 チーム層への反映: [棄却されたチーム仮説があれば → ピボットの方向]</pre></div>
           <span class="pb-tip">壊れなかった仮説 = 安全すぎたというサイン。次のリーフはもっと分からないものを。</span>
+          <details class="pb-how">
+            <summary>進め方 — このとおりに進めてください</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>チーム + 個人</span><span>30分</span><span>ツリー・振り返りの記録</span></div>
+              <ol>
+                <li><b>ツリー更新</b> — 終わったリーフに印を付け、探究の途中で新しく見えてきた枝を追加します。</li>
+                <li><b>次のリーフ</b> — 各自選びます。ルールは同じです:<b>今回よりもっと分からないもの。</b></li>
+                <li><b>ピボット合意</b> — 棄却されたチーム仮説があれば、方向転換を一文で合意します。</li>
+                <li><b>再スタート</b> — STEP 4に戻ります。ループは止まりません。</li>
+              </ol>
+              <div class="how-k">ヒント</div>
+              <ul>
+                <li>同じ領域のリーフをまた選んでも構いません — ただし、仮説はより深くなければなりません。</li>
+                <li>チーム仮説の棄却は失敗ではなく<b>収穫</b>です。振り返りで拍手すべきことです。</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 記入例</span>「次のリーフ: 低温発酵が風味をどう変えるかを実験する。次の仮説: 発酵は長いほど良いと理解している — 24・48・72時間で焼いて比較すれば分かるはずだ。」</div>
+            </div>
+          </details>
         </div>
       </div>
     </div>
@@ -665,6 +859,97 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
   </div>
 </section>
 
+<!-- SAMPLES -->
+<section id="samples" data-page="samples">
+  <div class="wrap">
+    <div class="eyebrow">Samples</div>
+    <h2>八つのステップを最後まで通過した<br>五つのサイクル</h2>
+    <p class="lede">チームの規模も、熟練度も、ドメインも異なる5つの進行サンプルです。実際に埋められたテンプレート、<strong>仮説が壊れた瞬間</strong>、測定されたデルタまで、1サイクルの全過程をそのまま見ることができます。(運営シナリオをもとに再構成したサンプルです。)</p>
+
+    <div class="case-list">
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 01</span><span class="c-title">🍞 地元のパン屋</span><span class="c-who">サイドプロジェクト4人 · 全員が非専門の初心者</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">究極チャレンジ</div><div class="c-v"><span class="c-quote">私たちのチームは『地元で焼きたての健康的なパンを買える場所がない』という問題を解決しようとしている。朝食をパンで済ませる通勤途中の隣人たちが毎日直面している問題だ。解決されれば、朝7時に店の前に行列ができることで確認できる。</span></div></div>
+            <div class="c-row"><div class="c-k">ツリー → リーフ</div><div class="c-v">パン屋を開く → 看板となる健康パンの開発 → サワードウを焼く → <b>天然酵母種をつくる</b></div></div>
+            <div class="c-row"><div class="c-k">選択の根拠</div><div class="c-v">「小麦粉と水を1週間置いたらカビが生えると思っている — 発酵と腐敗を区別できない。」</div></div>
+            <div class="c-row"><div class="c-k">仮説</div><div class="c-v"><span class="c-quote">私は今、パンはベーキングパウダーのおかげで膨らむと理解している。イーストを抜いて焼いてみれば分かるはずだ。この仮説が壊れたら、私は生地を膨らませる本当の原理を知ることになる。</span></div></div>
+            <div class="c-row"><div class="c-k">ピア検証</div><div class="c-v">Q「壊れたら何を知ることになる?」— A「膨らみが化学膨張剤のせいなのか、生物学的な発酵のせいなのか。」→ <b>合格</b></div></div>
+            <div class="c-row"><div class="c-k">壊れた瞬間</div><div class="c-v"><span class="c-quote break">予想: イーストを抜けばまったく膨らまない / 現実: 1日置いたら『少し』膨らんでいた / 学んだこと: 空気中に野生酵母が生きている — 発酵は加えるものではなく、起きるものだ。</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ デルタ:</b>「膨らみ = 膨張剤の化学反応」→「膨らみ = 酵母が糖を分解しながら出すCO₂。膨張剤はその近道。」<b>チームへの貢献:</b> 看板サワードウ試作品1号。</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">次のサイクル</div><div class="c-v">低温発酵と風味の関係 — 「発酵は長いほど良い」という次の仮説へ。</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 02</span><span class="c-title">🦯 屋内ナビゲーション</span><span class="c-who">教育プログラムのチーム5人 · iOS専攻の学生</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">究極チャレンジ</div><div class="c-v"><span class="c-quote">私たちのチームは『視覚障害者が屋内で道に迷う』という問題を解決しようとしている。盲導犬も点字ブロックも届かない建物の内部で毎日起きている問題だ。解決されれば、初めての建物で目的地まで一人でたどり着けることで確認できる。</span></div></div>
+            <div class="c-row"><div class="c-k">ツリー → リーフ</div><div class="c-v">屋内ナビゲーション → 目を使わずに伝える(非視覚インターフェース)→ <b>VoiceOverのジェスチャー体系を、目を閉じて一日使ってみる</b></div></div>
+            <div class="c-row"><div class="c-k">選択の根拠</div><div class="c-v">「3年間iOS開発を学んでいるのに、VoiceOverを一度もオンにしたことがない。」</div></div>
+            <div class="c-row"><div class="c-k">仮説</div><div class="c-v"><span class="c-quote">私は今、視覚障害者は画面を上から下へ順番に読み上げながら使うと理解している。目を閉じて一日使ってみれば分かるはずだ。この仮説が壊れたら、私は非視覚ナビゲーションの実際の戦略を知ることになる。</span></div></div>
+            <div class="c-row"><div class="c-k">ピア検証</div><div class="c-v">Q「壊れたら何を知ることになる?」— A「線形の読み上げなのか、それとも別の探索戦略があるのか。」→ <b>合格</b></div></div>
+            <div class="c-row"><div class="c-k">壊れた瞬間</div><div class="c-v"><span class="c-quote break">予想: 順番に聞きながら使う / 現実: 半日で断念 — 遅すぎて誰もそうは使わない。ローターと見出しジャンプで『構造を飛び越えながら』探索する / 学んだこと: 非視覚での使用の核心は読み上げではなく構造だ。</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ デルタ:</b>「線形読み上げモデル」→「構造ジャンプモデル。良いアクセシビリティ = よく設計された見出しの階層。」<b>チームへの貢献:</b> 案内UXを「順番に読む」から「ランドマーク + 方向」方式にピボット。</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">次のサイクル</div><div class="c-v">経路案内をハプティクスのリズムに翻訳する — 音なしで方向を伝えられるか。</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 03</span><span class="c-title">📦 市場の在庫アプリ</span><span class="c-who">ブートキャンプのチーム6人 · フロントエンド一筋の受講生</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">究極チャレンジ</div><div class="c-v"><span class="c-quote">私たちのチームは『昔ながらの市場の商人が、帳簿なしでは在庫を把握できない』という問題を解決しようとしている。閉店後の手書きの棚卸しに毎日1時間を費やす商人たちの問題だ。解決されれば、店じまいの整理が10分以内に終わることで確認できる。</span></div></div>
+            <div class="c-row"><div class="c-k">ツリー → リーフ</div><div class="c-v">在庫アプリ → 在庫データが安全に蓄積される → <b>変動記録のAPIサーバーを立てる</b></div></div>
+            <div class="c-row"><div class="c-k">選択の根拠</div><div class="c-v">「サーバーはいつも他人がつくったものをfetchするだけだった。ポートが何かを説明できない。」</div></div>
+            <div class="c-row"><div class="c-k">仮説</div><div class="c-v"><span class="c-quote">私は今、サーバーの保存はリクエストが来るたびにファイルに書き込めば十分だと理解している。リクエストを100件同時に送ってみれば分かるはずだ。この仮説が壊れたら、私は同時実行で何が問題になるのかを知ることになる。</span></div></div>
+            <div class="c-row"><div class="c-k">ピア検証</div><div class="c-v">Q「壊れたら何を知ることになる?」— A「ファイルへの書き込みが、同時リクエストでどうなるのか。」→ <b>合格</b></div></div>
+            <div class="c-row"><div class="c-k">壊れた瞬間</div><div class="c-v"><span class="c-quote break">予想: リクエストが多ければ少し遅くなるだけ / 現実: 同時100件の後、在庫数が実際と食い違った — エラーも出さずに静かに狂う(race condition)/ 学んだこと: 保存は『書き込み』ではなく『競合する書き込み』だ。</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ デルタ:</b>「保存 = ファイルに書く」→「保存 = 競合する書き込み。トランザクションとロックがなぜ存在するのかを体で知っている。」<b>チームへの貢献:</b> SQLiteのトランザクションを導入し、市場の商人1人とベータを開始。</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">次のサイクル</div><div class="c-v">地下店舗の途切れがちなネットワーク — オフラインファーストの同期へ。</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 04</span><span class="c-title">🔎 社内Wiki検索ボット</span><span class="c-who">1人(一人で使うHypoLoop) · バックエンド3年目</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">究極チャレンジ</div><div class="c-v"><span class="c-quote">私は『新人が同じ質問をSlackで繰り返す』という問題を解決しようとしている。会社のWikiに答えがあるのに見つけられない問題だ。解決されれば、オンボーディングの質問の半分がボットで完結することで確認できる。</span><b>一人で使う場合:</b> チーム層 = 自分がつくりたい本物の成果物。</div></div>
+            <div class="c-row"><div class="c-k">ツリー → リーフ</div><div class="c-v">検索ボット → 質問と文書を意味でつなぐ → <b>文書をベクトルに変換して類似度検索を試してみる</b></div></div>
+            <div class="c-row"><div class="c-k">選択の根拠</div><div class="c-v">「『埋め込み(エンベディング)』を比喩でさえ説明できない。」</div></div>
+            <div class="c-row"><div class="c-k">仮説</div><div class="c-v"><span class="c-quote">私は今、埋め込み検索はキーワード検索の上位互換だと理解している。同じ質問20個を両方式に投げて比較すれば分かるはずだ。この仮説が壊れたら、私は2つの方式がそれぞれいつ勝つのかを知ることになる。</span></div></div>
+            <div class="c-row"><div class="c-k">ピア検証</div><div class="c-v">仲間がいないため、<b>ブログに仮説を先に公開</b>した — 未来の自分と読者が検証者。(一人で使うときの代替リチュアル)</div></div>
+            <div class="c-row"><div class="c-k">壊れた瞬間</div><div class="c-v"><span class="c-quote break">予想: 埋め込みが全領域で優勢 / 現実: 固有名詞・誤字の質問ではキーワード検索が圧勝 / 学んだこと: 埋め込みは『似た意味』に強く、『正確にその単語』に弱い。</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ デルタ:</b>「上位互換」→「相互補完 — だからハイブリッド検索が存在する。」<b>成果物:</b> キーワード+ベクトルのハイブリッド検索プロトタイプ。</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">次のサイクル</div><div class="c-v">検索品質を数値で — 評価セット50問をつくる。</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 05</span><span class="c-title">🎛 デプロイダッシュボード</span><span class="c-who">社内ハッカソン3人 · 10年目のバックエンド開発者</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">究極チャレンジ</div><div class="c-v"><span class="c-quote">私たちのチームは『障害のたびに、今何がデプロイされているのかを互いに聞き合う』という問題を解決しようとしている。デプロイの状況が開発者の頭の中にしかない問題だ。解決されれば、非開発職でも状況を30秒以内に自分で確認できることで検証できる。</span></div></div>
+            <div class="c-row"><div class="c-k">ツリー → リーフ</div><div class="c-v">ダッシュボード → 一目で読める画面をつくる → <b>情報設計をデザイナーなしで自分でやる</b></div></div>
+            <div class="c-row"><div class="c-k">選択の根拠</div><div class="c-v">「10年間、UIは受け取って実装するだけだった。画面から何を削るべきかを判断したことがない。」— <b>専門家のリーフ = 専門性を増幅する隣接領域</b></div></div>
+            <div class="c-row"><div class="c-k">仮説</div><div class="c-v"><span class="c-quote">私は今、良いダッシュボードとは情報を漏れなく見せるものだと理解している。同僚3人に30秒だけ見せて状況を尋ねるテストをすれば分かるはずだ。この仮説が壊れたら、私は情報設計で何を捨てるべきかを知ることになる。</span></div></div>
+            <div class="c-row"><div class="c-k">ピア検証</div><div class="c-v">Q「壊れたら何を知ることになる?」— A「情報量と把握速度の関係。」→ <b>合格</b></div></div>
+            <div class="c-row"><div class="c-k">壊れた瞬間</div><div class="c-v"><span class="c-quote break">予想: 指標が多いほどよく把握できる / 現実: 指標12個を全部載せた最初の画面では、3人とも「今、障害ですか?」に答えられなかった / 学んだこと: 問題は情報量ではなく階層だ。</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ デルタ:</b>「良い画面 = 漏れなく」→「良い画面 = 一つの画面が一つの質問に答える。」<b>チームへの貢献:</b> 30秒テストを通過したv2でハッカソン2位。</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">次のサイクル</div><div class="c-v">色覚多様性のあるユーザーのためのステータス色のアクセシビリティ — 「赤/緑で十分だ」という次の仮説へ。</div></div></div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq" data-page="faq">
   <div class="wrap">
@@ -720,7 +1005,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 
 <script>
 /* PAGE ROUTER — タブクリック時はスクロールではなくページ切り替え */
-const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',faq:'faq'};
+const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',samples:'samples',faq:'faq'};
 function route(){
   const hash=location.hash.replace('#','');
   const pg=routes[hash]||'home';

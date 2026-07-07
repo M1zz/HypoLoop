@@ -208,6 +208,48 @@ nav{
 @media(max-width:680px){.pb-tmpl{padding:14px 14px}.pb-tmpl pre{font-size:12px;padding-right:0;padding-top:26px}}
 @media(max-width:680px){.pb-step{grid-template-columns:1fr;gap:8px}}
 
+/* HOW-TO SCAFFOLD */
+.pb-how{margin-top:14px;max-width:620px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.55)}
+.pb-how summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:12px 16px;font-size:13.5px;font-weight:700;color:var(--loop)}
+.pb-how summary::-webkit-details-marker{display:none}
+.pb-how summary::before{content:"▸";font-family:'IBM Plex Mono',monospace;transition:transform .2s ease}
+.pb-how[open] summary::before{transform:rotate(90deg)}
+.pb-how .how-in{padding:2px 18px 18px;font-size:13.5px;color:var(--ink-soft)}
+.how-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.how-meta span{font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--loop-soft);color:var(--loop);padding:4px 10px;border-radius:100px}
+.how-in ol{margin:0 0 4px 18px;display:flex;flex-direction:column;gap:6px}
+.how-in ol li{line-height:1.7}
+.how-in ol li b{color:var(--ink)}
+.how-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);margin:14px 0 6px}
+.how-in ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.how-in ul li{padding:8px 12px;background:var(--loop-soft);border-radius:8px;font-size:13px;line-height:1.65}
+.how-in ul li b{color:var(--ink)}
+.how-ex{margin-top:12px;border-left:3px solid var(--loop);padding:10px 14px;background:var(--card);border-radius:0 8px 8px 0;font-size:13px;line-height:1.75}
+.how-ex .ex-t{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);display:block;margin-bottom:4px}
+
+/* SAMPLES */
+.case-list{margin-top:44px;display:flex;flex-direction:column;gap:16px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.case summary{cursor:pointer;list-style:none;padding:22px 24px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.case summary::-webkit-details-marker{display:none}
+.case .c-no{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--loop);letter-spacing:.14em;flex-shrink:0}
+.case .c-title{font-family:'Noto Serif',serif;font-size:18px;font-weight:700;flex:1;min-width:200px}
+.case .c-who{font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
+.case summary::after{content:"+";font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--loop)}
+.case[open] summary::after{content:"−"}
+.case .c-body{padding:0 24px 26px;border-top:1px solid var(--line)}
+.c-flow{display:flex;flex-direction:column;margin-top:16px}
+.c-row{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.c-row:last-child{border-bottom:none}
+.c-row .c-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--loop);padding-top:3px}
+.c-row .c-v{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
+.c-row .c-v b{color:var(--ink)}
+.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8}
+.c-quote.break{background:var(--break-soft)}
+.c-delta{margin:14px 0;background:var(--ink);color:var(--paper);border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.8}
+.c-delta b{color:#8FD3BE}
+@media(max-width:680px){.c-row{grid-template-columns:1fr;gap:4px}.case summary{padding:18px 18px}.case .c-body{padding:0 18px 20px}}
+
 /* MENTOR */
 .mentor-box{margin-top:72px;background:var(--card);border:1.5px solid var(--loop);border-radius:18px;padding:36px}
 .mentor-box .m-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:14px}
@@ -302,6 +344,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
       <a href="#concepts">Core Concepts</a>
       <a href="#playbook">Playbook</a>
       <a href="#template">Template</a>
+      <a href="#samples">Samples</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#playbook">Get Started</a>
     </div>
@@ -517,6 +560,26 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
           <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Our team sets out to solve [real-world problem P].
 This is a problem [who] actually faces [in what situation].
 When it is solved, we will know by [what has changed].</pre></div>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Whole team</span><span>60–90 min</span><span>Sticky notes · whiteboard</span></div>
+              <ol>
+                <li><b>Collect (15 min)</b> — Each person writes at least five "frustrations I personally experienced or watched someone experience in the last six months," one per sticky note. Nothing has to be grand.</li>
+                <li><b>Cluster (10 min)</b> — Put them all on the wall, group the similar ones, and give each group a name.</li>
+                <li><b>Reality check (10 min)</b> — For each group, ask together: "Can we point to even one real person who actually experiences this?" If you can't, drop it.</li>
+                <li><b>Vote (5 min)</b> — Two votes per person on the remaining candidates: one for "the most interesting," one for "the one a team our size can handle."</li>
+                <li><b>Declare (15 min)</b> — Fill in the three-line template together for the top-voted problem; once everyone has read it aloud and agreed, it's official.</li>
+              </ol>
+              <div class="how-k">Hint questions for each blank</div>
+              <ul>
+                <li><b>[real-world problem P]</b> — Is it a frustration someone is already spending time or money just to endure? If nobody would miss a solution, it's not a problem — it's an idea.</li>
+                <li><b>[who / in what situation]</b> — Not a persona, an actual person. "Office workers in their twenties" ✗ → "Kim from the next team, who can't manage breakfast on the commute" ✓</li>
+                <li><b>[what has changed]</b> — One scene you could observe with your own eyes the day after it's solved.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Filled example</span>"Our team sets out to solve 'there is nowhere in the neighborhood to buy fresh-baked healthy bread.' This is a problem our commuting neighbors, who make do with bread for breakfast, face every morning. When it is solved, we will know by the line forming outside the shop at 7 a.m."</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -530,6 +593,25 @@ When it is solved, we will know by [what has changed].</pre></div>
 Leaf test — is it small enough for one person to try
 breaking a hypothesis within 1–2 weeks? (No → decompose once more)</pre></div>
           <span class="pb-tip">Tip: one leaf = small enough to try breaking a hypothesis within 1–2 weeks</span>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Whole team</span><span>60 min</span><span>Big paper · Miro/FigJam</span></div>
+              <ol>
+                <li><b>Post the root</b> — Write the ultimate challenge at the top.</li>
+                <li><b>Repeat the decomposition question</b> — Ask "what has to happen before this can happen?" and write the answers as 2–4 sub-challenges. Ask once each from the three directions — <b>technology, users, operations</b> — and you'll rarely miss anything.</li>
+                <li><b>Leaf test</b> — Ask of every node: "Is it small enough for one person to try breaking a hypothesis within 1–2 weeks?" If not, repeat step 2 on that node.</li>
+                <li><b>Publish</b> — Put the finished tree in the team's shared space (Notion, a wall). From any leaf, the path up to the root must be visible at a glance.</li>
+              </ol>
+              <div class="how-k">Hints</div>
+              <ul>
+                <li>Nodes are <b>actions</b>, not nouns — "fermentation knowledge" ✗ → "grow a natural starter" ✓</li>
+                <li>A depth of 3–4 is plenty. If you have more than 15 leaves, fold away everything but the branches this cycle will use.</li>
+                <li>The tree is not a finished product but a <b>draft of a map</b> — it gets updated every cycle.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Filled example</span>Open a bakery → develop a signature healthy bread → bake sourdough → <b>grow a natural starter</b> (leaf)</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -542,6 +624,25 @@ Right now I can't do this — evidence: [what happens when I try].
 This leaf connects to the team challenge
 via the path [leaf → intermediate → ultimate].</pre></div>
           <span class="pb-tip warn">Caution: the moment you pick something you're already good at, the reason for using this framework disappears</span>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Individual</span><span>20 min</span><span>The finished tree</span></div>
+              <ol>
+                <li><b>Scan</b> — Go through the tree's leaves and mark every one you "couldn't do if asked to do it right now."</li>
+                <li><b>Choose</b> — From the marked ones, pick one leaf that will actually be used in this team cycle.</li>
+                <li><b>Write the evidence</b> — In one line, write your evidence that you can't do it: what would actually happen if you tried right now.</li>
+                <li><b>Read the path aloud</b> — Explain the path from your leaf to the ultimate challenge out loud, to a peer. If the words stall, repair the tree first.</li>
+              </ol>
+              <div class="how-k">Hints</div>
+              <ul>
+                <li>If your only evidence is "I've never tried," that's weak — a good leaf is one where you can write <b>"if I try, I'll get stuck right here."</b></li>
+                <li>Torn between two? Pick <b>the one you know less about</b>.</li>
+                <li>If you're an expert — every technical leaf looking easy is the signal. Pick from the design, domain, or market branches.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Filled example</span>"I pick 'grow a natural starter.' Evidence: I assume flour and water left out will simply grow mold — I can't tell fermentation from rot. Path: starter → sourdough → signature bread → bakery."</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -552,6 +653,25 @@ via the path [leaf → intermediate → ultimate].</pre></div>
           <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Right now I understand/expect [subject X] [like this].
 Trying [verification action Y] will reveal whether this understanding holds.
 If this hypothesis breaks, I will learn [what I will come to know].</pre></div>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Individual</span><span>15 min</span><span>No searching</span></div>
+              <ol>
+                <li><b>Block</b> — Set a 15-minute timer. Close every search bar, lecture, and AI.</li>
+                <li><b>Write</b> — Fill in the three-line template with nothing but the understanding already in your head.</li>
+                <li><b>Leave it alone</b> — Even if it feels awkward and wrong, don't fix it. The purpose of this document is not a right answer but a <b>target to be broken</b>.</li>
+                <li><b>Size check</b> — Only confirm that verification action Y is small enough to run within 1–2 weeks.</li>
+              </ol>
+              <div class="how-k">Hint questions for each blank</div>
+              <ul>
+                <li>Can't think of a <b>[subject X]</b>? — X is the first thing you'll collide with when you start the leaf.</li>
+                <li><b>[verification action Y]</b> should happen away from the desk — reading·watching ✗, building·measuring·experiencing it yourself ✓</li>
+                <li>If <b>[what I will come to know]</b> won't write itself, the hypothesis isn't a prediction yet — narrow X down further.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Filled example</span>"Right now I understand that bread rises because of baking powder. Baking a loaf without yeast will reveal whether this understanding holds. If this hypothesis breaks, I will learn the real principle that makes dough rise."</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -564,6 +684,26 @@ Pass — the answer points to one concrete piece of understanding.
 Reject — the verification action is vague / there is nothing to learn
        / it is something already known.
 If rejected, refine the hypothesis and write it again.</pre></div>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>In pairs</span><span>10 min per person</span></div>
+              <ol>
+                <li><b>Read aloud</b> — Read your hypothesis out loud.</li>
+                <li><b>The question</b> — Your peer asks: "If this hypothesis breaks, what will you learn?"</li>
+                <li><b>Verdict</b> — Answer within 30 seconds with one concrete piece of understanding, and you pass.</li>
+                <li><b>Grounds for rejection</b> — The verification action is vague / there is nothing to learn / it is something already known.</li>
+                <li><b>Retry</b> — If rejected, fix it on the spot and ask again. Keep the round trip under 3 minutes.</li>
+              </ol>
+              <div class="how-k">Hints</div>
+              <ul>
+                <li>The peer who asks gives <b>no advice</b> — questions only. Fixing the hypothesis is the author's job.</li>
+                <li>The best rejection is "You already know that."</li>
+                <li>If there is a mentor, they only check that this ritual keeps turning — they never join the exchange.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Example exchange</span>Q "If it breaks, what will you learn?" — A "I'll be able to tell whether the rise comes from a chemical leavener or from biological fermentation." → <b>Pass</b></div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -576,6 +716,23 @@ Expected: [what I expected]
 Reality: [what actually happened]
 Learned from the gap: [updated understanding]</pre></div>
           <span class="pb-tip">The moment a hypothesis breaks is the point of maximum learning — record it on the spot, not later</span>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Individual</span><span>Throughout the cycle</span><span>Investigation log</span></div>
+              <ol>
+                <li><b>Business as usual</b> — Don't carve out separate study time. Keep doing the team work exactly as before.</li>
+                <li><b>Record on the spot</b> — Every time you catch a "wait, that's not what I expected" moment, write the three log lines (expected / reality / learned) right there, within 5 minutes.</li>
+                <li><b>Weekly share</b> — Once a week at stand-up, each person shares one broken hypothesis. It's a moment to brag.</li>
+              </ol>
+              <div class="how-k">Hints</div>
+              <ul>
+                <li>The log doesn't need to be well written — <b>it only needs to exist</b>. Photos and voice memos count as logs.</li>
+                <li>If a whole week passes and nothing breaks — push the verification action harder, or make the hypothesis riskier.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Example log</span>Expected: without yeast, no rise at all / Reality: left for a day, it rose a little / Learned: wild yeast lives in the air too.</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -589,6 +746,25 @@ Delta (Δ): [what was updated]
 Contribution to solving: [how far this learning
 advanced the team challenge]</pre></div>
           <span class="pb-tip warn">What gets graded is the delta, not the deliverable — a clumsy result with a big delta is a success</span>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Whole team</span><span>60 min</span><span>The original STEP 4 hypotheses</span></div>
+              <ol>
+                <li><b>Read the original</b> — Each person rereads their STEP 4 hypothesis exactly as written, no edits.</li>
+                <li><b>Write the delta</b> — Fill in the delta template as if explaining to "the you from the start of the cycle."</li>
+                <li><b>Present</b> — Take turns, 3 minutes each. Talk only about <b>the change in understanding</b> — not a demo of the deliverable.</li>
+                <li><b>One sentence for the team layer</b> — Agree on how far this cycle advanced (or rejected) the team hypothesis.</li>
+              </ol>
+              <div class="how-k">Hints</div>
+              <ul>
+                <li>Can't pin down a delta? Reopen your STEP 6 log — every broken moment holds one delta.</li>
+                <li><b>"I understood it this way → now I understand it that way"</b> is a better delta than "I didn't know → now I know."</li>
+                <li>Open the retrospective by reading this sentence aloud — "A clumsy result with a big delta is a success."</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Filled example</span>"At the start, I understood the rise as the leavener's doing. Now I know the principle is the CO₂ that yeast gives off while breaking down sugar, and the leavener is the shortcut. Δ: chemistry → biology. Contribution: signature sourdough prototype no. 1."</div>
+            </div>
+          </details>
         </div>
       </div>
       <div class="pb-step">
@@ -600,6 +776,24 @@ advanced the team challenge]</pre></div>
 Next hypothesis: [rewritten with my updated understanding]
 Team-layer update: [if a team hypothesis was rejected → pivot direction]</pre></div>
           <span class="pb-tip">An unbroken hypothesis = a sign it was too safe. Pick the next leaf from what you know even less.</span>
+          <details class="pb-how">
+            <summary>How to run it — follow along</summary>
+            <div class="how-in">
+              <div class="how-meta"><span>Team + individuals</span><span>30 min</span><span>Tree · retrospective notes</span></div>
+              <ol>
+                <li><b>Update the tree</b> — Mark the finished leaves and add any branches that came into view during investigation.</li>
+                <li><b>Next leaf</b> — Everyone picks. The rule is the same: <b>something you know even less about than this time.</b></li>
+                <li><b>Agree on the pivot</b> — If a team hypothesis was rejected, agree on the change of direction in one sentence.</li>
+                <li><b>Restart</b> — Go back to STEP 4. The loop never stops.</li>
+              </ol>
+              <div class="how-k">Hints</div>
+              <ul>
+                <li>Picking another leaf in the same area is fine — but the hypothesis must go deeper.</li>
+                <li>The rejection of a team hypothesis is not a failure but a <b>harvest</b>. It deserves applause at the retrospective.</li>
+              </ul>
+              <div class="how-ex"><span class="ex-t">🍞 Filled example</span>"Next leaf: experiment with how cold fermentation changes flavor. Next hypothesis: I understand that longer fermentation is always better — baking at 24, 48, and 72 hours and comparing will reveal whether that's true."</div>
+            </div>
+          </details>
         </div>
       </div>
     </div>
@@ -666,6 +860,97 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
   </div>
 </section>
 
+<!-- SAMPLES -->
+<section id="samples" data-page="samples">
+  <div class="wrap">
+    <div class="eyebrow">Samples</div>
+    <h2>Five cycles that made it<br>through all eight steps</h2>
+    <p class="lede">Five worked samples across different team sizes, skill levels, and domains. Each shows one full cycle exactly as it ran — the templates actually filled in, <strong>the moment the hypothesis broke</strong>, and the delta that was measured. (These samples are reconstructed from operating scenarios.)</p>
+
+    <div class="case-list">
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 01</span><span class="c-title">🍞 The Neighborhood Bakery</span><span class="c-who">Side project, 4 people · all first-time beginners</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">Ultimate challenge</div><div class="c-v"><span class="c-quote">Our team sets out to solve "there is nowhere in the neighborhood to buy fresh-baked healthy bread." Our commuting neighbors, who make do with bread for breakfast, face it every morning. When it is solved, we will know by the line forming outside the shop at 7 a.m.</span></div></div>
+            <div class="c-row"><div class="c-k">Tree → leaf</div><div class="c-v">Open a bakery → develop a signature healthy bread → bake sourdough → <b>grow a natural starter</b></div></div>
+            <div class="c-row"><div class="c-k">Why this leaf</div><div class="c-v">"I assume flour and water left out for a week will simply grow mold — I can't tell fermentation from rot."</div></div>
+            <div class="c-row"><div class="c-k">Hypothesis</div><div class="c-v"><span class="c-quote">Right now I understand that bread rises because of baking powder. Baking a loaf without yeast will reveal whether that's true. If this hypothesis breaks, I will learn the real principle that makes dough rise.</span></div></div>
+            <div class="c-row"><div class="c-k">Peer check</div><div class="c-v">Q "If it breaks, what will you learn?" — A "Whether the rise comes from a chemical leavener or from biological fermentation." → <b>Pass</b></div></div>
+            <div class="c-row"><div class="c-k">The break</div><div class="c-v"><span class="c-quote break">Expected: without yeast, no rise at all / Reality: left for a day, it had risen "a little" / Learned: wild yeast lives in the air — fermentation isn't something you add, it's something that happens.</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ Delta:</b> "Rise = a leavener's chemical reaction" → "Rise = the CO₂ yeast gives off while breaking down sugar. The leavener is the shortcut." <b>Team contribution:</b> signature sourdough prototype no. 1.</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">Next cycle</div><div class="c-v">Cold fermentation and flavor — on to the next hypothesis: "the longer the fermentation, the better."</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 02</span><span class="c-title">🦯 Indoor Navigation</span><span class="c-who">Education program, team of 5 · iOS students</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">Ultimate challenge</div><div class="c-v"><span class="c-quote">Our team sets out to solve "blind people get lost indoors." It plays out daily inside buildings that neither guide dogs nor tactile paving can reach. When it is solved, we will know by someone reaching their destination alone in a building they have never visited.</span></div></div>
+            <div class="c-row"><div class="c-k">Tree → leaf</div><div class="c-v">Indoor wayfinding → convey without eyes (a non-visual interface) → <b>spend a full day using the VoiceOver gesture system with eyes closed</b></div></div>
+            <div class="c-row"><div class="c-k">Why this leaf</div><div class="c-v">"Three years into learning iOS development, I have never once turned VoiceOver on."</div></div>
+            <div class="c-row"><div class="c-k">Hypothesis</div><div class="c-v"><span class="c-quote">Right now I understand that blind users read the screen linearly, top to bottom. Using it for a day with my eyes closed will reveal whether that's true. If this hypothesis breaks, I will learn the actual strategies of non-visual navigation.</span></div></div>
+            <div class="c-row"><div class="c-k">Peer check</div><div class="c-v">Q "If it breaks, what will you learn?" — A "Whether it's linear read-aloud, or there are other navigation strategies." → <b>Pass</b></div></div>
+            <div class="c-row"><div class="c-k">The break</div><div class="c-v"><span class="c-quote break">Expected: you use it by listening in order / Reality: gave up in half a day — it's so slow that nobody uses it that way. You navigate by "skipping through structure" with the rotor and heading jumps / Learned: the heart of non-visual use is structure, not narration.</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ Delta:</b> "Linear read-aloud model" → "Structure-jump model. Good accessibility = a well-designed heading hierarchy." <b>Team contribution:</b> pivoted the guidance UX from "read in order" to "landmarks + direction."</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">Next cycle</div><div class="c-v">Translate route guidance into haptic rhythm — can direction be conveyed without sound?</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 03</span><span class="c-title">📦 Market Inventory App</span><span class="c-who">Bootcamp team of 6 · a front-end-only student</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">Ultimate challenge</div><div class="c-v"><span class="c-quote">Our team sets out to solve "traditional-market merchants can't track inventory without a paper ledger." Merchants spend an hour every day on handwritten tallies after closing. When it is solved, we will know by closing-time bookkeeping finishing within 10 minutes.</span></div></div>
+            <div class="c-row"><div class="c-k">Tree → leaf</div><div class="c-v">Inventory app → inventory data accumulates safely → <b>stand up an API server that records changes</b></div></div>
+            <div class="c-row"><div class="c-k">Why this leaf</div><div class="c-v">"I've only ever fetched from servers other people built. I can't explain what a port is."</div></div>
+            <div class="c-row"><div class="c-k">Hypothesis</div><div class="c-v"><span class="c-quote">Right now I understand that writing to a file on every request is enough for server-side storage. Sending 100 requests at once will reveal whether that's true. If this hypothesis breaks, I will learn what goes wrong under concurrency.</span></div></div>
+            <div class="c-row"><div class="c-k">Peer check</div><div class="c-v">Q "If it breaks, what will you learn?" — A "What happens to file writes under concurrent requests." → <b>Pass</b></div></div>
+            <div class="c-row"><div class="c-k">The break</div><div class="c-v"><span class="c-quote break">Expected: lots of requests just means a little slower / Reality: after 100 concurrent requests the inventory count no longer matched reality — it drifts silently, with no error at all (a race condition) / Learned: storage isn't "writing" — it's "contending writes."</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ Delta:</b> "Storage = writing to a file" → "Storage = contending writes. I now know in my bones why transactions and locks exist." <b>Team contribution:</b> adopted SQLite transactions, started a beta with one market merchant.</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">Next cycle</div><div class="c-v">The flaky network of the basement stalls — toward offline-first sync.</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 04</span><span class="c-title">🔎 Company Wiki Search Bot</span><span class="c-who">Solo (HypoLoop alone) · backend dev, 3 years in</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">Ultimate challenge</div><div class="c-v"><span class="c-quote">I set out to solve "new hires keep asking the same questions in Slack." The answers are in the company wiki, but nobody can find them. When it is solved, I will know by half of the onboarding questions ending at the bot.</span><b>Running it solo:</b> team layer = the real thing I want to build.</div></div>
+            <div class="c-row"><div class="c-k">Tree → leaf</div><div class="c-v">Search bot → connect questions to documents by meaning → <b>turn documents into vectors and try similarity search</b></div></div>
+            <div class="c-row"><div class="c-k">Why this leaf</div><div class="c-v">"I can't explain 'embeddings' even with an analogy."</div></div>
+            <div class="c-row"><div class="c-k">Hypothesis</div><div class="c-v"><span class="c-quote">Right now I understand embedding search as a strict upgrade over keyword search. Throwing the same 20 questions at both and comparing will reveal whether that's true. If this hypothesis breaks, I will learn when each approach wins.</span></div></div>
+            <div class="c-row"><div class="c-k">Peer check</div><div class="c-v">With no peers around, <b>published the hypothesis on a blog first</b> — future me and the readers as verifiers. (The substitute ritual for running solo.)</div></div>
+            <div class="c-row"><div class="c-k">The break</div><div class="c-v"><span class="c-quote break">Expected: embeddings win across the board / Reality: keyword search wins hands down on proper nouns and typos / Learned: embeddings are strong on "similar meaning" and weak on "exactly that word."</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ Delta:</b> "Strict upgrade" → "Complementary — which is exactly why hybrid search exists." <b>Deliverable:</b> a keyword + vector hybrid search prototype.</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">Next cycle</div><div class="c-v">Put search quality into numbers — build a 50-question evaluation set.</div></div></div>
+        </div>
+      </details>
+
+      <details class="case">
+        <summary><span class="c-no">SAMPLE 05</span><span class="c-title">🎛 Deploy Dashboard</span><span class="c-who">In-house hackathon, 3 people · backend dev, 10 years in</span></summary>
+        <div class="c-body">
+          <div class="c-flow">
+            <div class="c-row"><div class="c-k">Ultimate challenge</div><div class="c-v"><span class="c-quote">Our team sets out to solve "every incident starts with people asking each other what's deployed right now." Deployment status lives only in developers' heads. When it is solved, we will know by non-developers checking the status for themselves within 30 seconds.</span></div></div>
+            <div class="c-row"><div class="c-k">Tree → leaf</div><div class="c-v">Dashboard → build a screen that reads at a glance → <b>do the information design ourselves, without a designer</b></div></div>
+            <div class="c-row"><div class="c-k">Why this leaf</div><div class="c-v">"For ten years I've only implemented UIs I was handed. I've never had to judge what to cut from a screen." — <b>the expert's leaf = an adjacent area that amplifies expertise</b></div></div>
+            <div class="c-row"><div class="c-k">Hypothesis</div><div class="c-v"><span class="c-quote">Right now I understand a good dashboard as one that shows all the information, leaving nothing out. Showing it to three colleagues for just 30 seconds and asking them for the status will reveal whether that's true. If this hypothesis breaks, I will learn what to throw away in information design.</span></div></div>
+            <div class="c-row"><div class="c-k">Peer check</div><div class="c-v">Q "If it breaks, what will you learn?" — A "The relationship between information volume and comprehension speed." → <b>Pass</b></div></div>
+            <div class="c-row"><div class="c-k">The break</div><div class="c-v"><span class="c-quote break">Expected: the more metrics, the better people grasp it / Reality: on the first screen, with all 12 metrics, none of the three could answer "are we having an incident right now?" / Learned: the problem isn't the amount of information — it's the hierarchy.</span></div></div>
+          </div>
+          <div class="c-delta"><b>Δ Delta:</b> "A good screen = leaves nothing out" → "A good screen = one screen answers one question." <b>Team contribution:</b> second place at the hackathon with a v2 that passed the 30-second test.</div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">Next cycle</div><div class="c-v">Status-color accessibility for color-blind users — on to the next hypothesis: "red/green is enough."</div></div></div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq" data-page="faq">
   <div class="wrap">
@@ -721,7 +1006,7 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
 
 <script>
 /* PAGE ROUTER — switch pages instead of scrolling when a tab is clicked */
-const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',faq:'faq'};
+const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',samples:'samples',faq:'faq'};
 function route(){
   const hash=location.hash.replace('#','');
   const pg=routes[hash]||'home';
