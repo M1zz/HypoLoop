@@ -962,7 +962,7 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
         </div>
       </details>
     </div>
-    <div class="case-cta">Have you run a cycle with HypoLoop? Send your original hypothesis and delta retrospective to <a href="mailto:leeo@kakao.com">leeo@kakao.com</a> — good cases get featured on this page.</div>
+    <div class="case-cta">Have you run a cycle with HypoLoop? Send your original hypothesis and delta retrospective to <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a> — good cases get featured on this page.</div>
   </div>
 </section>
 
@@ -997,7 +997,7 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
         <div class="a">HypoLoop is an independent framework, not an upgrade of any particular methodology, but it inherits the motivational energy that challenges provide, so it can be combined with a challenge-based curriculum by <b>layering an individual learning layer on top</b>. Start by setting your existing team challenge as the ultimate challenge, then adding tree decomposition and individual hypothesis cycles.</div>
       </details>
     </div>
-    <p class="faq-more">Have a question that isn't answered here? Send it to <a href="mailto:leeo@kakao.com">leeo@kakao.com</a> — good questions get added to this list.</p>
+    <p class="faq-more">Have a question that isn't answered here? Send it to <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a> — good questions get added to this list.</p>
   </div>
 </section>
 
@@ -1010,7 +1010,7 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
       <a class="btn btn-primary" href="#playbook">Back to the Playbook</a>
       <a class="btn btn-ghost" href="#template">Copy the Template</a>
     </div>
-    <p class="final-contact">Want to try it, or have a question? — <a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="final-contact">Want to try it, or have a question? — <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </section>
 
@@ -1018,7 +1018,7 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
   <div class="wrap">
     <div class="f-mark">Hypo<span>Loop</span> · Hypothesis-Cycle Learning</div>
     <p>failure is not permitted — it is required</p>
-    <p class="f-contact"><a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="f-contact"><a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </footer>
 
@@ -1068,6 +1068,10 @@ document.querySelectorAll('.lang-switch a').forEach(a=>{
   a.addEventListener('click',()=>{
     if(location.hash)a.href=a.getAttribute('href').split('#')[0]+location.hash;
   });
+});
+document.querySelectorAll('.mail-to').forEach(a=>{
+  const m=a.dataset.u+'@'+a.dataset.d;
+  a.setAttribute('href','mailto:'+m);a.textContent=m;
 });
 </script>
 </body>

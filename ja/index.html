@@ -961,7 +961,7 @@ footer .f-contact a:hover{text-decoration:underline}
         </div>
       </details>
     </div>
-    <div class="case-cta">HypoLoopでサイクルを回してみましたか?仮説の原文とデルタ振り返りを <a href="mailto:leeo@kakao.com">leeo@kakao.com</a> までお送りください — 良い事例はこのページで紹介します。</div>
+    <div class="case-cta">HypoLoopでサイクルを回してみましたか?仮説の原文とデルタ振り返りを <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a> までお送りください — 良い事例はこのページで紹介します。</div>
   </div>
 </section>
 
@@ -996,7 +996,7 @@ footer .f-contact a:hover{text-decoration:underline}
         <div class="a">HypoLoopは特定メソッドの改良版ではない独立したフレームワークですが、チャレンジがもたらす動機のエネルギーを継承しているため、チャレンジ型カリキュラムの上に<b>個人の学習層を重ねる形</b>で組み合わせられます。既存のチームチャレンジを究極チャレンジと置き、ツリー分解と個人の仮説サイクルを追加するところから始めてみてください。</div>
       </details>
     </div>
-    <p class="faq-more">ここにない質問は <a href="mailto:leeo@kakao.com">leeo@kakao.com</a> までお送りください — 良い質問はこのリストに追加されます。</p>
+    <p class="faq-more">ここにない質問は <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a> までお送りください — 良い質問はこのリストに追加されます。</p>
   </div>
 </section>
 
@@ -1009,7 +1009,7 @@ footer .f-contact a:hover{text-decoration:underline}
       <a class="btn btn-primary" href="#playbook">運用ガイドをもう一度見る</a>
       <a class="btn btn-ghost" href="#template">テンプレートをコピーする</a>
     </div>
-    <p class="final-contact">試してみたい方、質問のある方は — <a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="final-contact">試してみたい方、質問のある方は — <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </section>
 
@@ -1017,7 +1017,7 @@ footer .f-contact a:hover{text-decoration:underline}
   <div class="wrap">
     <div class="f-mark">Hypo<span>Loop</span> · 仮説循環学習</div>
     <p>failure is not permitted — it is required</p>
-    <p class="f-contact"><a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="f-contact"><a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </footer>
 
@@ -1067,6 +1067,10 @@ document.querySelectorAll('.lang-switch a').forEach(a=>{
   a.addEventListener('click',()=>{
     if(location.hash)a.href=a.getAttribute('href').split('#')[0]+location.hash;
   });
+});
+document.querySelectorAll('.mail-to').forEach(a=>{
+  const m=a.dataset.u+'@'+a.dataset.d;
+  a.setAttribute('href','mailto:'+m);a.textContent=m;
 });
 </script>
 </body>

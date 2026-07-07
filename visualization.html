@@ -833,7 +833,7 @@ footer .f-contact a:hover{text-decoration:underline}
   <div class="wrap">
     <div class="f-mark serif">Hypo<span>Loop</span> · Hypothesis-Cycle Learning</div>
     <p>a framework where failure is not permitted — it is required</p>
-    <p class="f-contact"><a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="f-contact"><a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </footer>
 
@@ -910,6 +910,10 @@ tNodes.forEach(n=>{
   };
   n.addEventListener('click',act);
   n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}});
+});
+document.querySelectorAll('.mail-to').forEach(a=>{
+  const m=a.dataset.u+'@'+a.dataset.d;
+  a.setAttribute('href','mailto:'+m);a.textContent=m;
 });
 </script>
 </body>

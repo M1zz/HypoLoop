@@ -961,7 +961,7 @@ footer .f-contact a:hover{text-decoration:underline}
         </div>
       </details>
     </div>
-    <div class="case-cta">用 HypoLoop 跑过一个循环了吗?把你的假设原文和增量复盘发送到 <a href="mailto:leeo@kakao.com">leeo@kakao.com</a> — 优秀案例将在本页展示。</div>
+    <div class="case-cta">用 HypoLoop 跑过一个循环了吗?把你的假设原文和增量复盘发送到 <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a> — 优秀案例将在本页展示。</div>
   </div>
 </section>
 
@@ -996,7 +996,7 @@ footer .f-contact a:hover{text-decoration:underline}
         <div class="a">HypoLoop 不是某种方法论的改良版,而是独立框架;但它继承了挑战带来的动机能量,因此可以用<b>在挑战式课程之上叠加个人学习层</b>的方式结合。不妨从把现有的团队挑战设为终极挑战,再加入树的分解和个人假设循环开始。</div>
       </details>
     </div>
-    <p class="faq-more">这里没有回答的问题,请发送至 <a href="mailto:leeo@kakao.com">leeo@kakao.com</a> — 好问题会被加入这个列表。</p>
+    <p class="faq-more">这里没有回答的问题,请发送至 <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a> — 好问题会被加入这个列表。</p>
   </div>
 </section>
 
@@ -1009,7 +1009,7 @@ footer .f-contact a:hover{text-decoration:underline}
       <a class="btn btn-primary" href="#playbook">再看一遍实施指南</a>
       <a class="btn btn-ghost" href="#template">复制模板</a>
     </div>
-    <p class="final-contact">想试用或有疑问?— <a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="final-contact">想试用或有疑问?— <a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </section>
 
@@ -1017,7 +1017,7 @@ footer .f-contact a:hover{text-decoration:underline}
   <div class="wrap">
     <div class="f-mark">Hypo<span>Loop</span> · 假设循环学习</div>
     <p>failure is not permitted — it is required</p>
-    <p class="f-contact"><a href="mailto:leeo@kakao.com">leeo@kakao.com</a></p>
+    <p class="f-contact"><a class="mail-to" href="#" data-u="leeo" data-d="kakao.com">leeo [at] kakao.com</a></p>
   </div>
 </footer>
 
@@ -1067,6 +1067,10 @@ document.querySelectorAll('.lang-switch a').forEach(a=>{
   a.addEventListener('click',()=>{
     if(location.hash)a.href=a.getAttribute('href').split('#')[0]+location.hash;
   });
+});
+document.querySelectorAll('.mail-to').forEach(a=>{
+  const m=a.dataset.u+'@'+a.dataset.d;
+  a.setAttribute('href','mailto:'+m);a.textContent=m;
 });
 </script>
 </body>
