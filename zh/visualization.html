@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HypoLoop — Hypothesis-Cycle Learning</title>
+<title>HypoLoop — 假设循环学习</title>
 <link rel="alternate" hreflang="ko" href="https://m1zz.github.io/HypoLoop/ko/visualization.html">
 <link rel="alternate" hreflang="en" href="https://m1zz.github.io/HypoLoop/visualization.html">
 <link rel="alternate" hreflang="ja" href="https://m1zz.github.io/HypoLoop/ja/visualization.html">
 <link rel="alternate" hreflang="zh" href="https://m1zz.github.io/HypoLoop/zh/visualization.html">
 <link rel="alternate" hreflang="x-default" href="https://m1zz.github.io/HypoLoop/visualization.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#F4F7F3;
@@ -28,7 +27,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+  font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;
   background:var(--paper);
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:28px 28px;
@@ -37,7 +36,7 @@ body{
   font-size:16px;
   -webkit-font-smoothing:antialiased;
 }
-.serif{font-family:'Noto Serif',serif}
+.serif{font-family:'Noto Serif SC',serif}
 .mono{font-family:'IBM Plex Mono',monospace}
 .wrap{max-width:920px;margin:0 auto;padding:0 24px}
 section{padding:96px 0}
@@ -47,7 +46,7 @@ section{padding:96px 0}
   text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px;
 }
 .eyebrow::before{content:"";display:inline-block;width:26px;height:1px;background:var(--loop)}
-h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38px);line-height:1.35;margin-bottom:20px;letter-spacing:-.01em}
+h2{font-family:'Noto Serif SC',serif;font-weight:900;font-size:clamp(26px,4.2vw,38px);line-height:1.35;margin-bottom:20px;letter-spacing:-.01em}
 .lede{font-size:clamp(16px,2.2vw,18.5px);color:var(--ink-soft);max-width:640px}
 .lede strong{color:var(--ink)}
 
@@ -61,7 +60,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 /* ---------- HERO ---------- */
 .hero{min-height:92vh;display:flex;align-items:center;padding:60px 0 40px;position:relative;overflow:hidden}
 .hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;width:100%}
-.hero h1{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(46px,7.5vw,84px);line-height:1.12;letter-spacing:-.02em}
+.hero h1{font-family:'Noto Serif SC',serif;font-weight:900;font-size:clamp(46px,7.5vw,84px);line-height:1.12;letter-spacing:-.02em}
 .hero h1 .hl{color:var(--loop)}
 .hero .sub{margin-top:26px;font-size:clamp(16px,2.4vw,19px);color:var(--ink-soft);max-width:480px}
 .hero .sub b{color:var(--ink)}
@@ -79,18 +78,18 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 @keyframes spin{to{transform:rotate(360deg)}}
 .node-dot{fill:var(--paper);stroke:var(--loop);stroke-width:2.5}
 .node-dot.crack{stroke:var(--break);fill:var(--break-soft)}
-.node-label{font-family:'Noto Serif',serif;font-weight:700;font-size:15px;fill:var(--ink)}
+.node-label{font-family:'Noto Serif SC',serif;font-weight:700;font-size:15px;fill:var(--ink)}
 .node-en{font-family:'IBM Plex Mono',monospace;font-size:9.5px;fill:var(--ink-soft);letter-spacing:.08em}
 .center-label{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:var(--ink-soft);letter-spacing:.14em}
 
-/* ---------- ORIGIN (the CBL concerns) ---------- */
+/* ---------- ORIGIN(CBL 问题意识) ---------- */
 .origin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
 .origin-card{
   background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px;
   position:relative;
 }
 .origin-card .num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--break);letter-spacing:.14em;margin-bottom:12px}
-.origin-card h3{font-family:'Noto Serif',serif;font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
+.origin-card h3{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
 .origin-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.7}
 .origin-note{
   margin-top:34px;padding:22px 26px;border-left:3px solid var(--loop);
@@ -111,7 +110,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .step.pivot::before{border-color:var(--break);background:var(--break-soft)}
 .step .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:6px}
 .step.pivot .k{color:var(--break)}
-.step h3{font-family:'Noto Serif',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.step h3{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;margin-bottom:8px}
 .step p{font-size:15px;color:var(--ink-soft);max-width:600px}
 .step p b{color:var(--ink)}
 
@@ -122,7 +121,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .phase{cursor:pointer}
 .phase circle{fill:var(--card);stroke:var(--loop);stroke-width:2;transition:all .25s ease}
 .phase text{pointer-events:none}
-.phase .p-ko{font-family:'Noto Serif',serif;font-weight:700;font-size:16px;fill:var(--ink)}
+.phase .p-ko{font-family:'Noto Serif SC',serif;font-weight:700;font-size:16px;fill:var(--ink)}
 .phase .p-en{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink-soft);letter-spacing:.1em}
 .phase:hover circle{fill:var(--loop-soft)}
 .phase.active circle{fill:var(--loop);stroke:var(--loop)}
@@ -137,7 +136,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 }
 .phase-panel .p-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;margin-bottom:12px;color:var(--loop)}
 .phase-panel.is-break .p-tag{color:var(--break)}
-.phase-panel h3{font-family:'Noto Serif',serif;font-size:23px;font-weight:900;margin-bottom:14px}
+.phase-panel h3{font-family:'Noto Serif SC',serif;font-size:23px;font-weight:900;margin-bottom:14px}
 .phase-panel p{font-size:15px;color:var(--ink-soft);margin-bottom:12px}
 .phase-panel p b{color:var(--ink)}
 .phase-panel .tmpl{
@@ -155,8 +154,8 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .f-ind{fill:rgba(255,255,255,.7);stroke:var(--loop);stroke-width:1.5}
 .f-ind-cycle{fill:none;stroke:var(--loop);stroke-width:1.2;stroke-dasharray:3 4;opacity:.7}
 .f-label{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:var(--ink-soft);letter-spacing:.1em}
-.f-name{font-family:'Noto Serif',serif;font-weight:700;font-size:12px;fill:var(--ink)}
-.fractal-text h3{font-family:'Noto Serif',serif;font-size:22px;font-weight:900;margin-bottom:14px;line-height:1.4}
+.f-name{font-family:'Noto Serif SC',serif;font-weight:700;font-size:12px;fill:var(--ink)}
+.fractal-text h3{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;margin-bottom:14px;line-height:1.4}
 .fractal-text p{font-size:15px;color:var(--ink-soft);margin-bottom:14px}
 .fractal-text p b{color:var(--ink)}
 .rule-chip{
@@ -172,7 +171,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
   font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-soft);
   padding-bottom:10px;border-bottom:2px solid var(--line);
 }
-.lc-head .lc-side b{display:block;font-family:'Noto Serif',serif;font-size:19px;font-weight:900;color:var(--ink);letter-spacing:0;margin-top:4px}
+.lc-head .lc-side b{display:block;font-family:'Noto Serif SC',serif;font-size:19px;font-weight:900;color:var(--ink);letter-spacing:0;margin-top:4px}
 .lc-head .team-h{text-align:right}
 .lc-head .team-h b{color:var(--loop)}
 .lc-head .ind-h b{color:var(--break)}
@@ -195,7 +194,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 }
 .lc-spine::before,.lc-spine::after{content:"";width:1.5px;flex:1;background:var(--line)}
 .lc-spine .lc-badge{
-  font-family:'Noto Serif',serif;font-weight:700;font-size:14px;color:var(--ink);
+  font-family:'Noto Serif SC',serif;font-weight:700;font-size:14px;color:var(--ink);
   background:var(--card);border:1.5px solid var(--ink);border-radius:100px;padding:7px 16px;white-space:nowrap;
 }
 .lc-spine .lc-en{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--ink-soft)}
@@ -214,8 +213,8 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
   .lc-row{grid-template-columns:1fr;gap:14px;padding:22px 0}
   .lc-cell.team{text-align:left;padding-left:14px;border-left:3px solid var(--loop)}
   .lc-cell.ind{padding-left:14px;border-left:3px solid var(--break)}
-  .lc-cell.team::before{content:"Team layer";display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--loop);margin-bottom:4px}
-  .lc-cell.ind::before{content:"Individual layer";display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--break);margin-bottom:4px}
+  .lc-cell.team::before{content:"团队层";display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--loop);margin-bottom:4px}
+  .lc-cell.ind::before{content:"个人层";display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--break);margin-bottom:4px}
   .lc-spine{flex-direction:row;justify-content:flex-start}
   .lc-spine::before,.lc-spine::after{display:none}
 }
@@ -235,9 +234,9 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .t-edge.lit{stroke:#8FD3BE;stroke-width:3}
 .t-node{cursor:pointer}
 .t-node rect{fill:rgba(255,255,255,.06);stroke:rgba(244,247,243,.35);stroke-width:1.3;rx:9;transition:all .3s ease}
-.t-node text{font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:12px;fill:rgba(244,247,243,.85);pointer-events:none;transition:fill .3s ease}
+.t-node text{font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;font-size:12px;fill:rgba(244,247,243,.85);pointer-events:none;transition:fill .3s ease}
 .t-node.root rect{stroke:#8FD3BE;stroke-width:2;fill:rgba(143,211,190,.1)}
-.t-node.root text{font-family:'Noto Serif',serif;font-weight:700;font-size:13.5px;fill:#fff}
+.t-node.root text{font-family:'Noto Serif SC',serif;font-weight:700;font-size:13.5px;fill:#fff}
 .t-node.lit rect{fill:#8FD3BE;stroke:#8FD3BE}
 .t-node.lit text{fill:var(--ink);font-weight:600}
 .t-node:hover rect{stroke:#8FD3BE}
@@ -249,7 +248,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .lineage-readout .path{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#8FD3BE;display:block;margin-bottom:6px;word-break:keep-all}
 .lineage-readout b{color:#fff}
 .tree-punch{
-  margin-top:36px;text-align:center;font-family:'Noto Serif',serif;font-weight:700;
+  margin-top:36px;text-align:center;font-family:'Noto Serif SC',serif;font-weight:700;
   font-size:clamp(18px,3vw,23px);line-height:1.6;color:#fff;
 }
 .tree-punch .hl2{color:#8FD3BE}
@@ -259,7 +258,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .dev-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
 .dev-card.full{grid-column:1/-1}
 .dev-card .d-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--loop);letter-spacing:.16em;margin-bottom:12px}
-.dev-card h3{font-family:'Noto Serif',serif;font-size:19px;font-weight:700;margin-bottom:10px}
+.dev-card h3{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;margin-bottom:10px}
 .dev-card p{font-size:14.5px;color:var(--ink-soft)}
 .dev-card p b{color:var(--ink)}
 .dev-card .quote{
@@ -275,7 +274,7 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 .expert-cell{padding:32px}
 .expert-cell + .expert-cell{border-left:1px solid var(--line)}
 .expert-cell .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:12px}
-.expert-cell h3{font-family:'Noto Serif',serif;font-size:19px;font-weight:700;margin-bottom:10px}
+.expert-cell h3{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;margin-bottom:10px}
 .expert-cell p{font-size:14.5px;color:var(--ink-soft)}
 .expert-common{
   grid-column:1/-1;border-top:1px solid var(--line);padding:20px 32px;text-align:center;
@@ -290,10 +289,10 @@ h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(26px,4.2vw,38p
 }
 .pr-item:last-child{border-bottom:none}
 .pr-item .no{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--loop);flex-shrink:0}
-.pr-item h3{font-family:'Noto Serif',serif;font-size:19px;font-weight:700;flex-shrink:0;min-width:190px}
+.pr-item h3{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;flex-shrink:0;min-width:190px}
 .pr-item p{font-size:14.5px;color:var(--ink-soft)}
 footer{padding:56px 0 72px;border-top:1px solid var(--line);text-align:center}
-footer .f-mark{font-family:'Noto Serif',serif;font-weight:900;font-size:20px;margin-bottom:8px}
+footer .f-mark{font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;margin-bottom:8px}
 footer .f-mark span{color:var(--loop)}
 footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
 
@@ -319,10 +318,10 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
   .expert-common{padding:16px 20px}
   .phase-panel{padding:24px 20px;min-height:0}
   .lc-conflict{padding:20px 18px}
-  /* Fractal diagram: enlarge labels to compensate for the shrunken viewBox */
+  /* 分形图:配合 viewBox 缩小,放大标签进行补偿 */
   .f-name{font-size:15px}
   .f-label{font-size:12.5px}
-  /* Hierarchy tree: shrinking makes the text unreadably tiny, so keep original size + horizontal scroll */
+  /* 层级树:缩小后文字会变得难以辨认,因此保持原始大小 + 横向滚动 */
   .tree-stage{padding:22px 14px 18px}
   .tree-scroll svg{min-width:780px}
   .tree-scroll-hint{display:block}
@@ -339,10 +338,10 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <body>
 
 <div class="lang-switch" aria-label="Language">
-  <a href="ko/visualization.html" hreflang="ko" lang="ko">한국어</a>
-  <a class="on" href="visualization.html">English</a>
-  <a href="ja/visualization.html" hreflang="ja" lang="ja">日本語</a>
-  <a href="zh/visualization.html" hreflang="zh" lang="zh">中文</a>
+  <a href="../ko/visualization.html" hreflang="ko" lang="ko">한국어</a>
+  <a href="../visualization.html" hreflang="en" lang="en">English</a>
+  <a href="../ja/visualization.html" hreflang="ja" lang="ja">日本語</a>
+  <a class="on" href="visualization.html">中文</a>
 </div>
 
 <!-- ============ HERO ============ -->
@@ -350,29 +349,29 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
   <div class="wrap hero-inner">
     <div>
       <div class="eyebrow">A LEARNING FRAMEWORK</div>
-      <h1>Hypo<span class="hl">Loop</span><br>Hypothesis-Cycle Learning</h1>
-      <p class="sub">Not a framework for problem-solving but <b>a framework for learning</b>. <b>Hypotheses</b>, not challenges, become the engine of learning, and failure is not permitted — it is <b>required</b>.</p>
-      <div class="tagline">Hypothesis → Question → Investigate → Verify → Hypothesis again</div>
+      <h1>Hypo<span class="hl">Loop</span><br>假设循环学习</h1>
+      <p class="sub">这不是解决问题的框架,而是<b>学习的框架</b>。驱动学习的引擎不是挑战,而是<b>假设</b>;失败不是被允许,而是被<b>要求</b>。</p>
+      <div class="tagline">假设 → 提问 → 探究 → 评估 → 再次假设</div>
     </div>
     <div class="hero-loop">
-      <svg viewBox="0 0 320 320" aria-label="The Hypothesis–Question–Investigate–Verify cycle">
+      <svg viewBox="0 0 320 320" aria-label="假设-提问-探究-评估循环">
         <circle class="orbit draw" cx="160" cy="160" r="118"/>
         <circle class="orbit-inner" cx="160" cy="160" r="86"/>
         <text class="center-label" x="160" y="156" text-anchor="middle">HYPOLOOP</text>
         <text class="center-label" x="160" y="172" text-anchor="middle">CYCLE</text>
-        <!-- Hypothesis top -->
+        <!-- 假设 top -->
         <circle class="node-dot" cx="160" cy="42" r="9"/>
-        <text class="node-label" x="160" y="20" text-anchor="middle">Hypothesis</text>
-        <!-- Question right -->
+        <text class="node-label" x="160" y="20" text-anchor="middle">假设</text>
+        <!-- 提问 right -->
         <circle class="node-dot" cx="278" cy="160" r="9"/>
-        <text class="node-label" x="278" y="196" text-anchor="middle">Question</text>
-        <!-- Investigate bottom (break point) -->
+        <text class="node-label" x="278" y="196" text-anchor="middle">提问</text>
+        <!-- 探究 bottom (break point) -->
         <circle class="node-dot crack" cx="160" cy="278" r="9"/>
         <path class="crack-mark" d="M154 272 L160 279 L157 283"/>
-        <text class="node-label" x="160" y="312" text-anchor="middle">Investigate</text>
-        <!-- Verify left -->
+        <text class="node-label" x="160" y="312" text-anchor="middle">探究</text>
+        <!-- 评估 left -->
         <circle class="node-dot" cx="42" cy="160" r="9"/>
-        <text class="node-label" x="42" y="196" text-anchor="middle">Verify</text>
+        <text class="node-label" x="42" y="196" text-anchor="middle">评估</text>
       </svg>
     </div>
   </div>
@@ -381,30 +380,30 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <!-- ============ ORIGIN ============ -->
 <section id="origin">
   <div class="wrap">
-    <div class="eyebrow">The Starting Point — One Nagging Question</div>
-    <h2>The belief that "solve a valuable problem,<br>and learning will naturally follow"</h2>
-    <p class="lede">This framework began with a question we kept meeting while running challenge-based learning (CBL) in the field for years. While the team races toward a problem in the world, <strong>is individual learning really happening?</strong></p>
+    <div class="eyebrow">出发点 — 一个问题意识</div>
+    <h2>“解决有价值的问题,<br>学习自然随之而来”的信念</h2>
+    <p class="lede">这个框架源于在一线长期运营挑战式学习(CBL)时反复遇到的一个问题:当团队奔向世界的问题时,<strong>个人的学习真的在发生吗?</strong></p>
 
     <div class="origin-grid">
       <div class="origin-card">
-        <div class="num">CONCERN 01</div>
-        <h3>Overconfidence in accidental learning</h3>
-        <p>A team challenge optimizes for problem-solving, not for individual learning. Learning gets pushed aside — not an intended goal but a byproduct picked up along the way.</p>
+        <div class="num">问题意识 01</div>
+        <h3>对偶发学习的过度信任</h3>
+        <p>团队挑战优化的对象是解决问题,而不是个人的学习。学习不再是有意设定的目标,而被挤成解决问题时顺带获得的副产品。</p>
       </div>
       <div class="origin-card">
-        <div class="num">CONCERN 02</div>
-        <h3>The team's ZPD ≠ the individual's ZPD</h3>
-        <p>A difficulty that suits the team as a whole is too easy for some members and too hard for others. One challenge cannot satisfy the learning conditions of N people at once.</p>
+        <div class="num">问题意识 02</div>
+        <h3>团队的 ZPD ≠ 个人的 ZPD</h3>
+        <p>即使难度对团队整体合适,对个人而言也可能对某些人太容易、对某些人太难。一个挑战无法同时满足 N 个人的学习条件。</p>
       </div>
       <div class="origin-card">
-        <div class="num">CONCERN 03</div>
-        <h3>Role entrenchment</h3>
-        <p>The more rationally a team operates, the more each member takes on what they are already good at. Output quality rises, but individual learning curves flatten.</p>
+        <div class="num">问题意识 03</div>
+        <h3>角色固化</h3>
+        <p>团队越是合理地运转,每个人就越会承担自己已经擅长的工作。产出物的质量在提升,个人的学习曲线却趋于平缓。</p>
       </div>
     </div>
 
     <div class="origin-note">
-      HypoLoop is not an improved version of CBL. It inherits the motivational energy of challenges — real problems, personal interest and relevance — but it is an independent framework redesigned from the ground up <b>so that learning becomes intention rather than accident</b>. The reason for putting learning first is plain — solve only what your current skills can handle and your skills stay put; and if your skills stay put, the ultimate hard problem can never be solved. <b>Climbing by solving small challenges while learning, growing the very ability to solve</b>, is the only path to the real problem.
+      HypoLoop 不是 CBL 的改良版。它继承了挑战带来的动机能量 — 真实的问题、个人的兴趣与关联性 — 但为了<b>让学习从偶发变为有意</b>,从零开始重新设计,是一个独立的框架。把学习放在首位的理由很明确 — 只解决当前实力够得着的问题,实力就会原地踏步;实力原地踏步,终极的难题就永远无解。<b>在学习中攻克小挑战、让解决能力本身不断成长</b>,才是抵达真正问题的唯一路径。
     </div>
   </div>
 </section>
@@ -412,50 +411,50 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <!-- ============ DERIVATION ============ -->
 <section id="derivation">
   <div class="wrap">
-    <div class="eyebrow">How It Was Derived</div>
-    <h2>Eight decisions<br>built the framework</h2>
-    <p class="lede">Starting from those concerns, the principles, structure, and devices were settled one after another. Each step is an answer to the question the previous step left behind.</p>
+    <div class="eyebrow">推导过程</div>
+    <h2>经过八次决策,<br>框架得以确立</h2>
+    <p class="lede">从问题意识出发,原则、结构、机制依次得到确定。每一步都是对上一步留下的问题的回答。</p>
 
     <div class="timeline">
       <div class="step pivot">
-        <div class="k">DECISION 01 — IDENTITY</div>
-        <h3>This is a framework for learning</h3>
-        <p>Team output is a means to learning, not the goal. When team efficiency and individual learning collide, <b>individual learning wins</b>. This one declaration unlocks role entrenchment — an expert taking an unfamiliar part is no longer an imposition but the correct way to use the framework.</p>
+        <div class="k">DECISION 01 — 身份定位</div>
+        <h3>这是一个学习的框架</h3>
+        <p>团队产出物是学习的手段,不是目的。当团队效率与个人学习冲突时,<b>个人学习优先</b>。仅凭这一条宣言,角色固化就被解开了 — 专家承担陌生的部分,不是给团队添麻烦,而是正确的使用方式。</p>
       </div>
       <div class="step">
-        <div class="k">DECISION 02 — DUAL GOALS</div>
-        <h3>Nest the individual challenge inside the team challenge</h3>
-        <p>The team challenge aims at a problem in the world; the individual challenge aims at one's own learning. The two are not separated but nested — "while solving this team problem, I will deliberately learn X." Accidental learning becomes <b>intentional learning</b>.</p>
+        <div class="k">DECISION 02 — 双重目标</div>
+        <h3>把个人挑战嵌套进团队挑战</h3>
+        <p>团队挑战面向世界的问题,个人挑战面向自己的学习。二者不是分离的,而是嵌套的 — “在解决这个团队问题的过程中,我要有意地学会 X。”偶发学习就此变成<b>有意学习</b>。</p>
       </div>
       <div class="step pivot">
-        <div class="k">DECISION 03 — ENVIRONMENT</div>
-        <h3>Failure is not permitted — it is required</h3>
-        <p>Psychological safety is only a precondition. HypoLoop stands on productive failure — failure is not something to endure but <b>the core mechanism of learning</b>. A drop in deliverable quality is officially accepted.</p>
+        <div class="k">DECISION 03 — 环境</div>
+        <h3>不允许失败,而是要求失败</h3>
+        <p>心理安全只是前提条件。HypoLoop 建立在生产性失败(productive failure)之上 — 失败不是需要忍受的东西,而是<b>学习的核心机制</b>。产出物质量的下降被正式接受。</p>
       </div>
       <div class="step">
-        <div class="k">DECISION 04 — ENGINE</div>
-        <h3>The hypothesis is the unit of learning</h3>
-        <p>With no information at hand, you form a rough hypothesis, split it into verifiable questions, learn while chasing the answers, and evaluate the change against the hypothesis. Because a hypothesis is a prediction, <b>the moment of verification is the exam itself</b> — the exam becomes the engine of learning, not its endpoint.</p>
+        <div class="k">DECISION 04 — 引擎</div>
+        <h3>假设是学习的单位</h3>
+        <p>在没有任何信息的状态下建立粗略的假设,拆解成可验证的问题,在寻找答案的过程中学习,再对照假设评估变化。因为假设就是预测,<b>验证的时刻就是考试</b> — 考试不再是学习的终点,而成为学习的引擎。</p>
       </div>
       <div class="step">
-        <div class="k">DECISION 05 — STRUCTURE</div>
-        <h3>A fractal where two layers run the same cycle</h3>
-        <p>The team, too, forms and verifies the hypothesis "this solution will solve the problem." Each individual forms and verifies their own learning hypothesis. <b>Two layers, one cycle.</b></p>
+        <div class="k">DECISION 05 — 结构</div>
+        <h3>两层以同一循环运转的分形</h3>
+        <p>团队也建立并验证“这个解决方案能解开这个问题”的假设。个人也建立并验证自己的学习假设。<b>层有两个,循环只有一个</b>。</p>
       </div>
       <div class="step">
-        <div class="k">DECISION 06 — DEVICES</div>
-        <h3>Structure holds it up, not the mentor</h3>
-        <p>The problem that learners struggle to set good challenges and hypotheses on their own is solved with structure, not facilitator talent — constrained choice, the hypothesis sentence template, the peer-verification ritual. The mentor steps back from intervener to <b>infrastructure manager</b>.</p>
+        <div class="k">DECISION 06 — 机制</div>
+        <h3>支撑框架的不是导师,而是结构</h3>
+        <p>学习者难以独自设立好的挑战与假设 — 这个问题不靠引导者的能力,而靠结构来解决:受约束的选择、假设句式模板、同伴验证仪式。导师退居幕后,从干预者变为<b>基础设施管理者</b>。</p>
       </div>
       <div class="step">
-        <div class="k">DECISION 07 — EXPERTS</div>
-        <h3>Experts learn by the same rule</h3>
-        <p>For a ten-year veteran, "what I can't do" is the adjacent area that amplifies their expertise — design, domain, market. <b>The single rule "pick what you can't do"</b> covers the entire range from beginner to expert.</p>
+        <div class="k">DECISION 07 — 专家</div>
+        <h3>熟手也按同一规则学习</h3>
+        <p>十年老手的“不会的”,是能放大自身专业能力的相邻领域 — 设计、领域知识、市场。<b>“选择自己不会的”这一条规则</b>,覆盖了从新手到专家的全部区间。</p>
       </div>
       <div class="step pivot">
-        <div class="k">DECISION 08 — AUTHENTICITY</div>
-        <h3>Visible connection beats cynicism</h3>
-        <p>The ultimate challenge is decomposed hierarchically down to an attemptable size. Even the smallest challenge is <b>connected by lineage</b> to the real problem. What decides toy versus stepping stone is not the challenge's size but the visibility of its connection.</p>
+        <div class="k">DECISION 08 — 真实性</div>
+        <h3>连接的可见性战胜冷嘲</h3>
+        <p>把终极挑战层层分解,缩小到可以挑战的大小。再小的挑战也与真正的问题<b>以血统相连</b>。决定它是玩具还是踏板的,不是挑战的大小,而是连接的可见性。</p>
       </div>
     </div>
   </div>
@@ -464,13 +463,13 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <!-- ============ CYCLE ============ -->
 <section id="cycle">
   <div class="wrap">
-    <div class="eyebrow">The Engine — The Learning Cycle</div>
-    <h2>It starts from a hypothesis<br>and returns to a hypothesis</h2>
-    <p class="lede">Click each phase to explore. The cycle turns identically on the team layer and the individual layer.</p>
+    <div class="eyebrow">引擎 — 学习循环</div>
+    <h2>从假设出发,<br>再回到假设</h2>
+    <p class="lede">点击每个阶段查看详情。这个循环在团队层和个人层以同样的方式运转。</p>
 
     <div class="cycle-area">
       <div class="cycle-svg-wrap">
-        <svg viewBox="0 0 360 360" id="cycleSvg" aria-label="Cycle diagram">
+        <svg viewBox="0 0 360 360" id="cycleSvg" aria-label="循环示意图">
           <defs>
             <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0 0 L10 5 L0 10 z" fill="#3D5A4C"/>
@@ -481,25 +480,25 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
           <path class="cycle-arrow" d="M 146 292 A 122 122 0 0 1 68 214"/>
           <path class="cycle-arrow" d="M 68 146 A 122 122 0 0 1 146 68"/>
 
-          <g class="phase active" data-phase="0" tabindex="0" role="button" aria-label="Hypothesis phase">
+          <g class="phase active" data-phase="0" tabindex="0" role="button" aria-label="假设阶段">
             <circle cx="180" cy="52" r="44"/>
-            <text class="p-ko" x="180" y="50" text-anchor="middle">Hypothesis</text>
+            <text class="p-ko" x="180" y="50" text-anchor="middle">假设</text>
             <text class="p-en" x="180" y="66" text-anchor="middle">HYPOTHESIZE</text>
           </g>
-          <g class="phase" data-phase="1" tabindex="0" role="button" aria-label="Question phase">
+          <g class="phase" data-phase="1" tabindex="0" role="button" aria-label="提问阶段">
             <circle cx="308" cy="180" r="44"/>
-            <text class="p-ko" x="308" y="178" text-anchor="middle">Question</text>
+            <text class="p-ko" x="308" y="178" text-anchor="middle">提问</text>
             <text class="p-en" x="308" y="194" text-anchor="middle">QUESTION</text>
           </g>
-          <g class="phase break-phase" data-phase="2" tabindex="0" role="button" aria-label="Investigate phase">
+          <g class="phase break-phase" data-phase="2" tabindex="0" role="button" aria-label="探究阶段">
             <circle cx="180" cy="308" r="44"/>
             <path class="crack-mark" d="M170 296 L180 308 L174 316"/>
-            <text class="p-ko" x="180" y="306" text-anchor="middle">Investigate</text>
+            <text class="p-ko" x="180" y="306" text-anchor="middle">探究</text>
             <text class="p-en" x="180" y="322" text-anchor="middle">INVESTIGATE</text>
           </g>
-          <g class="phase" data-phase="3" tabindex="0" role="button" aria-label="Verify phase">
+          <g class="phase" data-phase="3" tabindex="0" role="button" aria-label="评估阶段">
             <circle cx="52" cy="180" r="44"/>
-            <text class="p-ko" x="52" y="178" text-anchor="middle">Verify</text>
+            <text class="p-ko" x="52" y="178" text-anchor="middle">评估</text>
             <text class="p-en" x="52" y="194" text-anchor="middle">VERIFY</text>
           </g>
         </svg>
@@ -507,55 +506,55 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 
       <div class="phase-panel" id="phasePanel">
         <div class="p-tag" id="pTag">PHASE 1 · HYPOTHESIZE</div>
-        <h3 id="pTitle">Hypothesis — map what you don't know</h3>
+        <h3 id="pTitle">假设 — 绘制未知的地图</h3>
         <div id="pBody">
-          <p>With no information, form a rough hypothesis <b>from your current understanding alone</b>. Learners who generate a wrong answer before studying learn more deeply. The prior hypothesis becomes the cognitive hook that every piece of information you meet afterward catches on.</p>
-          <div class="tmpl">Right now I understand/expect [X to work like this].<br>[Trying Y] will reveal whether this understanding holds.</div>
+          <p>在没有信息的状态下,<b>仅凭当前的理解</b>建立一个粗略的假设。在学习之前先尝试生成过错误答案的学习者,学得更深。事先的假设会成为认知钩子,勾住之后遇到的所有信息。</p>
+          <div class="tmpl">我现在 [对 X 是这样理解/预期] 的。<br>[试着做 Y],就能看出这个理解是否正确。</div>
         </div>
       </div>
     </div>
-    <p class="cycle-hint">↻ When verification ends, form the next hypothesis with your updated understanding — the loop never stops</p>
+    <p class="cycle-hint">↻ 评估结束后,用更新的理解建立下一个假设 — 循环永不停止</p>
   </div>
 </section>
 
 <!-- ============ FRACTAL ============ -->
 <section id="fractal">
   <div class="wrap">
-    <div class="eyebrow">Structure — Fractal Nesting</div>
-    <h2>Two layers, one cycle</h2>
+    <div class="eyebrow">结构 — 分形嵌套</div>
+    <h2>层有两个,循环只有一个</h2>
 
     <div class="fractal-wrap">
       <div class="fractal-svg">
-        <svg viewBox="0 0 400 400" aria-label="Individual cycles nested inside the team cycle">
+        <svg viewBox="0 0 400 400" aria-label="团队循环中嵌套个人循环的结构">
           <circle class="f-team" cx="200" cy="200" r="176"/>
           <text class="f-label" x="200" y="36" text-anchor="middle">TEAM LAYER</text>
-          <text class="f-name" x="200" y="54" text-anchor="middle">Team challenge — a hypothesis aimed at the world</text>
+          <text class="f-name" x="200" y="54" text-anchor="middle">团队挑战 — 面向世界问题的假设</text>
 
           <g>
             <circle class="f-ind" cx="130" cy="170" r="58"/>
             <circle class="f-ind-cycle" cx="130" cy="170" r="40"/>
-            <text class="f-name" x="130" y="166" text-anchor="middle">Person A</text>
-            <text class="f-label" x="130" y="182" text-anchor="middle">Learning hypothesis</text>
+            <text class="f-name" x="130" y="166" text-anchor="middle">个人 A</text>
+            <text class="f-label" x="130" y="182" text-anchor="middle">学习假设</text>
           </g>
           <g>
             <circle class="f-ind" cx="272" cy="170" r="58"/>
             <circle class="f-ind-cycle" cx="272" cy="170" r="40"/>
-            <text class="f-name" x="272" y="166" text-anchor="middle">Person B</text>
-            <text class="f-label" x="272" y="182" text-anchor="middle">Learning hypothesis</text>
+            <text class="f-name" x="272" y="166" text-anchor="middle">个人 B</text>
+            <text class="f-label" x="272" y="182" text-anchor="middle">学习假设</text>
           </g>
           <g>
             <circle class="f-ind" cx="200" cy="292" r="58"/>
             <circle class="f-ind-cycle" cx="200" cy="292" r="40"/>
-            <text class="f-name" x="200" y="288" text-anchor="middle">Person C</text>
-            <text class="f-label" x="200" y="304" text-anchor="middle">Learning hypothesis</text>
+            <text class="f-name" x="200" y="288" text-anchor="middle">个人 C</text>
+            <text class="f-label" x="200" y="304" text-anchor="middle">学习假设</text>
           </g>
         </svg>
       </div>
       <div class="fractal-text">
-        <h3>The team challenge aims at the world;<br>the individual challenge aims at yourself</h3>
-        <p>An individual challenge is not a separate assignment split off from the team challenge but a learning hypothesis <b>nested inside it</b>. The very process of solving the team problem becomes the individual's testing ground.</p>
-        <p>The moment the two layers collide — "if I take this part in order to learn, the team's output slows down" — the framework's answer is unequivocal.</p>
-        <span class="rule-chip">On collision, individual learning wins</span>
+        <h3>团队挑战面向世界,<br>个人挑战面向自己</h3>
+        <p>个人挑战不是从团队挑战中分离出来的额外任务,而是<b>嵌套其中</b>的学习假设。解决团队问题的过程本身,就是个人的验证实验场。</p>
+        <p>当两层发生冲突的那一刻 — “我为了学习而承担这一部分,团队的产出就会变慢” — 框架的回答是明确的。</p>
+        <span class="rule-chip">冲突时,个人学习优先</span>
       </div>
     </div>
   </div>
@@ -564,82 +563,82 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <!-- ============ LAYER COMPARE ============ -->
 <section id="layers">
   <div class="wrap">
-    <div class="eyebrow">Same Cycle, Different Use</div>
-    <h2>How the cycle turns differently<br>on the team layer and the individual layer</h2>
-    <p class="lede">One engine, different fuel. The team layer verifies <strong>a problem in the world</strong>; the individual layer verifies <strong>one's own understanding</strong>. Compare how each phase works on the two layers.</p>
+    <div class="eyebrow">同一循环,不同用途</div>
+    <h2>在团队层与个人层,<br>循环以不同的方式运转</h2>
+    <p class="lede">引擎只有一个,燃料却不同。团队层验证的是<strong>世界的问题</strong>,个人层验证的是<strong>自己的理解</strong>。请对比每个阶段在两层中如何运作。</p>
 
     <div class="lc-head">
-      <div class="lc-side team-h">TEAM LAYER<b>Team layer — a hypothesis aimed at the world</b></div>
+      <div class="lc-side team-h">TEAM LAYER<b>团队层 — 面向世界的假设</b></div>
       <div class="lc-mid"></div>
-      <div class="lc-side ind-h">INDIVIDUAL LAYER<b>Individual layer — a hypothesis aimed at yourself</b></div>
+      <div class="lc-side ind-h">INDIVIDUAL LAYER<b>个人层 — 面向自己的假设</b></div>
     </div>
 
     <div class="lc-row">
       <div class="lc-cell team">
-        <b>A real problem the world hasn't yet solved</b> is the challenge. Declare the ultimate challenge and decompose it into a hierarchy tree. The problem's authenticity becomes the authenticity of the whole tree.
+        挑战是<b>世界尚未解开的真正问题</b>。宣布终极挑战,并用层级树进行分解。问题的真实性,就是整棵树的真实性。
       </div>
-      <div class="lc-spine"><span class="lc-badge">Challenge</span><span class="lc-en">CHALLENGE</span></div>
+      <div class="lc-spine"><span class="lc-badge">挑战</span><span class="lc-en">CHALLENGE</span></div>
       <div class="lc-cell ind">
-        <b>Your own learning</b> is the challenge. Pick "what you can't do right now" from the tree's leaves and nest it inside the team challenge. Beginners pick foundational skills; experts pick the adjacent areas that will amplify their expertise.
-      </div>
-    </div>
-
-    <div class="lc-row">
-      <div class="lc-cell team">
-        Form a prediction about the solution. It is <b>one hypothesis</b> the whole team writes together.
-        <span class="lc-q">"This solution<br>will solve this problem"</span>
-      </div>
-      <div class="lc-spine"><span class="lc-badge">Hypothesis</span><span class="lc-en">HYPOTHESIZE</span></div>
-      <div class="lc-cell ind">
-        Written before learning, with no information, from current understanding alone. There are <b>N hypotheses</b> — as many as there are members.
-        <span class="lc-q">"Right now I understand X<br>like this"</span>
+        挑战是<b>自己的学习</b>。从树的叶子节点中选出“现在不会的”,嵌套进团队挑战之中。新手选基础技能,熟手选能放大专业能力的相邻领域。
       </div>
     </div>
 
     <div class="lc-row">
       <div class="lc-cell team">
-        Split the solution hypothesis into <b>validity questions</b> — do users really face this problem, is it technically feasible, is this approach better than the alternatives.
+        建立对解决方案的预测。这是全队共用的<b>一个假设</b>。
+        <span class="lc-q">“这个解决方案<br>能解开这个问题”</span>
       </div>
-      <div class="lc-spine"><span class="lc-badge">Question</span><span class="lc-en">QUESTION</span></div>
+      <div class="lc-spine"><span class="lc-badge">假设</span><span class="lc-en">HYPOTHESIZE</span></div>
       <div class="lc-cell ind">
-        Split the learning hypothesis into <b>understanding-verification questions</b>. The peer-asking ritual operates on this layer.
-        <span class="lc-q">"If this hypothesis breaks,<br>what will you learn?"</span>
+        在学习之前、不借助信息、仅凭当前的理解写下。这是与成员数量相同的<b>N 个假设</b>。
+        <span class="lc-q">“我现在对 X<br>是这样理解的”</span>
       </div>
     </div>
 
     <div class="lc-row">
       <div class="lc-cell team">
-        Build, collide, meet users. The team's investigation is the work of <b>exposing the solution to reality</b>.
+        把解决方案假设拆解成<b>可行性问题</b> — 用户真的面临这个问题吗,技术上可行吗,这种方式比替代方案更好吗。
       </div>
-      <div class="lc-spine"><span class="lc-badge">Investigate</span><span class="lc-en">INVESTIGATE</span></div>
+      <div class="lc-spine"><span class="lc-badge">提问</span><span class="lc-en">QUESTION</span></div>
       <div class="lc-cell ind">
-        The team's investigation site doubles as <b>the individual's laboratory</b>. Not in separate study time but in the very process of solving the team problem, you verify your hypothesis and record the moments it breaks.
+        把学习假设拆解成<b>理解验证问题</b>。同伴提问的仪式在这一层运作。
+        <span class="lc-q">“如果这个假设被推翻,<br>你会学到什么?”</span>
       </div>
     </div>
 
     <div class="lc-row">
       <div class="lc-cell team">
-        Check "how much of the problem was solved," but the result is not a grade — it is <b>material for the next team hypothesis</b>. Deliverable quality is not what gets graded.
+        动手做、去碰壁、见用户。团队的探究,就是<b>让解决方案暴露在现实之中</b>。
       </div>
-      <div class="lc-spine"><span class="lc-badge">Verify</span><span class="lc-en">VERIFY</span></div>
+      <div class="lc-spine"><span class="lc-badge">探究</span><span class="lc-en">INVESTIGATE</span></div>
       <div class="lc-cell ind">
-        <b>Measure the learning delta</b> — the distance between the starting hypothesis and current understanding. Because each person's hypothesis is their own evaluation criterion, growth is measured even when teams produce different results.
+        团队的探究现场就是<b>个人的实验场</b>。不必另设学习时间,就在解决团队问题的过程中验证自己的假设,并记录它被推翻的瞬间。
       </div>
     </div>
 
     <div class="lc-row">
       <div class="lc-cell team">
-        Rejecting a solution hypothesis is <b>information for changing direction</b>. You have gained grounds for a pivot — the project hasn't failed.
+        确认“问题解决到了什么程度”,但结果不是成绩,而是<b>下一个团队假设的原料</b>。产出物的质量不在打分范围之内。
       </div>
-      <div class="lc-spine"><span class="lc-badge">Failure</span><span class="lc-en">FAILURE</span></div>
+      <div class="lc-spine"><span class="lc-badge">评估</span><span class="lc-en">VERIFY</span></div>
       <div class="lc-cell ind">
-        Rejecting a learning hypothesis is <b>the point of maximum learning</b>. Understanding updates by exactly the gap between expectation and reality. A hypothesis that never breaks is the real warning sign.
+        <b>测量学习增量(Δ)</b> — 起点假设与当前理解之间的距离。个人的假设本身就是个人的评估标准,因此即便各团队的成果不同,成长依然可以被测量。
+      </div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        解决方案假设被推翻,是<b>调整方向的信息</b>。这意味着获得了转向的依据,而不是项目的失败。
+      </div>
+      <div class="lc-spine"><span class="lc-badge">失败</span><span class="lc-en">FAILURE</span></div>
+      <div class="lc-cell ind">
+        学习假设被推翻,是<b>最大的学习点</b>。理解的更新,与预期和现实的落差成正比。从未被推翻的假设,反而是警告信号。
       </div>
     </div>
 
     <div class="lc-conflict">
-      <span class="lc-c-tag">WHEN THE TWO LAYERS COLLIDE</span>
-      <p>"If I take this part in order to learn, the team layer's investigation slows down" — at the moment the two layers' interests clash, <b>the individual layer wins.</b> The team layer's output is a means for the individual layer's learning. This priority is HypoLoop's identity.</p>
+      <span class="lc-c-tag">当两层冲突时</span>
+      <p>“我为了学习而承担这一部分,团队层的探究就会变慢” — 当两层的利益相撞时,<b>个人层优先。</b>因为团队层的产出物,是为个人层的学习服务的手段。这个优先级,就是 HypoLoop 的身份认同。</p>
     </div>
   </div>
 </section>
@@ -647,14 +646,14 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <!-- ============ TREE (SIGNATURE) ============ -->
 <section class="tree-section" id="tree">
   <div class="wrap">
-    <div class="eyebrow">Authenticity — The Challenge Hierarchy Tree</div>
-    <h2>The meaning of a small challenge<br>is proven by its lineage</h2>
-    <p class="lede">The ultimate challenge is hierarchically decomposed down to an attemptable size. <strong>Click a leaf node</strong> — its lineage lights up, showing how that small challenge connects to the real problem.</p>
+    <div class="eyebrow">真实性 — 挑战层级树</div>
+    <h2>小挑战的意义,<br>由血统来证明</h2>
+    <p class="lede">终极挑战被层层分解到可以挑战的大小。<strong>点击叶子节点试试</strong> — 那个小挑战与真正的问题如何相连,血统会随之点亮。</p>
 
     <div class="tree-stage">
-      <p class="tree-scroll-hint">← Swipe sideways to see the whole tree →</p>
+      <p class="tree-scroll-hint">← 左右滑动可查看完整的树 →</p>
       <div class="tree-scroll">
-      <svg viewBox="0 0 900 470" id="treeSvg" aria-label="Challenge hierarchy tree">
+      <svg viewBox="0 0 900 470" id="treeSvg" aria-label="挑战层级树">
         <!-- edges -->
         <path class="t-edge" id="e-r-a" d="M450 92 C 450 130, 190 130, 190 168"/>
         <path class="t-edge" id="e-r-b" d="M450 92 C 450 140, 450 140, 450 168"/>
@@ -668,123 +667,123 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
         <!-- root -->
         <g class="t-node root" data-id="root" tabindex="0" role="button">
           <rect x="285" y="34" width="330" height="58" rx="10"/>
-          <text x="450" y="58" text-anchor="middle">Ultimate challenge</text>
-          <text x="450" y="78" text-anchor="middle">Keep blind people from getting lost indoors</text>
+          <text x="450" y="58" text-anchor="middle">终极挑战</text>
+          <text x="450" y="78" text-anchor="middle">让视障人士在室内不再迷路</text>
         </g>
 
         <!-- mid layer -->
         <g class="t-node" data-id="a" data-path="root" tabindex="0" role="button">
           <rect x="90" y="168" width="200" height="58" rx="10"/>
-          <text x="190" y="192" text-anchor="middle">Perceive the space</text>
-          <text x="190" y="211" text-anchor="middle" opacity=".65">LiDAR indoor mapping</text>
+          <text x="190" y="192" text-anchor="middle">感知空间</text>
+          <text x="190" y="211" text-anchor="middle" opacity=".65">LiDAR 室内建图</text>
         </g>
         <g class="t-node" data-id="b" data-path="root" tabindex="0" role="button">
           <rect x="350" y="168" width="200" height="58" rx="10"/>
-          <text x="450" y="192" text-anchor="middle">Convey without sight</text>
-          <text x="450" y="211" text-anchor="middle" opacity=".65">Non-visual interface</text>
+          <text x="450" y="192" text-anchor="middle">不依赖视觉传递信息</text>
+          <text x="450" y="211" text-anchor="middle" opacity=".65">非视觉界面</text>
         </g>
         <g class="t-node" data-id="c" data-path="root" tabindex="0" role="button">
           <rect x="610" y="168" width="200" height="58" rx="10"/>
-          <text x="710" y="192" text-anchor="middle">Know the way</text>
-          <text x="710" y="211" text-anchor="middle" opacity=".65">Indoor map &amp; route data</text>
+          <text x="710" y="192" text-anchor="middle">掌握路径</text>
+          <text x="710" y="211" text-anchor="middle" opacity=".65">室内地图·路径数据</text>
         </g>
 
         <!-- leaves -->
         <g class="t-node leaf" data-id="l1" data-path="root,a" tabindex="0" role="button">
           <rect x="18" y="306" width="154" height="76" rx="10"/>
-          <text x="95" y="336" text-anchor="middle">Measure the error</text>
-          <text x="95" y="354" text-anchor="middle">limits of ARKit</text>
-          <text x="95" y="372" text-anchor="middle">anchors firsthand</text>
+          <text x="95" y="336" text-anchor="middle">亲手测量</text>
+          <text x="95" y="354" text-anchor="middle">ARKit 锚点的</text>
+          <text x="95" y="372" text-anchor="middle">误差极限</text>
         </g>
         <g class="t-node leaf" data-id="l2" data-path="root,a" tabindex="0" role="button">
           <rect x="208" y="306" width="154" height="76" rx="10"/>
-          <text x="285" y="336" text-anchor="middle">Try simplifying a</text>
-          <text x="285" y="354" text-anchor="middle">point cloud into</text>
-          <text x="285" y="372" text-anchor="middle">flat planes</text>
+          <text x="285" y="336" text-anchor="middle">尝试将点云</text>
+          <text x="285" y="354" text-anchor="middle">简化为</text>
+          <text x="285" y="372" text-anchor="middle">平面结构</text>
         </g>
         <g class="t-node leaf" data-id="l3" data-path="root,b" tabindex="0" role="button">
           <rect x="373" y="306" width="154" height="76" rx="10"/>
-          <text x="450" y="336" text-anchor="middle">Use VoiceOver</text>
-          <text x="450" y="354" text-anchor="middle">gestures for a day</text>
-          <text x="450" y="372" text-anchor="middle">with eyes closed</text>
+          <text x="450" y="336" text-anchor="middle">闭上眼睛</text>
+          <text x="450" y="354" text-anchor="middle">用 VoiceOver 手势</text>
+          <text x="450" y="372" text-anchor="middle">度过一整天</text>
         </g>
         <g class="t-node leaf" data-id="l4" data-path="root,c" tabindex="0" role="button">
           <rect x="538" y="306" width="154" height="76" rx="10"/>
-          <text x="615" y="336" text-anchor="middle">Model a floor plan</text>
-          <text x="615" y="354" text-anchor="middle">as a graph</text>
-          <text x="615" y="372" text-anchor="middle">data structure</text>
+          <text x="615" y="336" text-anchor="middle">将建筑平面图</text>
+          <text x="615" y="354" text-anchor="middle">建模为</text>
+          <text x="615" y="372" text-anchor="middle">图数据结构</text>
         </g>
         <g class="t-node leaf" data-id="l5" data-path="root,c" tabindex="0" role="button">
           <rect x="728" y="306" width="154" height="76" rx="10"/>
-          <text x="805" y="336" text-anchor="middle">Try translating</text>
-          <text x="805" y="354" text-anchor="middle">pathfinding into</text>
-          <text x="805" y="372" text-anchor="middle">haptic rhythms</text>
+          <text x="805" y="336" text-anchor="middle">尝试将路径导航</text>
+          <text x="805" y="354" text-anchor="middle">转译为</text>
+          <text x="805" y="372" text-anchor="middle">触觉节奏</text>
         </g>
 
-        <text x="450" y="430" text-anchor="middle" style="font-family:'IBM Plex Mono',monospace;font-size:11px;fill:rgba(244,247,243,.5);letter-spacing:.12em">LEAF = the challenge an individual picks · "pick what you can't do"</text>
+        <text x="450" y="430" text-anchor="middle" style="font-family:'IBM Plex Mono',monospace;font-size:11px;fill:rgba(244,247,243,.5);letter-spacing:.12em">LEAF = 个人选择的挑战 · “选择自己不会的”</text>
       </svg>
       </div>
 
       <div class="lineage-readout" id="lineage">
-        <span class="path">Select a leaf to reveal its lineage</span>
-        A small task that looks like a toy to one person becomes, for another, a stepping stone toward the result. What makes that difference is this tree.
+        <span class="path">选择一个叶子节点,即可显示血统</span>
+        在某些人眼里像玩具的小任务,对另一些人却是通往成果的踏板。造就这种差异的,正是这棵树。
       </div>
     </div>
 
-    <p class="tree-punch">What decides toy versus stepping stone<br>is not the size of the challenge but <span class="hl2">the visibility of its connection</span></p>
+    <p class="tree-punch">决定它是玩具还是踏板的,<br>不是挑战的大小,而是<span class="hl2">连接的可见性</span></p>
   </div>
 </section>
 
 <!-- ============ DEVICES ============ -->
 <section id="devices">
   <div class="wrap">
-    <div class="eyebrow">Devices — Structure Holds It Up</div>
-    <h2>Five devices drive it,<br>not the mentor's talent</h2>
-    <p class="lede">The difficulty of setting good challenges and good hypotheses on your own — HypoLoop solves it with structure, not with people.</p>
+    <div class="eyebrow">机制 — 由结构支撑</div>
+    <h2>驱动它的不是导师的能力,<br>而是五个机制</h2>
+    <p class="lede">难以独自设立好的挑战和好的假设 — 这个问题,HypoLoop 不靠人,而靠结构来解决。</p>
 
     <div class="dev-grid">
       <div class="dev-card">
         <div class="d-num">DEVICE 01</div>
-        <h3>Constrained choice</h3>
-        <p>Not "set your own challenge" from a blank page. You pick <b>what you can't do right now, from the leaf nodes</b> of the challenge tree. Because the options derive from the team's task, relevance is guaranteed — and a single rule guarantees difficulty.</p>
-        <div class="quote">Rule: pick what you can't do</div>
+        <h3>受约束的选择</h3>
+        <p>不是从白纸开始“设立你的挑战”,而是从挑战树的<b>叶子节点中选出现在不会的</b>。选项派生自团队任务,关联性由此得到保证;一条规则,保证了难度。</p>
+        <div class="quote">规则:选择自己不会的</div>
       </div>
       <div class="dev-card">
         <div class="d-num">DEVICE 02</div>
-        <h3>The hypothesis sentence template</h3>
-        <p>The form is the filter. An unverifiable hypothesis can't even complete the sentence.</p>
-        <div class="quote">Right now I understand [X].<br>Trying [Y] will reveal whether it holds.</div>
+        <h3>假设句式模板</h3>
+        <p>格式本身就是过滤器。无法验证的假设,从一开始就写不完这个句子。</p>
+        <div class="quote">我现在的理解是 [X]。<br>试着做 [Y],就会见分晓。</div>
       </div>
       <div class="dev-card">
         <div class="d-num">DEVICE 03</div>
-        <h3>The peer-verification ritual</h3>
-        <p>Not the hypothesis's author but a teammate asks. Verification runs without a mentor, and the asking peer trains their own metacognition in the process.</p>
-        <div class="quote">"If this hypothesis breaks, what will you learn?"</div>
+        <h3>同伴验证仪式</h3>
+        <p>提问的不是建立假设的本人,而是团队同伴。没有导师验证也能运转,提问的同伴自己也在训练元认知。</p>
+        <div class="quote">“如果这个假设被推翻,你会学到什么?”</div>
       </div>
       <div class="dev-card">
         <div class="d-num">DEVICE 04</div>
-        <h3>The mentor as infrastructure manager</h3>
-        <p>The mentor is not someone who inspects challenges but <b>someone who watches whether the structure runs well</b> — the caretaker of tree decomposition, the templates, and the peer ritual. Not intervention — infrastructure management.</p>
+        <h3>作为基础设施管理者的导师</h3>
+        <p>导师不是检查挑战的人,而是<b>照看这套结构是否运转良好的人</b> — 树的分解、模板、同伴仪式的管理者。这不是干预,而是基础设施管理。</p>
       </div>
       <div class="dev-card full">
         <div class="d-num">DEVICE 05</div>
-        <h3>Learning-delta evaluation</h3>
-        <p>The criterion for success is not "was the problem solved" but <b>"what changed relative to the hypothesis."</b> The problem must be real and the attempt must be real, but what gets evaluated is the amount of learning change, not the deliverable. Because each person's hypothesis is their own evaluation criterion, the ambiguity of assessment disappears. Here, too, lies the grounds for officially accepting a drop in deliverable quality.</p>
+        <h3>学习增量(Δ)评估</h3>
+        <p>判定成败的标准不是“问题解决了吗”,而是<b>“相对于假设,发生了什么变化”</b>。问题必须是真的,尝试也必须是真的,但评估对象不是产出物,而是学习的变化量。个人假设本身就是个人的评估标准,评估的模糊性因此消失。产出物质量的下降之所以能被正式接受,依据也在这里。</p>
       </div>
     </div>
 
     <div class="expert-band">
       <div class="expert-cell">
-        <div class="who">THE BEGINNER'S LEAF</div>
-        <h3>Foundational skills</h3>
-        <p>Pick, from the tree's leaves, a foundational skill you can't handle yet. Things to learn lie scattered all over the map.</p>
+        <div class="who">新手的叶子节点</div>
+        <h3>基础技能</h3>
+        <p>从树的叶子节点中选出尚未掌握的基础技能。要学的东西就铺陈在地图之上。</p>
       </div>
       <div class="expert-cell">
-        <div class="who">THE EXPERT'S LEAF</div>
-        <h3>Adjacent areas that amplify expertise</h3>
-        <p>For a ten-year developer, "what I can't do" is the design sense or the market's domain knowledge needed for a better result. The surrounding knowledge that makes your strength even stronger becomes the challenge.</p>
+        <div class="who">专家的叶子节点</div>
+        <h3>放大专业能力的相邻领域</h3>
+        <p>对一位十年经验的开发者来说,为做出更好成果所需的设计感觉、市场领域知识,就是他“不会的”。为了把擅长的事做得更好而需要的周边知识,成为他的挑战。</p>
       </div>
-      <div class="expert-common">Same rule, different leaf — "pick what you can't do" covers every level of skill</div>
+      <div class="expert-common">同一规则,不同叶子 — “选择自己不会的”覆盖了从新手到专家的全部区间</div>
     </div>
   </div>
 </section>
@@ -792,33 +791,33 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 <!-- ============ PRINCIPLES ============ -->
 <section class="principles" id="principles">
   <div class="wrap">
-    <div class="eyebrow">Summary — Five Principles</div>
-    <h2>HypoLoop on one page</h2>
+    <div class="eyebrow">总结 — 五项原则</div>
+    <h2>一页读懂 HypoLoop</h2>
     <div class="pr-list">
       <div class="pr-item">
         <span class="no">01</span>
-        <h3>Learning is the goal</h3>
-        <p>Team output is a means. On collision, individual learning wins, and a drop in deliverable quality is officially accepted.</p>
+        <h3>学习是目的</h3>
+        <p>团队产出物是手段。冲突时个人学习优先,产出物质量的下降被正式接受。</p>
       </div>
       <div class="pr-item">
         <span class="no">02</span>
-        <h3>The hypothesis is the engine</h3>
-        <p>Hypothesis → Question → Investigate → Verify. The moment a hypothesis breaks is the point of maximum learning, and the moment of verification is the exam itself.</p>
+        <h3>假设是引擎</h3>
+        <p>假设→提问→探究→评估。假设被推翻的瞬间是最大的学习点,验证的时刻就是考试。</p>
       </div>
       <div class="pr-item">
         <span class="no">03</span>
-        <h3>The structure is fractal</h3>
-        <p>The team layer and the individual layer turn on the same cycle. Individual challenges nest inside the team challenge.</p>
+        <h3>结构是分形</h3>
+        <p>团队层与个人层以同一循环运转。个人挑战嵌套在团队挑战之中。</p>
       </div>
       <div class="pr-item">
         <span class="no">04</span>
-        <h3>Failure is required</h3>
-        <p>Failure is an object of design, not of permission. Productive failure and psychological safety are the floor of the environment.</p>
+        <h3>失败是必需的</h3>
+        <p>失败不是被允许的对象,而是被设计的对象。生产性失败与心理安全,是环境的底座。</p>
       </div>
       <div class="pr-item">
         <span class="no">05</span>
-        <h3>Lineage is authenticity</h3>
-        <p>Every small challenge connects, through the hierarchy tree, to the ultimate real problem. Visible connection beats cynicism.</p>
+        <h3>血统即真实性</h3>
+        <p>每个小挑战都通过层级树与终极的真正问题相连。连接的可见性战胜冷嘲。</p>
       </div>
     </div>
   </div>
@@ -826,7 +825,7 @@ footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monosp
 
 <footer>
   <div class="wrap">
-    <div class="f-mark serif">Hypo<span>Loop</span> · Hypothesis-Cycle Learning</div>
+    <div class="f-mark serif">Hypo<span>Loop</span> · 假设循环学习</div>
     <p>a framework where failure is not permitted — it is required</p>
   </div>
 </footer>
@@ -843,14 +842,14 @@ if('IntersectionObserver' in window){
 
 // ---------- cycle interaction ----------
 const phaseData=[
-  {tag:'PHASE 1 · HYPOTHESIZE',title:'Hypothesis — map what you don\'t know',isBreak:false,
-   body:`<p>With no information, form a rough hypothesis <b>from your current understanding alone</b>. Learners who generate a wrong answer before studying learn more deeply. The prior hypothesis becomes the cognitive hook that every piece of information you meet afterward catches on.</p><div class="tmpl">Right now I understand/expect [X to work like this].<br>[Trying Y] will reveal whether this understanding holds.</div>`},
-  {tag:'PHASE 2 · QUESTION',title:'Question — split the hypothesis',isBreak:false,
-   body:`<p>Decompose the rough hypothesis into <b>verifiable questions</b>. Because every question converges on the axis of the hypothesis, the investigation never wanders off and gets lost.</p><p>At this phase a peer asks — <b>"If this hypothesis breaks, what will you learn?"</b> A hypothesis that can't answer isn't ready to become questions yet.</p>`},
-  {tag:'PHASE 3 · INVESTIGATE',title:'Investigate — the moment the hypothesis breaks',isBreak:true,
-   body:`<p>Learning happens while chasing the answers to the questions. And <b>the moment a hypothesis breaks is the point of maximum learning</b> — the bigger the gap between expectation and reality, the bigger the update to your understanding.</p><p>That is why, in HypoLoop, failure is not an accident but a <b>designed event</b>. A hypothesis that never breaks is a sign it was too safe.</p>`},
-  {tag:'PHASE 4 · VERIFY',title:'Verify — measure the delta',isBreak:false,
-   body:`<p>Check whether learning really happened. The criterion is not the deliverable but the <b>learning delta against the hypothesis</b> — the distance between your understanding at the start and your understanding now.</p><p>Since the hypothesis itself was a prediction, this verification is retrieval practice and an exam at once. The exam is built into the cycle, and when evaluation ends, the next hypothesis begins from the updated understanding.</p>`}
+  {tag:'PHASE 1 · HYPOTHESIZE',title:'假设 — 绘制未知的地图',isBreak:false,
+   body:`<p>在没有信息的状态下,<b>仅凭当前的理解</b>建立一个粗略的假设。在学习之前先尝试生成过错误答案的学习者,学得更深。事先的假设会成为认知钩子,勾住之后遇到的所有信息。</p><div class="tmpl">我现在 [对 X 是这样理解/预期] 的。<br>[试着做 Y],就能看出这个理解是否正确。</div>`},
+  {tag:'PHASE 2 · QUESTION',title:'提问 — 拆解假设',isBreak:false,
+   body:`<p>把粗略的假设分解成<b>可验证的问题</b>。所有问题都收敛于假设这条主轴,探究因此不会发散迷失。</p><p>在这个阶段,同伴会问 — <b>“如果这个假设被推翻,你会学到什么?”</b>答不上来的假设,还没有准备好成为问题。</p>`},
+  {tag:'PHASE 3 · INVESTIGATE',title:'探究 — 假设被推翻的瞬间',isBreak:true,
+   body:`<p>学习发生在寻找问题答案的过程中。而<b>假设被推翻的瞬间正是最大的学习点</b> — 预期与现实的落差越大,理解的更新也越大。</p><p>所以在 HypoLoop 中,失败不是事故,而是<b>被设计好的事件</b>。从未被推翻的假设,是定得太安全的信号。</p>`},
+  {tag:'PHASE 4 · VERIFY',title:'评估 — 测量增量(Δ)',isBreak:false,
+   body:`<p>确认学习是否真正发生。标准不是产出物,而是<b>相对于假设的学习增量(Δ)</b> — 起点的理解与当前理解之间的距离。</p><p>由于假设本身就是预测,这次验证就是一次提取练习,也是一场考试。考试内置于循环之中,评估结束后,便以更新的理解开始下一个假设。</p>`}
 ];
 const phases=document.querySelectorAll('.phase');
 const panel=document.getElementById('phasePanel');
@@ -867,8 +866,8 @@ phases.forEach(p=>{
 });
 
 // ---------- tree lineage ----------
-const nodeNames={root:'Ultimate challenge · Keep blind people from getting lost indoors',a:'Perceive the space',b:'Convey without sight',c:'Know the way',
-  l1:'Measure the error limits of ARKit anchors firsthand',l2:'Try simplifying a point cloud into flat planes',l3:'Use VoiceOver gestures for a day with eyes closed',l4:'Model a floor plan as a graph data structure',l5:'Try translating pathfinding into haptic rhythms'};
+const nodeNames={root:'终极挑战 · 让视障人士在室内不再迷路',a:'感知空间',b:'不依赖视觉传递信息',c:'掌握路径',
+  l1:'亲手测量 ARKit 锚点的误差极限',l2:'尝试将点云简化为平面结构',l3:'闭上眼睛用 VoiceOver 手势度过一整天',l4:'将建筑平面图建模为图数据结构',l5:'尝试将路径导航转译为触觉节奏'};
 const edgeMap={a:['e-r-a'],b:['e-r-b'],c:['e-r-c'],l1:['e-r-a','e-a-1'],l2:['e-r-a','e-a-2'],l3:['e-r-b','e-b-3'],l4:['e-r-c','e-c-4'],l5:['e-r-c','e-c-5']};
 const tNodes=document.querySelectorAll('.t-node');
 const tEdges=document.querySelectorAll('.t-edge');
@@ -888,8 +887,8 @@ function lightLineage(id,pathIds){
   const isLeaf=id.startsWith('l');
   lineage.innerHTML=`<span class="path">${pathText}</span>`+
     (isLeaf
-      ?`This challenge may look small, but climb its lineage and you find <b>the real problem</b>. The answer to "why does this small task matter" always exists up the tree.`
-      :`Decompose this node further and you get leaves an individual can pick. Decomposition is not a loss of authenticity — it is <b>laying stepping stones</b>.`);
+      ?`这个挑战看起来虽小,但沿着血统向上追溯,那里有一个<b>真正的问题</b>。“这个小任务为什么有意义”的答案,始终存在于树上。`
+      :`继续分解这个节点,就会得到个人可以选择的叶子节点。分解不是失去真实性的过程,而是<b>铺设踏板</b>的过程。`);
 }
 tNodes.forEach(n=>{
   const act=()=>{
@@ -897,7 +896,7 @@ tNodes.forEach(n=>{
     if(id==='root'){
       tNodes.forEach(x=>x.classList.remove('lit'));tEdges.forEach(x=>x.classList.remove('lit'));
       n.classList.add('lit');
-      lineage.innerHTML=`<span class="path">Ultimate challenge</span>Every leaf's lineage converges here. Because this problem is real, every small challenge below it is real too.`;
+      lineage.innerHTML=`<span class="path">终极挑战</span>所有叶子节点的血统都汇聚于此。因为这个问题是真实的,下方所有的小挑战也都是真实的。`;
       return;
     }
     lightLineage(id,(n.dataset.path||'').split(',').filter(Boolean));

@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HypoLoop 가설순환학습 — 실패를 요구하는 학습 프레임워크</title>
-<meta name="description" content="HypoLoop(가설순환학습)은 팀 프로젝트 안에서 개인의 학습을 의도적으로 설계하는 학습 프레임워크입니다. 가설→질문→탐구→평가의 순환으로 학습이 부산물이 아닌 목적이 됩니다.">
-<meta property="og:title" content="HypoLoop 가설순환학습">
-<meta property="og:description" content="실패를 허용하지 않습니다. 요구합니다. 팀 프로젝트 안에서 개인의 학습을 설계하는 프레임워크.">
+<title>HypoLoop Hypothesis-Cycle Learning — A learning framework that requires failure</title>
+<meta name="description" content="HypoLoop (Hypothesis-Cycle Learning) is a learning framework that deliberately designs individual learning inside team projects. Through the cycle of Hypothesis → Question → Investigate → Verify, learning becomes the purpose, not a byproduct.">
+<meta property="og:title" content="HypoLoop Hypothesis-Cycle Learning">
+<meta property="og:description" content="Failure is not permitted. It is required. A framework for designing individual learning inside team projects.">
+<link rel="alternate" hreflang="ko" href="https://m1zz.github.io/HypoLoop/ko/index.html">
+<link rel="alternate" hreflang="en" href="https://m1zz.github.io/HypoLoop/index.html">
+<link rel="alternate" hreflang="ja" href="https://m1zz.github.io/HypoLoop/ja/index.html">
+<link rel="alternate" hreflang="zh" href="https://m1zz.github.io/HypoLoop/zh/index.html">
+<link rel="alternate" hreflang="x-default" href="https://m1zz.github.io/HypoLoop/index.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
@@ -32,13 +37,13 @@ body{
   background-size:28px 28px;
   color:var(--ink);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
 }
-.serif{font-family:'Noto Serif KR',serif}
+.serif{font-family:'Noto Serif',serif}
 .mono{font-family:'IBM Plex Mono',monospace}
 .wrap{max-width:960px;margin:0 auto;padding:0 24px}
 section{padding:92px 0}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--loop);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--loop)}
-h2{font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(25px,4vw,36px);line-height:1.35;margin-bottom:18px;letter-spacing:-.01em}
+h2{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(25px,4vw,36px);line-height:1.35;margin-bottom:18px;letter-spacing:-.01em}
 .lede{font-size:clamp(15.5px,2.2vw,18px);color:var(--ink-soft);max-width:640px}
 .lede strong{color:var(--ink)}
 
@@ -48,7 +53,7 @@ nav{
   border-bottom:1px solid var(--line);
 }
 .nav-in{max-width:960px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-family:'Noto Serif KR',serif;font-weight:900;font-size:18px;text-decoration:none;color:var(--ink)}
+.brand{font-family:'Noto Serif',serif;font-weight:900;font-size:18px;text-decoration:none;color:var(--ink)}
 .brand span{color:var(--loop)}
 .nav-links{display:flex;gap:22px;align-items:center}
 .nav-links a{font-size:13.5px;color:var(--ink-soft);text-decoration:none;font-weight:500}
@@ -65,6 +70,11 @@ nav{
   .nav-links a{white-space:nowrap;font-size:13.5px;padding:6px 0}
   .nav-cta{display:none}
 }
+.lang-switch{display:flex;gap:2px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:3px;flex-shrink:0;margin-left:14px}
+.lang-switch a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-decoration:none;padding:4px 9px;border-radius:100px;line-height:1.4;white-space:nowrap}
+.lang-switch a:hover{color:var(--loop)}
+.lang-switch a.on{background:var(--ink);color:#fff}
+@media(max-width:680px){.lang-switch{margin-left:8px}.lang-switch a{padding:4px 7px;font-size:10px}}
 
 /* PAGE ROUTING */
 [data-page]{display:none}
@@ -76,7 +86,7 @@ nav{
 .hero .mark{width:74px;height:74px;margin:0 auto 26px;display:block}
 .mark circle.o{fill:none;stroke:var(--loop);stroke-width:5}
 .mark circle.d{fill:var(--break)}
-.hero h1{font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(38px,7vw,72px);line-height:1.18;letter-spacing:-.02em}
+.hero h1{font-family:'Noto Serif',serif;font-weight:900;font-size:clamp(38px,7vw,72px);line-height:1.18;letter-spacing:-.02em}
 .hero h1 .hl{color:var(--loop)}
 .hero .one-liner{
   margin:26px auto 0;font-size:clamp(17px,2.6vw,21px);color:var(--ink-soft);max-width:560px;
@@ -105,7 +115,7 @@ nav{
 .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
 .who-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 24px}
 .who-card .icon{font-size:26px;margin-bottom:14px;display:block}
-.who-card h3{font-family:'Noto Serif KR',serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.who-card h3{font-family:'Noto Serif',serif;font-size:18px;font-weight:700;margin-bottom:8px}
 .who-card p{font-size:14px;color:var(--ink-soft)}
 
 /* PROBLEM */
@@ -133,7 +143,7 @@ nav{
 .pc-cap{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:rgba(244,247,243,.5);letter-spacing:.08em}
 .pc-note{margin-top:12px;font-size:13px;color:rgba(244,247,243,.6)}
 .problem-quote{
-  margin-top:44px;font-family:'Noto Serif KR',serif;font-weight:700;
+  margin-top:44px;font-family:'Noto Serif',serif;font-weight:700;
   font-size:clamp(19px,3.4vw,27px);line-height:1.65;max-width:700px;color:#fff;
 }
 .problem-quote .strike{position:relative;color:rgba(244,247,243,.45)}
@@ -160,7 +170,7 @@ nav{
 .concept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
 .concept-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;position:relative;overflow:hidden}
 .concept-card .cno{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--loop);letter-spacing:.16em;margin-bottom:14px}
-.concept-card h3{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;margin-bottom:10px}
+.concept-card h3{font-family:'Noto Serif',serif;font-size:20px;font-weight:700;margin-bottom:10px}
 .concept-card p{font-size:14.5px;color:var(--ink-soft)}
 .concept-card p b{color:var(--ink)}
 .concept-card .mini{margin-top:16px}
@@ -183,7 +193,7 @@ nav{
 }
 .pb-step:last-child{border-bottom:none}
 .pb-step .pb-no{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--loop);letter-spacing:.12em;padding-top:4px}
-.pb-step h3{font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.pb-step h3{font-family:'Noto Serif',serif;font-size:20px;font-weight:700;margin-bottom:8px}
 .pb-step p{font-size:14.5px;color:var(--ink-soft);max-width:620px}
 .pb-step p b{color:var(--ink)}
 .pb-step .pb-tip{
@@ -201,7 +211,7 @@ nav{
 /* MENTOR */
 .mentor-box{margin-top:72px;background:var(--card);border:1.5px solid var(--loop);border-radius:18px;padding:36px}
 .mentor-box .m-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:14px}
-.mentor-box h3{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:900;margin-bottom:12px;line-height:1.4}
+.mentor-box h3{font-family:'Noto Serif',serif;font-size:22px;font-weight:900;margin-bottom:12px;line-height:1.4}
 .mentor-box .m-intro{font-size:14.5px;color:var(--ink-soft);max-width:640px;line-height:1.8}
 .mentor-box .m-intro b{color:var(--ink)}
 .q-group{margin-top:26px}
@@ -238,7 +248,7 @@ nav{
 .faq{border-bottom:1px solid var(--line)}
 .faq summary{
   cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;
-  padding:22px 4px;font-family:'Noto Serif KR',serif;font-weight:700;font-size:17px;gap:16px;
+  padding:22px 4px;font-family:'Noto Serif',serif;font-weight:700;font-size:17px;gap:16px;
 }
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--loop);flex-shrink:0;transition:transform .2s ease}
@@ -253,7 +263,7 @@ nav{
 .final .btn-primary{background:#8FD3BE;color:var(--ink)}
 .final .btn-ghost{border-color:rgba(244,247,243,.5);color:#fff}
 footer{padding:48px 0 64px;text-align:center;border-top:1px solid var(--line)}
-footer .f-mark{font-family:'Noto Serif KR',serif;font-weight:900;font-size:19px;margin-bottom:6px}
+footer .f-mark{font-family:'Noto Serif',serif;font-weight:900;font-size:19px;margin-bottom:6px}
 footer .f-mark span{color:var(--loop)}
 footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
 
@@ -266,7 +276,7 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
   section{padding:56px 0}
   .hero{padding:64px 0 56px}
   .who-card,.concept-card{padding:24px 20px}
-  /* SVG 차트는 viewBox 축소 시 글자·선도 함께 작아지므로 모바일에선 사용자 단위 값을 키워 보정 */
+  /* When the SVG chart's viewBox shrinks, text and lines shrink with it, so scale up user units on mobile to compensate */
   .pc-line{stroke-width:3}
   .pc-grid{stroke-width:1.5}
   .pc-dot{r:7px;stroke-width:3}
@@ -287,13 +297,19 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
   <div class="nav-in">
     <a class="brand" href="#top">Hypo<span>Loop</span></a>
     <div class="nav-links">
-      <a href="#top">홈</a>
-      <a href="#who">누구를 위한</a>
-      <a href="#concepts">핵심 개념</a>
-      <a href="#playbook">운영 가이드</a>
-      <a href="#template">템플릿</a>
+      <a href="#top">Home</a>
+      <a href="#who">Who It's For</a>
+      <a href="#concepts">Core Concepts</a>
+      <a href="#playbook">Playbook</a>
+      <a href="#template">Template</a>
       <a href="#faq">FAQ</a>
-      <a class="nav-cta" href="#playbook">지금 시작하기</a>
+      <a class="nav-cta" href="#playbook">Get Started</a>
+    </div>
+    <div class="lang-switch" aria-label="Language">
+      <a href="ko/index.html" hreflang="ko" lang="ko">한국어</a>
+      <a class="on" href="index.html">English</a>
+      <a href="ja/index.html" hreflang="ja" lang="ja">日本語</a>
+      <a href="zh/index.html" hreflang="zh" lang="zh">中文</a>
     </div>
   </div>
 </nav>
@@ -305,16 +321,16 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
       <circle class="o" cx="37" cy="37" r="30"/>
       <circle class="d" cx="37" cy="67" r="6"/>
     </svg>
-    <h1>Hypo<span class="hl">Loop</span><br>가설순환학습</h1>
-    <p class="one-liner">실패를 허용하지 않습니다. <span class="req">요구합니다.</span><br>팀 프로젝트 안에서 <b>개인의 학습을 의도적으로 설계</b>하는 학습 프레임워크입니다.</p>
+    <h1>Hypo<span class="hl">Loop</span><br>Hypothesis-Cycle Learning</h1>
+    <p class="one-liner">Failure is not permitted. <span class="req">It is required.</span><br>A learning framework that <b>deliberately designs individual learning</b> inside team projects.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#playbook">운영 가이드 보기</a>
-      <a class="btn btn-ghost" href="#concepts">핵심 개념부터</a>
+      <a class="btn btn-primary" href="#playbook">See the Playbook</a>
+      <a class="btn btn-ghost" href="#concepts">Start with the Concepts</a>
     </div>
     <div class="hero-defs">
-      <div class="hero-def"><span class="k">목적</span><span class="v">문제 해결이 아니라 학습</span></div>
-      <div class="hero-def"><span class="k">엔진</span><span class="v">가설 → 질문 → 탐구 → 평가</span></div>
-      <div class="hero-def"><span class="k">평가</span><span class="v">산출물이 아니라 학습 델타</span></div>
+      <div class="hero-def"><span class="k">PURPOSE</span><span class="v">Learning, not problem-solving</span></div>
+      <div class="hero-def"><span class="k">ENGINE</span><span class="v">Hypothesis → Question → Investigate → Verify</span></div>
+      <div class="hero-def"><span class="k">EVALUATION</span><span class="v">Learning delta, not deliverables</span></div>
     </div>
   </div>
 </header>
@@ -323,22 +339,22 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <section id="who" data-page="who">
   <div class="wrap">
     <div class="eyebrow">For Whom</div>
-    <h2>이런 분들을 위해 만들었습니다</h2>
+    <h2>We built this for people like you</h2>
     <div class="who-grid">
       <div class="who-card">
         <span class="icon">🧭</span>
-        <h3>교육자 · 멘토</h3>
-        <p>팀 프로젝트 기반 교육을 운영하지만 “결과물은 나오는데 개인이 뭘 배웠는지 모르겠다”는 고민이 있는 분. 멘토 역량에 기대지 않고 구조로 굴러가는 수업을 원하는 분.</p>
+        <h3>Educators · Mentors</h3>
+        <p>You run team-project-based education but keep thinking, "The deliverables come out, yet I can't tell what each individual learned." You want a class that runs on structure, not on mentor talent.</p>
       </div>
       <div class="who-card">
         <span class="icon">🛠️</span>
-        <h3>팀 리드 · 조직</h3>
-        <p>사이드 프로젝트나 해커톤, 온보딩에서 구성원이 “하던 것만 하다 끝나는” 역할 고착을 깨고 싶은 분. 팀의 성장과 산출물 사이의 우선순위를 명확히 하고 싶은 분.</p>
+        <h3>Team Leads · Organizations</h3>
+        <p>You want to break the role entrenchment where members "just do what they already do" in side projects, hackathons, or onboarding. You want a clear priority between the team's growth and its deliverables.</p>
       </div>
       <div class="who-card">
         <span class="icon">📓</span>
-        <h3>스터디 · 개인 학습자</h3>
-        <p>강의를 들어도 남는 게 없다고 느끼는 분. 배우기 전에 가설을 세우고 깨뜨리는 방식으로, 혼자서도 스터디에서도 학습의 밀도를 높이고 싶은 분.</p>
+        <h3>Study Groups · Solo Learners</h3>
+        <p>You feel nothing sticks even after finishing courses. You want to raise the density of your learning — alone or in a study group — by forming hypotheses before you learn, and then breaking them.</p>
       </div>
     </div>
   </div>
@@ -348,13 +364,13 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <section class="problem" data-page="home">
   <div class="wrap">
     <div class="eyebrow">The Problem</div>
-    <h2>팀은 전진하는데,<br>개인은 배우고 있습니까?</h2>
-    <p class="lede">팀 프로젝트는 합리적으로 굴러갈수록 각자 <strong>이미 잘하는 일</strong>을 맡게 됩니다. 결과물의 질은 오르지만 개인의 학습 곡선은 평평해집니다. 학습은 문제를 풀다 운 좋게 얻는 부산물로 밀려납니다.</p>
+    <h2>The team is moving forward —<br>but are individuals learning?</h2>
+    <p class="lede">The more rationally a team project runs, the more each member takes on what they are <strong>already good at</strong>. The quality of the output rises, but individual learning curves flatten. Learning gets pushed aside as a byproduct you pick up by luck while solving problems.</p>
 
-    <figure class="pcurve" role="img" aria-label="프로젝트가 진행될수록 팀 산출물은 상승하지만 개인 학습 곡선은 평평하게 유지되어 간극이 벌어지는 추세 비교 차트">
+    <figure class="pcurve" role="img" aria-label="Trend comparison chart showing team output rising as the project progresses while the individual learning curve stays flat, widening the gap">
       <div class="pc-legend">
-        <span class="pc-key"><i class="k-team"></i>팀 산출물</span>
-        <span class="pc-key"><i class="k-ind"></i>개인 학습</span>
+        <span class="pc-key"><i class="k-team"></i>Team output</span>
+        <span class="pc-key"><i class="k-ind"></i>Individual learning</span>
       </div>
       <svg viewBox="0 0 640 270" aria-hidden="true">
         <line class="pc-grid" x1="50" y1="66" x2="540" y2="66"/>
@@ -364,39 +380,39 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
         <path class="pc-line pc-ind" d="M60 222 C150 204 240 198 540 196"/>
         <circle class="pc-dot pc-dot-team" cx="540" cy="70" r="4.5"/>
         <circle class="pc-dot pc-dot-ind" cx="540" cy="196" r="4.5"/>
-        <text class="pc-lbl" x="552" y="74">팀 산출물</text>
-        <text class="pc-lbl" x="552" y="200">개인 학습</text>
-        <text class="pc-cap" x="50" y="48">성장 ↑</text>
-        <text class="pc-cap" x="540" y="248" text-anchor="end">프로젝트 진행 →</text>
+        <text class="pc-lbl" x="552" y="74">Team output</text>
+        <text class="pc-lbl" x="552" y="200">Individual learning</text>
+        <text class="pc-cap" x="50" y="48">Growth ↑</text>
+        <text class="pc-cap" x="540" y="248" text-anchor="end">Project progress →</text>
       </svg>
-      <figcaption class="pc-note">팀이 합리적으로 굴러갈수록, 두 곡선의 간극은 벌어집니다.</figcaption>
+      <figcaption class="pc-note">The more rationally the team runs, the wider the gap between the two curves grows.</figcaption>
     </figure>
 
     <p class="problem-quote">
-      <span class="strike">“가치 있는 문제를 풀면 학습은 자연히 따라온다”</span><br>
-      <span class="fix">“학습은 의도될 때만 보장된다”</span>
+      <span class="strike">"Solve a valuable problem, and learning will naturally follow"</span><br>
+      <span class="fix">"Learning is guaranteed only when it is intended"</span>
     </p>
-    <p class="problem-sub">HypoLoop은 이 전제의 교체에서 출발합니다. 우발적 학습에 걸었던 판돈을 회수하고, 학습을 처음부터 이름 붙여진 목표로 만듭니다.</p>
+    <p class="problem-sub">HypoLoop starts by replacing this premise. It takes back the bet placed on accidental learning and makes learning a named goal from the very beginning.</p>
 
     <div class="why-wrap">
-      <div class="why-k">왜 “문제 해결”이 아니라 “학습”인가</div>
+      <div class="why-k">Why "learning" rather than "problem-solving"</div>
       <div class="why-chain">
-        <span class="wc-tag">문제만 풀면</span>
-        <span class="wc">지금 실력으로 풀리는 문제만 해결</span>
+        <span class="wc-tag">If you only solve problems</span>
+        <span class="wc">You solve only what your current skills can handle</span>
         <span class="wc-arr">→</span>
-        <span class="wc">결과물은 쌓이지만 실력은 제자리</span>
+        <span class="wc">Deliverables pile up, but your skills stay put</span>
         <span class="wc-arr">→</span>
-        <span class="wc bad">더 어려운 문제 앞에서 멈춤</span>
+        <span class="wc bad">You stall in front of harder problems</span>
       </div>
       <div class="why-chain">
-        <span class="wc-tag good">학습하며 풀면</span>
-        <span class="wc">작은 챌린지를 학습하며 해결</span>
+        <span class="wc-tag good">If you solve while learning</span>
+        <span class="wc">You solve small challenges while learning</span>
         <span class="wc-arr">→</span>
-        <span class="wc">해결 능력 자체가 자람</span>
+        <span class="wc">The ability to solve itself grows</span>
         <span class="wc-arr">→</span>
-        <span class="wc good">궁극의 어려운 문제까지 도달</span>
+        <span class="wc good">You reach the ultimate, hardest problem</span>
       </div>
-      <p>문제 해결을 버리자는 것이 아니라 순서를 바꾸자는 것입니다. 궁극의 진짜 문제는 오늘의 실력으로는 풀리지 않습니다. <b>학습만이 내일 더 어려운 문제를 풀 수 있게 하기 때문에</b>, HypoLoop은 산출물보다 학습을 우선합니다. 작은 챌린지는 우회로가 아니라 궁극의 문제로 올라가는 유일한 계단입니다.</p>
+      <p>This is not about abandoning problem-solving — it is about changing the order. The ultimate, real problem cannot be solved with today's skills. <b>Because only learning makes tomorrow's harder problems solvable</b>, HypoLoop puts learning ahead of deliverables. Small challenges are not detours; they are the only stairway up to the ultimate problem.</p>
     </div>
   </div>
 </section>
@@ -405,31 +421,31 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <section id="concepts" data-page="concepts">
   <div class="wrap">
     <div class="eyebrow">Core Concepts</div>
-    <h2>네 개의 기둥</h2>
-    <p class="lede">네 개념 모두 같은 예제 하나로 풀었습니다 — <strong>🍞 빵 만들기</strong>. 팀의 목표는 “동네에서 사랑받는 빵집 열기”, 나는 아직 발효를 모르는 팀원입니다.</p>
+    <h2>The Four Pillars</h2>
+    <p class="lede">All four concepts are explained with one running example — <strong>🍞 baking bread</strong>. The team's goal is "open a neighborhood bakery people love," and I am a team member who doesn't yet understand fermentation.</p>
     <div class="concept-grid">
       <div class="concept-card">
         <div class="cno">CONCEPT 01</div>
-        <h3>가설 엔진</h3>
-        <p>정보가 없는 상태에서 먼저 가설을 세우고, 검증 가능한 질문으로 쪼개고, 탐구하며 깨뜨리고, 델타를 평가합니다. <b>가설이 깨지는 순간이 최대 학습 지점</b>이며, 검증의 순간이 곧 시험입니다.</p>
+        <h3>The Hypothesis Engine</h3>
+        <p>With no information yet, you first form a hypothesis, split it into verifiable questions, break it through investigation, and evaluate the delta. <b>The moment a hypothesis breaks is the point of maximum learning</b>, and the moment of verification is the exam itself.</p>
         <div class="mini">
           <svg viewBox="0 0 220 70">
             <circle class="m-dash" cx="110" cy="35" r="28"/>
-            <circle class="m-dot" cx="110" cy="7" r="5"/><text class="m-txt" x="110" y="-2" text-anchor="middle">가설</text>
-            <circle class="m-dot" cx="138" cy="35" r="5"/><text class="m-txt" x="156" y="38">질문</text>
-            <circle class="m-dot b" cx="110" cy="63" r="5"/><text class="m-txt" x="110" y="80" text-anchor="middle">탐구</text>
-            <circle class="m-dot" cx="82" cy="35" r="5"/><text class="m-txt" x="46" y="38">평가</text>
+            <circle class="m-dot" cx="110" cy="7" r="5"/><text class="m-txt" x="110" y="-2" text-anchor="middle">Hypothesis</text>
+            <circle class="m-dot" cx="138" cy="35" r="5"/><text class="m-txt" x="156" y="38">Question</text>
+            <circle class="m-dot b" cx="110" cy="63" r="5"/><text class="m-txt" x="110" y="80" text-anchor="middle">Investigate</text>
+            <circle class="m-dot" cx="82" cy="35" r="5"/><text class="m-txt" x="46" y="38" text-anchor="end">Verify</text>
           </svg>
         </div>
         <div class="ex">
-          <span class="ex-k">🍞 빵으로 풀면</span>
-          <p>배우기 전에 먼저 씁니다 — <b>“빵은 베이킹파우더 때문에 부푼다고 이해한다. 이스트를 빼고 구워보면 드러날 것이다.”</b> 구워보니 납작합니다. 가설이 깨지는 이 순간, 효모 발효라는 진짜 원리가 각인됩니다. 검색부터 했다면 스쳐 지나갔을 지식입니다.</p>
+          <span class="ex-k">🍞 IN BREAD TERMS</span>
+          <p>You write before you learn — <b>"I understand that bread rises because of baking powder. Baking a loaf without yeast will reveal whether that's true."</b> The loaf comes out flat. At the moment this hypothesis breaks, the real principle — yeast fermentation — is burned in. Had you started with a web search, that knowledge would have slipped right past.</p>
         </div>
       </div>
       <div class="concept-card">
         <div class="cno">CONCEPT 02</div>
-        <h3>프랙탈 중첩</h3>
-        <p>팀은 세상의 문제를 향한 가설을 굴리고, 개인은 그 안에 <b>자신의 학습 가설을 중첩</b>시킵니다. “이 팀 문제를 푸는 과정에서 나는 의도적으로 X를 배우겠다.” 층은 둘, 사이클은 하나입니다.</p>
+        <h3>Fractal Nesting</h3>
+        <p>The team runs a hypothesis aimed at a problem in the world, and each individual <b>nests their own learning hypothesis</b> inside it. "While solving this team problem, I will deliberately learn X." Two layers, one cycle.</p>
         <div class="mini">
           <svg viewBox="0 0 220 70">
             <circle class="m-line" cx="110" cy="35" r="32" fill="none"/>
@@ -440,45 +456,45 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
           </svg>
         </div>
         <div class="ex">
-          <span class="ex-k">🍞 빵으로 풀면</span>
-          <p>팀은 <b>“우리 동네 사람들은 아침에 갓 구운 건강빵을 원할 것이다”</b>라는 가설을 굴립니다. 나는 그 안에 <b>“이 빵집을 준비하는 과정에서 나는 발효를 배우겠다”</b>는 학습 가설을 중첩시킵니다. 팀은 빵집을 열고, 나는 발효를 배웁니다 — 층은 둘, 사이클은 하나.</p>
+          <span class="ex-k">🍞 IN BREAD TERMS</span>
+          <p>The team runs the hypothesis <b>"people in our neighborhood want freshly baked healthy bread in the morning."</b> Inside it, I nest my learning hypothesis: <b>"while preparing this bakery, I will learn fermentation."</b> The team opens the bakery, and I learn fermentation — two layers, one cycle.</p>
         </div>
       </div>
       <div class="concept-card">
         <div class="cno">CONCEPT 03</div>
-        <h3>챌린지 계층 트리</h3>
-        <p>궁극의 진짜 문제를 도전 가능한 크기까지 계층적으로 분해합니다. 아무리 작은 챌린지도 진짜 문제와 <b>혈통으로 연결</b>되어 있습니다. 장난감이냐 발판이냐는 크기가 아니라 연결의 가시성이 결정합니다.</p>
+        <h3>The Challenge Hierarchy Tree</h3>
+        <p>The ultimate, real problem is hierarchically decomposed down to an attemptable size. Even the smallest challenge is <b>connected by lineage</b> to the real problem. Whether it is a toy or a stepping stone is decided not by its size but by the visibility of that connection.</p>
         <div class="mini">
           <svg viewBox="0 0 220 70">
             <path class="m-line" d="M110 12 L60 38 M110 12 L110 38 M110 12 L160 38 M60 38 L40 62 M60 38 L80 62"/>
             <circle class="m-dot" cx="110" cy="12" r="6"/>
             <circle class="m-dot" cx="60" cy="38" r="5"/><circle class="m-dot" cx="110" cy="38" r="5"/><circle class="m-dot" cx="160" cy="38" r="5"/>
             <circle class="m-dot b" cx="40" cy="62" r="5"/><circle class="m-dot" cx="80" cy="62" r="5"/>
-            <text class="m-txt" x="172" y="15">궁극 챌린지</text>
-            <text class="m-txt" x="100" y="68">← 개인이 고르는 리프</text>
+            <text class="m-txt" x="172" y="15">Ultimate challenge</text>
+            <text class="m-txt" x="100" y="68">← The leaf an individual picks</text>
           </svg>
         </div>
         <div class="ex">
-          <span class="ex-k">🍞 빵으로 풀면</span>
-          <p><b>동네에서 사랑받는 빵집 열기</b> → 시그니처 건강빵 개발 → 사워도우 굽기 → <b>천연 발효종 만들기</b>(리프). 유리병에서 발효종을 키우는 일주일짜리 작은 도전도, 트리를 따라 올라가면 빵집이라는 진짜 문제와 혈통으로 이어져 있습니다. 그래서 장난감이 아니라 발판입니다.</p>
+          <span class="ex-k">🍞 IN BREAD TERMS</span>
+          <p><b>Open a neighborhood bakery people love</b> → develop a signature healthy bread → bake sourdough → <b>grow a natural starter</b> (leaf). Even the small one-week challenge of raising a starter in a glass jar, when you climb the tree, is connected by lineage to the real problem — the bakery. That is why it is a stepping stone, not a toy.</p>
         </div>
       </div>
       <div class="concept-card">
         <div class="cno">CONCEPT 04</div>
-        <h3>학습 델타 평가</h3>
-        <p>성패의 기준은 “문제가 풀렸는가”가 아니라 <b>“가설 대비 무엇이 달라졌는가”</b>입니다. 문제도 진짜, 시도도 진짜지만 채점되는 것은 변화량입니다. 그래서 산출물의 질 저하를 공식적으로 수용할 수 있습니다.</p>
+        <h3>Learning-Delta Evaluation</h3>
+        <p>The criterion of success is not "was the problem solved" but <b>"what changed relative to the hypothesis."</b> The problem is real and the attempt is real, but what gets graded is the amount of change. That is why a drop in deliverable quality can be officially accepted.</p>
         <div class="mini">
           <svg viewBox="0 0 220 70">
             <path class="m-dash" d="M20 55 L200 55"/>
-            <circle class="m-dot" cx="50" cy="55" r="5"/><text class="m-txt" x="50" y="68" text-anchor="middle">시작 이해</text>
-            <circle class="m-dot b" cx="170" cy="20" r="5"/><text class="m-txt" x="170" y="10" text-anchor="middle">현재 이해</text>
+            <circle class="m-dot" cx="50" cy="55" r="5"/><text class="m-txt" x="50" y="68" text-anchor="middle">Initial understanding</text>
+            <circle class="m-dot b" cx="170" cy="20" r="5"/><text class="m-txt" x="170" y="10" text-anchor="middle">Current understanding</text>
             <path class="m-line" d="M55 51 L164 24" stroke-dasharray="0"/>
-            <text class="m-txt" x="118" y="30">Δ = 학습</text>
+            <text class="m-txt" x="118" y="30">Δ = learning</text>
           </svg>
         </div>
         <div class="ex">
-          <span class="ex-k">🍞 빵으로 풀면</span>
-          <p>오늘 구운 사워도우가 납작하게 실패했습니다. 하지만 사이클 시작 때 나는 발효 온도가 뭘 바꾸는지 몰랐고, 지금은 <b>“저온 발효가 풍미를 만들고 과발효가 반죽을 무너뜨린다”</b>고 설명할 수 있습니다. 채점되는 것은 빵의 모양이 아니라 이 거리(Δ)입니다.</p>
+          <span class="ex-k">🍞 IN BREAD TERMS</span>
+          <p>Today's sourdough came out flat — a failure. But at the start of the cycle I didn't know what fermentation temperature changes, and now I can explain that <b>"cold fermentation builds flavor, and over-fermentation collapses the dough."</b> What gets graded is not the shape of the bread but this distance (Δ).</p>
         </div>
       </div>
     </div>
@@ -489,138 +505,138 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <section class="playbook" id="playbook" data-page="playbook">
   <div class="wrap">
     <div class="eyebrow">Playbook</div>
-    <h2>문제 설정부터 회고까지,<br>여덟 단계로 운영합니다</h2>
-    <p class="lede">멘토 한 명의 역량이 아니라 구조가 굴리는 프레임워크입니다. 각 단계의 템플릿을 복사해 그대로 채우면 첫 사이클이 시작됩니다.</p>
+    <h2>From framing the problem to the retrospective —<br>eight steps to run it</h2>
+    <p class="lede">A framework driven by structure, not by one mentor's talent. Copy each step's template, fill it in as is, and your first cycle begins.</p>
 
     <div class="pb-steps">
       <div class="pb-step">
-        <div class="pb-no">STEP 1<br>문제 설정</div>
+        <div class="pb-no">STEP 1<br>FRAME THE PROBLEM</div>
         <div>
-          <h3>진짜 문제를 궁극 챌린지로 세웁니다</h3>
-          <p>팀이 정말 해결하고 싶은, 세상에 존재하는 문제를 궁극 챌린지로 선언합니다. 불가능하지 않되 쉽지 않아야 하고, 구성원의 흥미·관련성과 닿아 있어야 합니다. 이 문제의 진정성이 트리 전체의 진정성이 됩니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>우리 팀은 [세상의 진짜 문제 P]를 해결하려 한다.
-이 문제는 [누가, 어떤 상황에서] 실제로 겪는 문제다.
-해결되면 [무엇이 달라졌는지]로 확인할 수 있다.</pre></div>
+          <h3>Set a real problem as the ultimate challenge</h3>
+          <p>Declare, as the ultimate challenge, a problem that exists in the world and that the team genuinely wants to solve. It should be not impossible yet not easy, and it should touch the members' interests and feel relevant to them. The authenticity of this problem becomes the authenticity of the entire tree.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Our team sets out to solve [real-world problem P].
+This is a problem [who] actually faces [in what situation].
+When it is solved, we will know by [what has changed].</pre></div>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 2<br>트리 분해</div>
+        <div class="pb-no">STEP 2<br>DECOMPOSE THE TREE</div>
         <div>
-          <h3>도전 가능한 크기까지 계층적으로 쪼갭니다</h3>
-          <p>궁극 챌린지를 해결하기 위해 전제되어야 하는 하위 챌린지들을 펼치고, 개인이 한 사이클 안에 도전해 볼 수 있는 크기의 <b>리프</b>가 나올 때까지 분해합니다. 각 리프에서 궁극 챌린지까지의 경로가 항상 보이도록 트리를 팀 공용 공간에 게시합니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>[상위 챌린지]를 해결하려면
-[하위 챌린지 A / B / C]가 전제되어야 한다.
+          <h3>Split it hierarchically down to an attemptable size</h3>
+          <p>Unfold the sub-challenges that must be met before the ultimate challenge can be solved, and keep decomposing until you reach <b>leaves</b> small enough for an individual to attempt within one cycle. Post the tree in the team's shared space so the path from every leaf up to the ultimate challenge is always visible.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>To solve [parent challenge],
+[sub-challenges A / B / C] must come first.
 
-리프 판정 — 한 사람이 1~2주 안에 가설을
-깨뜨려 볼 수 있는 크기인가? (아니오 → 한 번 더 분해)</pre></div>
-          <span class="pb-tip">팁: 리프 하나 = 1~2주 안에 가설을 깨뜨려 볼 수 있는 크기</span>
+Leaf test — is it small enough for one person to try
+breaking a hypothesis within 1–2 weeks? (No → decompose once more)</pre></div>
+          <span class="pb-tip">Tip: one leaf = small enough to try breaking a hypothesis within 1–2 weeks</span>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 3<br>리프 선택</div>
+        <div class="pb-no">STEP 3<br>PICK A LEAF</div>
         <div>
-          <h3>각자 “못하는 것”을 고릅니다</h3>
-          <p>백지에서 챌린지를 세우지 않습니다. 트리의 리프 중에서 고르되, 규칙은 하나 — <b>지금 못하는 것을 고른다.</b> 초보자에게는 기초 기술이, 숙련자에게는 전문성을 증폭시킬 인접 영역(디자인, 도메인, 시장)이 리프가 됩니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>나는 [리프 L]을 고른다.
-지금 나는 이것을 못한다 — 근거: [시도하면 벌어지는 일].
-이 리프는 [리프 → 중간 → 궁극] 경로로
-팀 챌린지와 연결된다.</pre></div>
-          <span class="pb-tip warn">주의: 잘하는 것을 고르는 순간, 이 프레임워크를 쓰는 이유가 사라집니다</span>
+          <h3>Everyone picks something they can't do</h3>
+          <p>You don't invent a challenge from a blank page. Pick from the leaves of the tree, with a single rule — <b>pick what you can't do right now.</b> For a beginner, the leaf is a foundational skill; for an expert, it is an adjacent area (design, domain, market) that will amplify their expertise.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>I pick [leaf L].
+Right now I can't do this — evidence: [what happens when I try].
+This leaf connects to the team challenge
+via the path [leaf → intermediate → ultimate].</pre></div>
+          <span class="pb-tip warn">Caution: the moment you pick something you're already good at, the reason for using this framework disappears</span>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 4<br>가설 작성</div>
+        <div class="pb-no">STEP 4<br>WRITE THE HYPOTHESIS</div>
         <div>
-          <h3>배우기 전에, 지금의 이해로 가설을 씁니다</h3>
-          <p>검색하기 전, 강의를 듣기 전, <b>아무 정보 없이</b> 현재 이해만으로 가설 템플릿을 채웁니다. 어색하고 틀릴수록 좋습니다. 이 가설이 이후 만나는 모든 정보가 걸릴 인지적 갈고리가 됩니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>나는 지금 [대상 X]를 [이렇게 이해/예상]한다.
-[검증 행동 Y]를 해보면 이 이해가 맞는지 드러날 것이다.
-이 가설이 깨지면 나는 [알게 될 것]을 알게 된다.</pre></div>
+          <h3>Before you learn, write a hypothesis from your current understanding</h3>
+          <p>Before searching, before watching a lecture, fill in the hypothesis template <b>with no information at all</b> — only your current understanding. The more awkward and wrong it is, the better. This hypothesis becomes the cognitive hook that every piece of information you meet afterward will catch on.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Right now I understand/expect [subject X] [like this].
+Trying [verification action Y] will reveal whether this understanding holds.
+If this hypothesis breaks, I will learn [what I will come to know].</pre></div>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 5<br>동료 검증</div>
+        <div class="pb-no">STEP 5<br>PEER VERIFICATION</div>
         <div>
-          <h3>동료가 한 가지 질문을 던집니다</h3>
-          <p>가설을 세운 본인이 아니라 팀 동료가 묻습니다 — <b>“이 가설이 깨지면, 너는 뭘 알게 되는데?”</b> 답하지 못하면 가설을 다듬어 다시 씁니다. 이 리추얼로 멘토 없이 검증이 돌아가고, 묻는 사람도 메타인지 훈련이 됩니다. 멘토는 개입자가 아니라 이 구조가 잘 돌아가는지 살피는 인프라 관리자입니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>질문: “이 가설이 깨지면, 너는 뭘 알게 되는데?”
-통과 — 대답이 구체적인 이해 하나를 가리킨다.
-반려 — 검증 행동이 모호하다 / 알게 될 것이 없다
-       / 이미 아는 것이다.
-반려되면 가설을 다듬어 다시 쓴다.</pre></div>
+          <h3>A peer asks one question</h3>
+          <p>Not the author of the hypothesis but a teammate asks — <b>"If this hypothesis breaks, what will you learn?"</b> If you can't answer, refine the hypothesis and write it again. This ritual keeps verification running without a mentor, and the act of asking trains the asker's metacognition too. The mentor is not an intervener but an infrastructure manager who watches whether this structure runs well.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Question: "If this hypothesis breaks, what will you learn?"
+Pass — the answer points to one concrete piece of understanding.
+Reject — the verification action is vague / there is nothing to learn
+       / it is something already known.
+If rejected, refine the hypothesis and write it again.</pre></div>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 6<br>탐구</div>
+        <div class="pb-no">STEP 6<br>INVESTIGATE</div>
         <div>
-          <h3>팀 문제를 풀면서 가설을 깨뜨립니다</h3>
-          <p>별도의 공부 시간이 아니라 <b>팀 문제를 푸는 바로 그 과정</b>이 가설의 실험장입니다. 가설이 깨지는 순간을 그 자리에서 기록하세요 — 예상과 현실의 격차가 클수록 갱신되는 이해도 큽니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>[탐구 로그 — 가설이 깨진 순간마다]
-예상: [예상했던 것]
-현실: [실제로 벌어진 것]
-격차에서 배운 것: [갱신된 이해]</pre></div>
-          <span class="pb-tip">가설이 깨지는 순간이 최대 학습 지점 — 나중에 말고, 그 자리에서 기록</span>
+          <h3>Break your hypothesis while solving the team problem</h3>
+          <p>Not in separate study time — <b>the very process of solving the team problem</b> is the testing ground for your hypothesis. Record the moment a hypothesis breaks, right there on the spot — the bigger the gap between expectation and reality, the bigger the update to your understanding.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>[Investigation log — every time a hypothesis breaks]
+Expected: [what I expected]
+Reality: [what actually happened]
+Learned from the gap: [updated understanding]</pre></div>
+          <span class="pb-tip">The moment a hypothesis breaks is the point of maximum learning — record it on the spot, not later</span>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 7<br>델타 회고</div>
+        <div class="pb-no">STEP 7<br>DELTA RETROSPECTIVE</div>
         <div>
-          <h3>산출물이 아니라 변화량을 회고합니다</h3>
-          <p>사이클 끝에 각자 시작 시점의 가설을 다시 꺼내, <b>그때의 이해와 지금 이해의 거리(델타)</b>를 측정합니다. 그리고 그 학습이 팀 챌린지를 어디까지 전진시켰는지도 함께 기록합니다 — 학습과 해결은 여기서 하나로 만납니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>시작의 나는 [이렇게 이해]했다.
-지금의 나는 [이렇게 이해]한다.
-델타(Δ): [무엇이 갱신되었나]
-해결에 기여한 것: [이 학습이 팀 챌린지를
-어디까지 전진시켰나]</pre></div>
-          <span class="pb-tip warn">채점되는 것은 산출물이 아니라 델타 — 결과물이 어설퍼도 델타가 크면 성공입니다</span>
+          <h3>Retrospect on the change, not the deliverable</h3>
+          <p>At the end of the cycle, each person takes out their starting hypothesis and measures <b>the distance (the delta) between the understanding they had then and the understanding they have now</b>. Record, too, how far that learning advanced the team challenge — learning and solving become one right here.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>At the start, I understood [this].
+Now I understand [this].
+Delta (Δ): [what was updated]
+Contribution to solving: [how far this learning
+advanced the team challenge]</pre></div>
+          <span class="pb-tip warn">What gets graded is the delta, not the deliverable — a clumsy result with a big delta is a success</span>
         </div>
       </div>
       <div class="pb-step">
-        <div class="pb-no">STEP 8<br>다음 사이클</div>
+        <div class="pb-no">STEP 8<br>NEXT CYCLE</div>
         <div>
-          <h3>갱신된 이해로 다음 가설을 세웁니다</h3>
-          <p>회고에서 갱신된 이해가 다음 사이클의 출발점입니다. 다음 리프는 <b>더 모르는 것</b>으로 고르고, 팀 층도 같은 리듬으로 돕니다 — 팀 가설의 기각은 실패가 아니라 피벗의 근거입니다. 루프는 멈추지 않습니다.</p>
-          <div class="pb-tmpl"><button class="pb-copy">복사</button><pre>다음 리프: [이번보다 더 모르는 것]
-다음 가설: [갱신된 이해로 다시 쓴다]
-팀 층 반영: [기각된 팀 가설이 있다면 → 피벗 방향]</pre></div>
-          <span class="pb-tip">깨지지 않은 가설 = 너무 안전했다는 신호. 다음 리프는 더 모르는 것으로.</span>
+          <h3>Form the next hypothesis with your updated understanding</h3>
+          <p>The understanding updated in the retrospective is the starting point of the next cycle. Pick the next leaf as <b>something you know even less about</b>, and the team layer turns on the same rhythm — the rejection of a team hypothesis is not a failure but grounds for a pivot. The loop never stops.</p>
+          <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Next leaf: [something I know even less about than this time]
+Next hypothesis: [rewritten with my updated understanding]
+Team-layer update: [if a team hypothesis was rejected → pivot direction]</pre></div>
+          <span class="pb-tip">An unbroken hypothesis = a sign it was too safe. Pick the next leaf from what you know even less.</span>
         </div>
       </div>
     </div>
 
     <div class="mentor-box" id="mentor">
       <div class="m-tag">MENTOR · FACILITATOR</div>
-      <h3>멘토는 가르치지 않습니다 — 질문합니다</h3>
-      <p class="m-intro">멘토·퍼실리테이터는 지식을 전달하는 사람도, 챌린지를 검사하는 사람도 아닙니다. 구조가 잘 돌아가는지 살피는 <b>인프라 관리자</b>이자, 필요한 순간에 <b>질문 하나를 던지는 사람</b>입니다. 답은 주지 않습니다 — 답을 찾는 과정이 학습자의 사이클이기 때문입니다. 아래 질문들은 멘토의 전유물이 아닙니다. <b>멘토가 없어도 팀원끼리 서로 던지기만 하면</b> 프레임워크가 굴러갑니다.</p>
+      <h3>Mentors don't teach — they ask</h3>
+      <p class="m-intro">A mentor or facilitator is neither someone who delivers knowledge nor someone who inspects challenges. They are an <b>infrastructure manager</b> who watches whether the structure runs well, and <b>someone who throws in a single question</b> at the right moment. They give no answers — because finding the answer is the learner's cycle. The questions below are not the mentor's monopoly. <b>Even without a mentor, as long as teammates ask them of each other</b>, the framework keeps running.</p>
 
       <div class="q-group">
-        <div class="qg-k">리프를 고를 때</div>
+        <div class="qg-k">WHEN PICKING A LEAF</div>
         <ul class="q-list">
-          <li class="q-item">그거, 지금도 할 수 있는 거 아니야? 못한다는 근거가 뭐야?</li>
-          <li class="q-item">그 리프에서 궁극 챌린지까지 가는 길을 말로 설명해 줄래?</li>
+          <li class="q-item">Couldn't you already do that? What's your evidence that you can't?</li>
+          <li class="q-item">Can you walk me through the path from that leaf to the ultimate challenge?</li>
         </ul>
       </div>
       <div class="q-group">
-        <div class="qg-k">가설을 세울 때</div>
+        <div class="qg-k">WHEN FORMING A HYPOTHESIS</div>
         <ul class="q-list">
-          <li class="q-item sig"><b>이 가설이 깨지면, 너는 뭘 알게 되는데?</b></li>
-          <li class="q-item">검색하거나 배우기 전에 쓴 가설 맞아?</li>
-          <li class="q-item">그 검증 행동, 1~2주 안에 실제로 해볼 수 있어?</li>
+          <li class="q-item sig"><b>If this hypothesis breaks, what will you learn?</b></li>
+          <li class="q-item">Did you write this hypothesis before searching or studying?</li>
+          <li class="q-item">That verification action — can you actually try it within 1–2 weeks?</li>
         </ul>
       </div>
       <div class="q-group">
-        <div class="qg-k">탐구하는 중에</div>
+        <div class="qg-k">DURING INVESTIGATION</div>
         <ul class="q-list">
-          <li class="q-item">요즘 예상과 다르게 흘러간 순간 있었어? 어디에 기록했어?</li>
-          <li class="q-item">가설이 아직 하나도 안 깨졌다면 — 너무 안전하게 세운 건 아닐까?</li>
+          <li class="q-item">Any moment recently where things went differently than you expected? Where did you record it?</li>
+          <li class="q-item">If none of your hypotheses have broken yet — could it be you set them too safe?</li>
         </ul>
       </div>
       <div class="q-group">
-        <div class="qg-k">사이클을 닫을 때</div>
+        <div class="qg-k">WHEN CLOSING A CYCLE</div>
         <ul class="q-list">
-          <li class="q-item">사이클 시작 때의 너라면, 지금 이걸 뭐라고 설명했을까?</li>
-          <li class="q-item">이번에 배운 게 팀 챌린지를 어디까지 전진시켰어?</li>
-          <li class="q-item">갱신된 이해로 세울 다음 가설은 뭐야?</li>
+          <li class="q-item">How would the you from the start of this cycle have explained this?</li>
+          <li class="q-item">How far did what you learned this time advance the team challenge?</li>
+          <li class="q-item">What's the next hypothesis you'll form with your updated understanding?</li>
         </ul>
       </div>
     </div>
@@ -631,22 +647,22 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <section class="tmpl-section" id="template" data-page="template">
   <div class="wrap">
     <div class="eyebrow">Hypothesis Template</div>
-    <h2>가설 문장 템플릿</h2>
-    <p class="lede">형식이 곧 필터입니다. 검증 불가능한 가설은 이 문장을 완성할 수 없습니다.</p>
+    <h2>The Hypothesis Sentence Template</h2>
+    <p class="lede">The form is the filter. An unverifiable hypothesis cannot complete this sentence.</p>
 
     <div class="tmpl-box">
-      <div class="t-label">TEMPLATE · 복사해서 바로 사용하세요</div>
-      <pre id="tmplText">나는 지금 <span class="slot">[대상 X]</span>를
-<span class="slot">[이렇게 이해/예상]</span>한다.
+      <div class="t-label">TEMPLATE · Copy and use as is</div>
+      <pre id="tmplText">Right now I understand <span class="slot">[subject X]</span>
+as <span class="slot">[this understanding/expectation]</span>.
 
-<span class="slot">[검증 행동 Y]</span>를 해보면
-이 이해가 맞는지 드러날 것이다.
+Trying <span class="slot">[verification action Y]</span> will reveal
+whether this understanding holds.
 
-이 가설이 깨지면 나는
-<span class="slot">[알게 될 것]</span>을 알게 된다.</pre>
-      <button class="copy-btn" id="copyBtn">복사</button>
+If this hypothesis breaks, I will
+learn <span class="slot">[what I will come to know]</span>.</pre>
+      <button class="copy-btn" id="copyBtn">Copy</button>
     </div>
-    <p class="tmpl-note">마지막 줄이 동료 검증 질문의 답입니다. 이 줄을 미리 써 두면 <b>“깨지면 뭘 알게 되는데?”</b>에 바로 답할 수 있고, 쓰지 못하면 가설이 아직 준비되지 않은 것입니다.</p>
+    <p class="tmpl-note">The last line is the answer to the peer-verification question. Write it in advance and you can answer <b>"If it breaks, what will you learn?"</b> on the spot; if you can't write it, the hypothesis isn't ready yet.</p>
   </div>
 </section>
 
@@ -654,31 +670,31 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <section id="faq" data-page="faq">
   <div class="wrap">
     <div class="eyebrow">FAQ</div>
-    <h2>자주 받는 질문</h2>
+    <h2>Frequently Asked Questions</h2>
     <div class="faq-list">
       <details class="faq">
-        <summary>산출물의 질이 떨어져도 정말 괜찮습니까?</summary>
-        <div class="a">괜찮은 정도가 아니라 설계의 일부입니다. HypoLoop에서 채점되는 것은 산출물이 아니라 <b>학습 델타</b>이기 때문입니다. 다만 문제 자체는 진짜여야 하고 시도도 진짜여야 합니다 — 진정성은 계층 트리가 지켜줍니다. 모든 작은 챌린지가 궁극의 진짜 문제와 혈통으로 연결되어 있는 한, 어설픈 결과물도 발판이지 장난감이 아닙니다.</div>
+        <summary>Is it really okay for the quality of the deliverable to drop?</summary>
+        <div class="a">More than okay — it is part of the design. In HypoLoop, what gets graded is the <b>learning delta</b>, not the deliverable. That said, the problem itself must be real and the attempt must be real — and that authenticity is safeguarded by the hierarchy tree. As long as every small challenge is connected by lineage to the ultimate real problem, even a clumsy result is a stepping stone, not a toy.</div>
       </details>
       <details class="faq">
-        <summary>숙련된 전문가는 이 프레임워크에서 무엇을 배웁니까?</summary>
-        <div class="a">규칙은 동일합니다 — 못하는 것을 고른다. 다만 전문가의 “못하는 것”은 기초 기술이 아니라 <b>자신의 전문성을 증폭시킬 인접 영역</b>입니다. 10년 차 개발자라면 더 나은 결과물을 위해 필요한 디자인 감각이나 시장의 도메인 지식이 리프가 됩니다. 잘하는 것을 더 잘하기 위한 주변 지식의 습득이 전문가의 챌린지입니다.</div>
+        <summary>What does a seasoned expert learn in this framework?</summary>
+        <div class="a">The rule is identical — pick what you can't do. For an expert, though, "what you can't do" is not a foundational skill but an <b>adjacent area that amplifies their expertise</b>. For a ten-year developer, the leaf might be the design sense or the market's domain knowledge needed for a better result. Acquiring the surrounding knowledge that makes what you do well even better — that is the expert's challenge.</div>
       </details>
       <details class="faq">
-        <summary>멘토나 퍼실리테이터가 없어도 운영할 수 있습니까?</summary>
-        <div class="a">그것이 목표입니다. 트리 분해가 관련성과 난이도를, 가설 템플릿이 검증 가능성을, 동료 검증 리추얼이 품질을 담당합니다. 멘토가 있다면 그 역할은 개입이 아니라 <b>이 구조물이 잘 돌아가는지 살피는 인프라 관리</b>입니다. 스터디나 소규모 팀이라면 멘토 없이 동료 검증만으로 시작할 수 있습니다.</div>
+        <summary>Can it run without a mentor or facilitator?</summary>
+        <div class="a">That is the goal. Tree decomposition handles relevance and difficulty, the hypothesis template handles verifiability, and the peer-verification ritual handles quality. If there is a mentor, their role is not intervention but <b>infrastructure management — watching whether this structure runs well</b>. A study group or a small team can start with peer verification alone, no mentor required.</div>
       </details>
       <details class="faq">
-        <summary>팀 결과물과 개인 학습이 충돌하면 어떻게 합니까?</summary>
-        <div class="a">개인 학습이 우선합니다. 이것은 예외 규정이 아니라 프레임워크의 정체성입니다 — HypoLoop은 문제 해결의 프레임워크가 아니라 학습의 프레임워크이고, 학습은 결국 개인에게 일어나야 하기 때문입니다. 이 원칙 덕분에 낯선 파트를 맡는 행동이 민폐가 아니라 <b>올바른 사용법</b>이 됩니다.</div>
+        <summary>What happens when the team's output and individual learning collide?</summary>
+        <div class="a">Individual learning wins. This is not an exception clause but the framework's identity — HypoLoop is a framework for learning, not for problem-solving, and learning must ultimately happen in an individual. Thanks to this principle, taking on an unfamiliar part is not an imposition on the team but <b>the correct way to use the framework</b>.</div>
       </details>
       <details class="faq">
-        <summary>혼자서도 쓸 수 있습니까?</summary>
-        <div class="a">가능합니다. 팀 층을 “내가 만들고 싶은 진짜 결과물”로 두고, 그것을 계층 트리로 분해한 뒤 리프마다 가설 사이클을 돌리면 됩니다. 동료 검증은 스터디 파트너나 커뮤니티, 또는 미래의 자신에게 남기는 기록으로 대체할 수 있습니다. 핵심 — <b>배우기 전에 가설부터 쓴다</b> — 은 혼자일 때도 동일하게 작동합니다.</div>
+        <summary>Can I use it on my own?</summary>
+        <div class="a">Yes. Set the team layer as "the real thing I want to build," decompose it into a hierarchy tree, and run a hypothesis cycle on each leaf. Peer verification can be replaced by a study partner, a community, or a record you leave for your future self. The core — <b>write the hypothesis before you learn</b> — works exactly the same when you're alone.</div>
       </details>
       <details class="faq">
-        <summary>기존 챌린지 기반 방법론과 함께 쓸 수 있습니까?</summary>
-        <div class="a">HypoLoop은 특정 방법론의 개선판이 아닌 독립 프레임워크지만, 챌린지가 주는 동기 에너지를 계승하므로 챌린지 기반 커리큘럼 위에 <b>개인 학습 층을 얹는 방식</b>으로 결합할 수 있습니다. 기존 팀 챌린지를 궁극 챌린지로 두고, 트리 분해와 개인 가설 사이클을 추가하는 것부터 시작해 보세요.</div>
+        <summary>Can it be combined with existing challenge-based methodologies?</summary>
+        <div class="a">HypoLoop is an independent framework, not an upgrade of any particular methodology, but it inherits the motivational energy that challenges provide, so it can be combined with a challenge-based curriculum by <b>layering an individual learning layer on top</b>. Start by setting your existing team challenge as the ultimate challenge, then adding tree decomposition and individual hypothesis cycles.</div>
       </details>
     </div>
   </div>
@@ -687,24 +703,24 @@ footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',mono
 <!-- FINAL CTA -->
 <section class="final" data-page="home">
   <div class="wrap">
-    <h2>다음 프로젝트에서<br>첫 가설을 세워 보세요</h2>
-    <p>필요한 것은 진짜 문제 하나, 트리 한 장, 그리고 틀릴 준비가 된 가설 하나입니다.</p>
+    <h2>Form your first hypothesis<br>in your next project</h2>
+    <p>All you need is one real problem, one tree, and one hypothesis that is ready to be wrong.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="#playbook">운영 가이드 다시 보기</a>
-      <a class="btn btn-ghost" href="#template">템플릿 복사하기</a>
+      <a class="btn btn-primary" href="#playbook">Back to the Playbook</a>
+      <a class="btn btn-ghost" href="#template">Copy the Template</a>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div class="f-mark">Hypo<span>Loop</span> · 가설순환학습</div>
+    <div class="f-mark">Hypo<span>Loop</span> · Hypothesis-Cycle Learning</div>
     <p>failure is not permitted — it is required</p>
   </div>
 </footer>
 
 <script>
-/* PAGE ROUTER — 탭 클릭 시 스크롤 대신 페이지 전환 */
+/* PAGE ROUTER — switch pages instead of scrolling when a tab is clicked */
 const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',faq:'faq'};
 function route(){
   const hash=location.hash.replace('#','');
@@ -734,15 +750,20 @@ async function copyText(text){
 }
 const copyBtn=document.getElementById('copyBtn');
 copyBtn.addEventListener('click',async()=>{
-  await copyText(`나는 지금 [대상 X]를\n[이렇게 이해/예상]한다.\n\n[검증 행동 Y]를 해보면\n이 이해가 맞는지 드러날 것이다.\n\n이 가설이 깨지면 나는\n[알게 될 것]을 알게 된다.`);
-  copyBtn.textContent='복사됨 ✓';
-  setTimeout(()=>copyBtn.textContent='복사',2000);
+  await copyText(`Right now I understand [subject X]\nas [this understanding/expectation].\n\nTrying [verification action Y] will reveal\nwhether this understanding holds.\n\nIf this hypothesis breaks, I will\nlearn [what I will come to know].`);
+  copyBtn.textContent='Copied ✓';
+  setTimeout(()=>copyBtn.textContent='Copy',2000);
 });
 document.querySelectorAll('.pb-copy').forEach(btn=>{
   btn.addEventListener('click',async()=>{
     await copyText(btn.parentElement.querySelector('pre').innerText);
-    btn.textContent='복사됨 ✓';
-    setTimeout(()=>btn.textContent='복사',2000);
+    btn.textContent='Copied ✓';
+    setTimeout(()=>btn.textContent='Copy',2000);
+  });
+});
+document.querySelectorAll('.lang-switch a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    if(location.hash)a.href=a.getAttribute('href').split('#')[0]+location.hash;
   });
 });
 </script>

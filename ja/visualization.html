@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HypoLoop — 仮説循環学習</title>
+<link rel="alternate" hreflang="ko" href="https://m1zz.github.io/HypoLoop/ko/visualization.html">
+<link rel="alternate" hreflang="en" href="https://m1zz.github.io/HypoLoop/visualization.html">
+<link rel="alternate" hreflang="ja" href="https://m1zz.github.io/HypoLoop/ja/visualization.html">
+<link rel="alternate" hreflang="zh" href="https://m1zz.github.io/HypoLoop/zh/visualization.html">
+<link rel="alternate" hreflang="x-default" href="https://m1zz.github.io/HypoLoop/visualization.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F7F3;
+  --grid:rgba(20,50,38,.055);
+  --ink:#132B1F;
+  --ink-soft:#3D5A4C;
+  --loop:#1E6E5C;
+  --loop-soft:#DCEAE4;
+  --break:#E4572E;
+  --break-soft:#FBE9E1;
+  --line:rgba(19,43,31,.16);
+  --card:#FDFEFC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans JP','Hiragino Sans',-apple-system,sans-serif;
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);
+  line-height:1.75;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.serif{font-family:'Noto Serif JP',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px}
+section{padding:96px 0}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;letter-spacing:.18em;color:var(--loop);
+  text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:"";display:inline-block;width:26px;height:1px;background:var(--loop)}
+h2{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(26px,4.2vw,38px);line-height:1.35;margin-bottom:20px;letter-spacing:-.01em}
+.lede{font-size:clamp(16px,2.2vw,18.5px);color:var(--ink-soft);max-width:640px}
+.lede strong{color:var(--ink)}
+
+/* ---------- LANG SWITCH ---------- */
+.lang-switch{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:2px;align-items:center;background:rgba(253,254,252,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:100px;padding:3px}
+.lang-switch a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-decoration:none;padding:4px 9px;border-radius:100px;line-height:1.4;white-space:nowrap}
+.lang-switch a:hover{color:var(--loop)}
+.lang-switch a.on{background:var(--ink);color:#fff}
+@media(max-width:680px){.lang-switch a{padding:4px 7px;font-size:10px}}
+
+/* ---------- HERO ---------- */
+.hero{min-height:92vh;display:flex;align-items:center;padding:60px 0 40px;position:relative;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;width:100%}
+.hero h1{font-family:'Noto Serif JP',serif;font-weight:900;font-size:clamp(46px,7.5vw,84px);line-height:1.12;letter-spacing:-.02em}
+.hero h1 .hl{color:var(--loop)}
+.hero .sub{margin-top:26px;font-size:clamp(16px,2.4vw,19px);color:var(--ink-soft);max-width:480px}
+.hero .sub b{color:var(--ink)}
+.hero .tagline{
+  margin-top:34px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--loop);
+  display:inline-flex;align-items:center;gap:10px;padding:10px 16px;
+  border:1px solid var(--loop);border-radius:100px;background:rgba(255,255,255,.6);
+}
+.hero-loop{display:flex;justify-content:center}
+.hero-loop svg{width:min(340px,80vw);height:auto;overflow:visible}
+.orbit{fill:none;stroke:var(--loop);stroke-width:2.5}
+.orbit.draw{stroke-dasharray:1000;stroke-dashoffset:1000;animation:draw 2.4s ease forwards .3s}
+.orbit-inner{fill:none;stroke:var(--loop);stroke-width:1.6;stroke-dasharray:5 6;opacity:.65;animation:spin 40s linear infinite;transform-origin:center}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.node-dot{fill:var(--paper);stroke:var(--loop);stroke-width:2.5}
+.node-dot.crack{stroke:var(--break);fill:var(--break-soft)}
+.node-label{font-family:'Noto Serif JP',serif;font-weight:700;font-size:15px;fill:var(--ink)}
+.node-en{font-family:'IBM Plex Mono',monospace;font-size:9.5px;fill:var(--ink-soft);letter-spacing:.08em}
+.center-label{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:var(--ink-soft);letter-spacing:.14em}
+
+/* ---------- ORIGIN (CBLへの問題意識) ---------- */
+.origin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.origin-card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px;
+  position:relative;
+}
+.origin-card .num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--break);letter-spacing:.14em;margin-bottom:12px}
+.origin-card h3{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;margin-bottom:10px;line-height:1.4}
+.origin-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.7}
+.origin-note{
+  margin-top:34px;padding:22px 26px;border-left:3px solid var(--loop);
+  background:rgba(255,255,255,.55);font-size:15.5px;color:var(--ink-soft);border-radius:0 12px 12px 0;
+}
+.origin-note b{color:var(--ink)}
+
+/* ---------- DERIVATION TIMELINE ---------- */
+.timeline{margin-top:52px;position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.step{position:relative;padding-bottom:44px;opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.step.on{opacity:1;transform:none}
+.step:last-child{padding-bottom:0}
+.step::before{
+  content:"";position:absolute;left:-32px;top:7px;width:14px;height:14px;border-radius:50%;
+  background:var(--paper);border:2.5px solid var(--loop);
+}
+.step.pivot::before{border-color:var(--break);background:var(--break-soft)}
+.step .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:6px}
+.step.pivot .k{color:var(--break)}
+.step h3{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.step p{font-size:15px;color:var(--ink-soft);max-width:600px}
+.step p b{color:var(--ink)}
+
+/* ---------- CYCLE (interactive) ---------- */
+.cycle-area{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:48px;align-items:center}
+.cycle-svg-wrap{display:flex;justify-content:center}
+.cycle-svg-wrap svg{width:min(380px,88vw);height:auto;overflow:visible}
+.phase{cursor:pointer}
+.phase circle{fill:var(--card);stroke:var(--loop);stroke-width:2;transition:all .25s ease}
+.phase text{pointer-events:none}
+.phase .p-ko{font-family:'Noto Serif JP',serif;font-weight:700;font-size:16px;fill:var(--ink)}
+.phase .p-en{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink-soft);letter-spacing:.1em}
+.phase:hover circle{fill:var(--loop-soft)}
+.phase.active circle{fill:var(--loop);stroke:var(--loop)}
+.phase.active .p-ko{fill:#fff}
+.phase.active .p-en{fill:rgba(255,255,255,.75)}
+.phase.break-phase.active circle{fill:var(--break);stroke:var(--break)}
+.cycle-arrow{fill:none;stroke:var(--ink-soft);stroke-width:1.6;marker-end:url(#arr)}
+.crack-mark{stroke:var(--break);stroke-width:2.4;fill:none}
+.phase-panel{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;min-height:280px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.phase-panel .p-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;margin-bottom:12px;color:var(--loop)}
+.phase-panel.is-break .p-tag{color:var(--break)}
+.phase-panel h3{font-family:'Noto Serif JP',serif;font-size:23px;font-weight:900;margin-bottom:14px}
+.phase-panel p{font-size:15px;color:var(--ink-soft);margin-bottom:12px}
+.phase-panel p b{color:var(--ink)}
+.phase-panel .tmpl{
+  margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.8;
+  background:var(--loop-soft);border-radius:10px;padding:14px 16px;color:var(--ink);
+}
+.phase-panel.is-break .tmpl{background:var(--break-soft)}
+.cycle-hint{margin-top:14px;font-size:13px;color:var(--ink-soft);text-align:center;font-family:'IBM Plex Mono',monospace}
+
+/* ---------- FRACTAL ---------- */
+.fractal-wrap{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-top:48px}
+.fractal-svg{display:flex;justify-content:center}
+.fractal-svg svg{width:min(400px,88vw);height:auto;overflow:visible}
+.f-team{fill:none;stroke:var(--loop);stroke-width:2.5}
+.f-ind{fill:rgba(255,255,255,.7);stroke:var(--loop);stroke-width:1.5}
+.f-ind-cycle{fill:none;stroke:var(--loop);stroke-width:1.2;stroke-dasharray:3 4;opacity:.7}
+.f-label{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:var(--ink-soft);letter-spacing:.1em}
+.f-name{font-family:'Noto Serif JP',serif;font-weight:700;font-size:12px;fill:var(--ink)}
+.fractal-text h3{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:900;margin-bottom:14px;line-height:1.4}
+.fractal-text p{font-size:15px;color:var(--ink-soft);margin-bottom:14px}
+.fractal-text p b{color:var(--ink)}
+.rule-chip{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:8px;margin-top:6px;
+}
+
+/* ---------- LAYER COMPARE ---------- */
+.lc-head{
+  display:grid;grid-template-columns:1fr 112px 1fr;gap:16px;margin-top:48px;align-items:end;
+}
+.lc-head .lc-side{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--ink-soft);
+  padding-bottom:10px;border-bottom:2px solid var(--line);
+}
+.lc-head .lc-side b{display:block;font-family:'Noto Serif JP',serif;font-size:19px;font-weight:900;color:var(--ink);letter-spacing:0;margin-top:4px}
+.lc-head .team-h{text-align:right}
+.lc-head .team-h b{color:var(--loop)}
+.lc-head .ind-h b{color:var(--break)}
+.lc-head .lc-mid{padding-bottom:10px}
+.lc-row{
+  display:grid;grid-template-columns:1fr 112px 1fr;gap:16px;padding:26px 0;border-bottom:1px solid var(--line);
+}
+.lc-row:last-of-type{border-bottom:none}
+.lc-cell{font-size:14px;color:var(--ink-soft);line-height:1.7}
+.lc-cell b{color:var(--ink)}
+.lc-cell.team{text-align:right}
+.lc-cell .lc-q{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:10px;
+  padding:8px 12px;border-radius:8px;line-height:1.7;text-align:left;
+}
+.lc-cell.team .lc-q{background:var(--loop-soft);color:var(--loop)}
+.lc-cell.ind .lc-q{background:var(--break-soft);color:var(--break)}
+.lc-spine{
+  display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;
+}
+.lc-spine::before,.lc-spine::after{content:"";width:1.5px;flex:1;background:var(--line)}
+.lc-spine .lc-badge{
+  font-family:'Noto Serif JP',serif;font-weight:700;font-size:14px;color:var(--ink);
+  background:var(--card);border:1.5px solid var(--ink);border-radius:100px;padding:7px 16px;white-space:nowrap;
+}
+.lc-spine .lc-en{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--ink-soft)}
+.lc-conflict{
+  margin-top:34px;background:var(--ink);color:var(--paper);border-radius:14px;padding:26px 30px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.lc-conflict .lc-c-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8FD3BE;flex-shrink:0}
+.lc-conflict p{font-size:15px;line-height:1.7;flex:1;min-width:240px}
+.lc-conflict b{color:#8FD3BE}
+@media(max-width:760px){
+  .lc-head{grid-template-columns:1fr;gap:0}
+  .lc-head .lc-mid{display:none}
+  .lc-head .team-h{text-align:left}
+  .lc-head .ind-h{display:none}
+  .lc-row{grid-template-columns:1fr;gap:14px;padding:22px 0}
+  .lc-cell.team{text-align:left;padding-left:14px;border-left:3px solid var(--loop)}
+  .lc-cell.ind{padding-left:14px;border-left:3px solid var(--break)}
+  .lc-cell.team::before{content:"チーム層";display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--loop);margin-bottom:4px}
+  .lc-cell.ind::before{content:"個人層";display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--break);margin-bottom:4px}
+  .lc-spine{flex-direction:row;justify-content:flex-start}
+  .lc-spine::before,.lc-spine::after{display:none}
+}
+
+/* ---------- TREE (signature) ---------- */
+.tree-section{background:var(--ink);color:var(--paper);border-radius:0}
+.tree-section .eyebrow{color:#8FD3BE}
+.tree-section .eyebrow::before{background:#8FD3BE}
+.tree-section h2{color:#fff}
+.tree-section .lede{color:rgba(244,247,243,.75)}
+.tree-section .lede strong{color:#fff}
+.tree-stage{margin-top:48px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:34px 20px 26px}
+.tree-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tree-scroll svg{width:100%;height:auto;overflow:visible;display:block}
+.tree-scroll-hint{display:none;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;color:rgba(244,247,243,.55);margin-bottom:12px}
+.t-edge{fill:none;stroke:rgba(244,247,243,.28);stroke-width:1.6;transition:all .35s ease}
+.t-edge.lit{stroke:#8FD3BE;stroke-width:3}
+.t-node{cursor:pointer}
+.t-node rect{fill:rgba(255,255,255,.06);stroke:rgba(244,247,243,.35);stroke-width:1.3;rx:9;transition:all .3s ease}
+.t-node text{font-family:'Noto Sans JP','Hiragino Sans',-apple-system,sans-serif;font-size:12px;fill:rgba(244,247,243,.85);pointer-events:none;transition:fill .3s ease}
+.t-node.root rect{stroke:#8FD3BE;stroke-width:2;fill:rgba(143,211,190,.1)}
+.t-node.root text{font-family:'Noto Serif JP',serif;font-weight:700;font-size:13.5px;fill:#fff}
+.t-node.lit rect{fill:#8FD3BE;stroke:#8FD3BE}
+.t-node.lit text{fill:var(--ink);font-weight:600}
+.t-node:hover rect{stroke:#8FD3BE}
+.lineage-readout{
+  margin-top:22px;min-height:64px;border-radius:12px;padding:16px 20px;
+  background:rgba(143,211,190,.08);border:1px dashed rgba(143,211,190,.4);
+  font-size:14px;line-height:1.8;color:rgba(244,247,243,.85);
+}
+.lineage-readout .path{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#8FD3BE;display:block;margin-bottom:6px;word-break:keep-all}
+.lineage-readout b{color:#fff}
+.tree-punch{
+  margin-top:36px;text-align:center;font-family:'Noto Serif JP',serif;font-weight:700;
+  font-size:clamp(18px,3vw,23px);line-height:1.6;color:#fff;
+}
+.tree-punch .hl2{color:#8FD3BE}
+
+/* ---------- DEVICES ---------- */
+.dev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.dev-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px}
+.dev-card.full{grid-column:1/-1}
+.dev-card .d-num{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--loop);letter-spacing:.16em;margin-bottom:12px}
+.dev-card h3{font-family:'Noto Serif JP',serif;font-size:19px;font-weight:700;margin-bottom:10px}
+.dev-card p{font-size:14.5px;color:var(--ink-soft)}
+.dev-card p b{color:var(--ink)}
+.dev-card .quote{
+  margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  color:var(--loop);background:var(--loop-soft);padding:10px 14px;border-radius:8px;display:inline-block;
+}
+
+/* ---------- EXPERT ---------- */
+.expert-band{
+  margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:0;
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);
+}
+.expert-cell{padding:32px}
+.expert-cell + .expert-cell{border-left:1px solid var(--line)}
+.expert-cell .who{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:12px}
+.expert-cell h3{font-family:'Noto Serif JP',serif;font-size:19px;font-weight:700;margin-bottom:10px}
+.expert-cell p{font-size:14.5px;color:var(--ink-soft)}
+.expert-common{
+  grid-column:1/-1;border-top:1px solid var(--line);padding:20px 32px;text-align:center;
+  font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink);background:var(--loop-soft);
+}
+
+/* ---------- PRINCIPLES / FOOTER ---------- */
+.principles{border-top:1px solid var(--line)}
+.pr-list{margin-top:40px;counter-reset:pr}
+.pr-item{
+  display:flex;gap:22px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline;
+}
+.pr-item:last-child{border-bottom:none}
+.pr-item .no{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--loop);flex-shrink:0}
+.pr-item h3{font-family:'Noto Serif JP',serif;font-size:19px;font-weight:700;flex-shrink:0;min-width:190px}
+.pr-item p{font-size:14.5px;color:var(--ink-soft)}
+footer{padding:56px 0 72px;border-top:1px solid var(--line);text-align:center}
+footer .f-mark{font-family:'Noto Serif JP',serif;font-weight:900;font-size:20px;margin-bottom:8px}
+footer .f-mark span{color:var(--loop)}
+footer p{font-size:13px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
+
+@media (max-width:820px){
+  section{padding:72px 0}
+  .hero{min-height:auto;padding:72px 0 30px}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-loop{order:-1}
+  .origin-grid{grid-template-columns:1fr}
+  .cycle-area{grid-template-columns:1fr}
+  .fractal-wrap{grid-template-columns:1fr}
+  .dev-grid{grid-template-columns:1fr}
+  .expert-band{grid-template-columns:1fr}
+  .expert-cell + .expert-cell{border-left:none;border-top:1px solid var(--line)}
+  .pr-item{flex-direction:column;gap:6px}
+  .pr-item h3{min-width:0}
+}
+@media (max-width:680px){
+  section{padding:56px 0}
+  .hero{padding:56px 0 24px}
+  .origin-card,.dev-card{padding:22px 18px}
+  .expert-cell{padding:24px 20px}
+  .expert-common{padding:16px 20px}
+  .phase-panel{padding:24px 20px;min-height:0}
+  .lc-conflict{padding:20px 18px}
+  /* フラクタル図: viewBox縮小に合わせてラベルを拡大補正 */
+  .f-name{font-size:15px}
+  .f-label{font-size:12.5px}
+  /* 階層ツリー: 縮小すると文字が豆粒になるため、元のサイズを維持して横スクロール */
+  .tree-stage{padding:22px 14px 18px}
+  .tree-scroll svg{min-width:780px}
+  .tree-scroll-hint{display:block}
+  .lineage-readout{padding:14px 16px;font-size:13.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .step{opacity:1;transform:none}
+  .orbit.draw{stroke-dashoffset:0}
+}
+:focus-visible{outline:2px solid var(--break);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div class="lang-switch" aria-label="Language">
+  <a href="../ko/visualization.html" hreflang="ko" lang="ko">한국어</a>
+  <a href="../visualization.html" hreflang="en" lang="en">English</a>
+  <a class="on" href="visualization.html">日本語</a>
+  <a href="../zh/visualization.html" hreflang="zh" lang="zh">中文</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">A LEARNING FRAMEWORK</div>
+      <h1>Hypo<span class="hl">Loop</span><br>仮説循環学習</h1>
+      <p class="sub">問題解決のフレームワークではなく、<b>学習のフレームワーク</b>です。チャレンジではなく<b>仮説</b>が学習のエンジンとなり、失敗は許容されるものではなく<b>要求</b>されるものです。</p>
+      <div class="tagline">仮説 → 質問 → 探究 → 評価 → ふたたび仮説</div>
+    </div>
+    <div class="hero-loop">
+      <svg viewBox="0 0 320 320" aria-label="仮説・質問・探究・評価の循環">
+        <circle class="orbit draw" cx="160" cy="160" r="118"/>
+        <circle class="orbit-inner" cx="160" cy="160" r="86"/>
+        <text class="center-label" x="160" y="156" text-anchor="middle">HYPOLOOP</text>
+        <text class="center-label" x="160" y="172" text-anchor="middle">CYCLE</text>
+        <!-- 仮説 top -->
+        <circle class="node-dot" cx="160" cy="42" r="9"/>
+        <text class="node-label" x="160" y="20" text-anchor="middle">仮説</text>
+        <!-- 質問 right -->
+        <circle class="node-dot" cx="278" cy="160" r="9"/>
+        <text class="node-label" x="278" y="196" text-anchor="middle">質問</text>
+        <!-- 探究 bottom (break point) -->
+        <circle class="node-dot crack" cx="160" cy="278" r="9"/>
+        <path class="crack-mark" d="M154 272 L160 279 L157 283"/>
+        <text class="node-label" x="160" y="312" text-anchor="middle">探究</text>
+        <!-- 評価 left -->
+        <circle class="node-dot" cx="42" cy="160" r="9"/>
+        <text class="node-label" x="42" y="196" text-anchor="middle">評価</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ORIGIN ============ -->
+<section id="origin">
+  <div class="wrap">
+    <div class="eyebrow">出発点 — 一つの問題意識</div>
+    <h2>「価値ある問題を解けば、<br>学びは自然についてくる」という信念</h2>
+    <p class="lede">チャレンジ基盤学習(CBL)を現場で長く運用する中で直面した問いから、このフレームワークは始まりました。チームが世界の問題に向かって走るとき、<strong>個人の学びは本当に起きているのか?</strong></p>
+
+    <div class="origin-grid">
+      <div class="origin-card">
+        <div class="num">問題意識 01</div>
+        <h3>偶発的な学びへの過信</h3>
+        <p>チームチャレンジの最適化対象は問題解決であって、個人の学習ではありません。学びは意図された目標ではなく、問題を解くうちに得られる副産物へと追いやられます。</p>
+      </div>
+      <div class="origin-card">
+        <div class="num">問題意識 02</div>
+        <h3>チームのZPD ≠ 個人のZPD</h3>
+        <p>チーム全体にとって適切な難易度でも、個人単位で見れば、ある人には易しすぎ、ある人には難しすぎます。一つのチャレンジでN人の学習条件を同時に満たすことはできません。</p>
+      </div>
+      <div class="origin-card">
+        <div class="num">問題意識 03</div>
+        <h3>役割の固定化</h3>
+        <p>チームが合理的に動くほど、各自がすでに得意な仕事を担うようになります。成果物の質は上がっても、個人の学習曲線は平らなままです。</p>
+      </div>
+    </div>
+
+    <div class="origin-note">
+      HypoLoopはCBLの改良版ではありません。チャレンジがもたらす動機のエネルギー — 本物の問題、個人の興味と関連性 — は継承しつつ、<b>学びが偶発ではなく意図になるように</b>ゼロから設計し直した独立フレームワークです。学習を先に立てる理由は明快です — 今の実力で解ける問題だけを解いていては実力は横ばいのままで、実力が横ばいなら究極の難問は永遠に解けません。<b>小さなチャレンジを学びながら解決能力そのものを育てて上っていくこと</b>が、本物の問題に到達する唯一の道です。
+    </div>
+  </div>
+</section>
+
+<!-- ============ DERIVATION ============ -->
+<section id="derivation">
+  <div class="wrap">
+    <div class="eyebrow">導出プロセス</div>
+    <h2>八つの決定によって、<br>フレームワークが築かれました</h2>
+    <p class="lede">問題意識から出発し、原則、構造、装置が順に確定していったプロセスです。各ステップは、前のステップが残した問いへの答えです。</p>
+
+    <div class="timeline">
+      <div class="step pivot">
+        <div class="k">DECISION 01 — アイデンティティ</div>
+        <h3>これは学習のフレームワークである</h3>
+        <p>チームの成果物は学びの手段であって、目的ではありません。チームの効率と個人の学習が衝突したら、<b>個人の学習が優先</b>します。この宣言一つで役割の固定化がほどけます — 専門家が不慣れなパートを担うことが、迷惑ではなく正しい使い方になります。</p>
+      </div>
+      <div class="step">
+        <div class="k">DECISION 02 — 二重の目標</div>
+        <h3>個人チャレンジをチームチャレンジの中に入れ子にする</h3>
+        <p>チームチャレンジは世界の問題へ向かい、個人チャレンジは自分の学びへ向かいます。二つは分離されず、入れ子になります — 「このチームの問題を解く過程で、私は意図的にXを学ぶ。」偶発的な学びが<b>意図的な学び</b>に変わります。</p>
+      </div>
+      <div class="step pivot">
+        <div class="k">DECISION 03 — 環境</div>
+        <h3>失敗を許容するのではなく、要求する</h3>
+        <p>心理的安全性は前提条件にすぎません。HypoLoopは生産的失敗(productive failure)の上に立っています — 失敗は耐えるものではなく<b>学習の中核メカニズム</b>です。成果物の質の低下は公式に受け入れられます。</p>
+      </div>
+      <div class="step">
+        <div class="k">DECISION 04 — エンジン</div>
+        <h3>仮説が学習の単位である</h3>
+        <p>何の情報もない状態で漠然とした仮説を立て、検証可能な質問に分解し、答えを探しながら学び、仮説と比べた変化を評価します。仮説は予測なので<b>検証の瞬間がそのまま試験</b>になります — 試験が学習の終わりではなく、エンジンになります。</p>
+      </div>
+      <div class="step">
+        <div class="k">DECISION 05 — 構造</div>
+        <h3>二つの層が同じサイクルで回るフラクタル</h3>
+        <p>チームも「このソリューションが問題を解くはずだ」という仮説を立てて検証します。個人も自分の学習仮説を立てて検証します。<b>層は2つ、サイクルは1つ</b>です。</p>
+      </div>
+      <div class="step">
+        <div class="k">DECISION 06 — 装置</div>
+        <h3>メンターではなく、構造が支える</h3>
+        <p>学習者が良いチャレンジと仮説を自力で立てるのは難しい、という問題を、ファシリテーターの力量ではなく構造で解きます — 制約された選択、仮説文テンプレート、ピア検証のリチュアル。メンターは介入者ではなく<b>インフラ管理者</b>へと退きます。</p>
+      </div>
+      <div class="step">
+        <div class="k">DECISION 07 — 専門家</div>
+        <h3>熟練者も同じルールで学ぶ</h3>
+        <p>10年目の「できないこと」は、自分の専門性を増幅する隣接領域です — デザイン、ドメイン、市場。<b>「できないことを選ぶ」というルール一つ</b>が、初心者から専門家まで全区間をカバーします。</p>
+      </div>
+      <div class="step pivot">
+        <div class="k">DECISION 08 — 真正性</div>
+        <h3>つながりの可視性が冷笑に勝つ</h3>
+        <p>究極のチャレンジを階層的に分解し、挑戦可能なサイズまで小さくします。どんなに小さなチャレンジも、本物の問題と<b>血統でつながって</b>います。おもちゃか足場かを決めるのは、チャレンジのサイズではなくつながりの可視性です。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CYCLE ============ -->
+<section id="cycle">
+  <div class="wrap">
+    <div class="eyebrow">エンジン — 学習サイクル</div>
+    <h2>仮説から始まり、<br>仮説へ戻ってきます</h2>
+    <p class="lede">各フェーズをクリックして見てみましょう。サイクルは、チーム層と個人層で同じように回ります。</p>
+
+    <div class="cycle-area">
+      <div class="cycle-svg-wrap">
+        <svg viewBox="0 0 360 360" id="cycleSvg" aria-label="サイクル図">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#3D5A4C"/>
+            </marker>
+          </defs>
+          <path class="cycle-arrow" d="M 214 68 A 122 122 0 0 1 292 146"/>
+          <path class="cycle-arrow" d="M 292 214 A 122 122 0 0 1 214 292"/>
+          <path class="cycle-arrow" d="M 146 292 A 122 122 0 0 1 68 214"/>
+          <path class="cycle-arrow" d="M 68 146 A 122 122 0 0 1 146 68"/>
+
+          <g class="phase active" data-phase="0" tabindex="0" role="button" aria-label="仮説フェーズ">
+            <circle cx="180" cy="52" r="44"/>
+            <text class="p-ko" x="180" y="50" text-anchor="middle">仮説</text>
+            <text class="p-en" x="180" y="66" text-anchor="middle">HYPOTHESIZE</text>
+          </g>
+          <g class="phase" data-phase="1" tabindex="0" role="button" aria-label="質問フェーズ">
+            <circle cx="308" cy="180" r="44"/>
+            <text class="p-ko" x="308" y="178" text-anchor="middle">質問</text>
+            <text class="p-en" x="308" y="194" text-anchor="middle">QUESTION</text>
+          </g>
+          <g class="phase break-phase" data-phase="2" tabindex="0" role="button" aria-label="探究フェーズ">
+            <circle cx="180" cy="308" r="44"/>
+            <path class="crack-mark" d="M170 296 L180 308 L174 316"/>
+            <text class="p-ko" x="180" y="306" text-anchor="middle">探究</text>
+            <text class="p-en" x="180" y="322" text-anchor="middle">INVESTIGATE</text>
+          </g>
+          <g class="phase" data-phase="3" tabindex="0" role="button" aria-label="評価フェーズ">
+            <circle cx="52" cy="180" r="44"/>
+            <text class="p-ko" x="52" y="178" text-anchor="middle">評価</text>
+            <text class="p-en" x="52" y="194" text-anchor="middle">VERIFY</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="phase-panel" id="phasePanel">
+        <div class="p-tag" id="pTag">PHASE 1 · HYPOTHESIZE</div>
+        <h3 id="pTitle">仮説 — 「分からない」の地図を描く</h3>
+        <div id="pBody">
+          <p>情報のない状態で、<b>今の理解だけで</b>漠然とした仮説を立てます。学ぶ前にまず間違った答えを生成してみた学習者のほうが、深く学びます。事前の仮説は、以後に出会う情報が引っかかる認知のフックになります。</p>
+          <div class="tmpl">私は今[Xをこのように理解/予想]している。<br>[Yをやってみれば]この理解が正しいか分かるはずだ。</div>
+        </div>
+      </div>
+    </div>
+    <p class="cycle-hint">↻ 評価が終わったら、更新された理解で次の仮説を立てます — ループは止まりません</p>
+  </div>
+</section>
+
+<!-- ============ FRACTAL ============ -->
+<section id="fractal">
+  <div class="wrap">
+    <div class="eyebrow">構造 — フラクタル入れ子</div>
+    <h2>層は2つ、サイクルは1つ</h2>
+
+    <div class="fractal-wrap">
+      <div class="fractal-svg">
+        <svg viewBox="0 0 400 400" aria-label="チームサイクルの中に個人サイクルが入れ子になった構造">
+          <circle class="f-team" cx="200" cy="200" r="176"/>
+          <text class="f-label" x="200" y="36" text-anchor="middle">TEAM LAYER</text>
+          <text class="f-name" x="200" y="54" text-anchor="middle">チームチャレンジ — 世界の問題に向けた仮説</text>
+
+          <g>
+            <circle class="f-ind" cx="130" cy="170" r="58"/>
+            <circle class="f-ind-cycle" cx="130" cy="170" r="40"/>
+            <text class="f-name" x="130" y="166" text-anchor="middle">個人A</text>
+            <text class="f-label" x="130" y="182" text-anchor="middle">学習仮説</text>
+          </g>
+          <g>
+            <circle class="f-ind" cx="272" cy="170" r="58"/>
+            <circle class="f-ind-cycle" cx="272" cy="170" r="40"/>
+            <text class="f-name" x="272" y="166" text-anchor="middle">個人B</text>
+            <text class="f-label" x="272" y="182" text-anchor="middle">学習仮説</text>
+          </g>
+          <g>
+            <circle class="f-ind" cx="200" cy="292" r="58"/>
+            <circle class="f-ind-cycle" cx="200" cy="292" r="40"/>
+            <text class="f-name" x="200" y="288" text-anchor="middle">個人C</text>
+            <text class="f-label" x="200" y="304" text-anchor="middle">学習仮説</text>
+          </g>
+        </svg>
+      </div>
+      <div class="fractal-text">
+        <h3>チームチャレンジは世界へ、<br>個人チャレンジは自分へ向かいます</h3>
+        <p>個人チャレンジは、チームチャレンジから切り離された別課題ではなく、<b>その中に入れ子になった</b>学習仮説です。チームの問題を解くまさにその過程が、個人の検証実験場になります。</p>
+        <p>二つの層が衝突する瞬間 — 「自分が学ぶためにこのパートを担うと、チームの成果物が遅れる」 — に対する、フレームワークの答えは明確です。</p>
+        <span class="rule-chip">衝突時は、個人の学習が優先する</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LAYER COMPARE ============ -->
+<section id="layers">
+  <div class="wrap">
+    <div class="eyebrow">同じサイクル、異なる使われ方</div>
+    <h2>チーム層と個人層で、<br>サイクルはこう違って回ります</h2>
+    <p class="lede">エンジンは一つでも、燃料が違います。チーム層は<strong>世界の問題</strong>を、個人層は<strong>自分の理解</strong>を検証します。各フェーズが二つの層でどう働くか、見比べてみてください。</p>
+
+    <div class="lc-head">
+      <div class="lc-side team-h">TEAM LAYER<b>チーム層 — 世界に向けた仮説</b></div>
+      <div class="lc-mid"></div>
+      <div class="lc-side ind-h">INDIVIDUAL LAYER<b>個人層 — 自分に向けた仮説</b></div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        <b>世界がまだ解けていない本物の問題</b>がチャレンジです。究極チャレンジを宣言し、階層ツリーへ分解します。問題の真正性が、ツリー全体の真正性になります。
+      </div>
+      <div class="lc-spine"><span class="lc-badge">チャレンジ</span><span class="lc-en">CHALLENGE</span></div>
+      <div class="lc-cell ind">
+        <b>自分の学び</b>がチャレンジです。ツリーのリーフから「今できないこと」を選び、チームチャレンジの中に入れ子にします。初心者は基礎スキルを、熟練者は専門性を増幅する隣接領域を選びます。
+      </div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        ソリューションについての予測を立てます。チーム全体で共有する<b>一つの仮説</b>です。
+        <span class="lc-q">「このソリューションが<br>この問題を解くはずだ」</span>
+      </div>
+      <div class="lc-spine"><span class="lc-badge">仮説</span><span class="lc-en">HYPOTHESIZE</span></div>
+      <div class="lc-cell ind">
+        学ぶ前に、情報なしで、今の理解だけで書きます。メンバーの数だけ存在する<b>N個の仮説</b>です。
+        <span class="lc-q">「私は今Xを<br>このように理解している」</span>
+      </div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        ソリューション仮説を<b>妥当性の質問</b>に分解します — ユーザーは本当にこの問題を抱えているか、技術的に可能か、この方法は代替案より優れているか。
+      </div>
+      <div class="lc-spine"><span class="lc-badge">質問</span><span class="lc-en">QUESTION</span></div>
+      <div class="lc-cell ind">
+        学習仮説を<b>理解を検証する質問</b>に分解します。仲間が尋ねるリチュアルがこの層で働きます。
+        <span class="lc-q">「この仮説が壊れたら<br>君は何を知ることになる?」</span>
+      </div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        つくり、ぶつかり、ユーザーに会います。チームの探究は<b>ソリューションを現実にさらす</b>営みです。
+      </div>
+      <div class="lc-spine"><span class="lc-badge">探究</span><span class="lc-en">INVESTIGATE</span></div>
+      <div class="lc-cell ind">
+        チームの探究の現場が、そのまま<b>個人の実験場</b>になります。別枠の勉強時間ではなく、チームの問題を解くまさにその過程で自分の仮説を検証し、壊れる瞬間を記録します。
+      </div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        「問題がどれだけ解けたか」を確認しますが、その結果は成績ではなく<b>次のチーム仮説の材料</b>です。成果物の質は採点対象ではありません。
+      </div>
+      <div class="lc-spine"><span class="lc-badge">評価</span><span class="lc-en">VERIFY</span></div>
+      <div class="lc-cell ind">
+        <b>学習デルタを測定</b>します — 開始時点の仮説と今の理解の距離。個人の仮説がそのまま個人ごとの評価基準になるので、チームごとに成果物が違っても、成長は測定できます。
+      </div>
+    </div>
+
+    <div class="lc-row">
+      <div class="lc-cell team">
+        ソリューション仮説の棄却は<b>方向転換の情報</b>です。ピボットの根拠が得られたのであって、プロジェクトの失敗ではありません。
+      </div>
+      <div class="lc-spine"><span class="lc-badge">失敗</span><span class="lc-en">FAILURE</span></div>
+      <div class="lc-cell ind">
+        学習仮説の棄却は<b>最大の学習ポイント</b>です。予想と現実のギャップの分だけ、理解が更新されます。壊れない仮説こそ、むしろ警告サインです。
+      </div>
+    </div>
+
+    <div class="lc-conflict">
+      <span class="lc-c-tag">二つの層が衝突したら</span>
+      <p>「自分が学ぶためにこのパートを担うと、チーム層の探究が遅れる」 — 二つの層の利害がぶつかる瞬間、<b>個人層が優先します。</b>チーム層の成果物は、個人層の学びのための手段だからです。この優先順位こそが、HypoLoopのアイデンティティです。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TREE (SIGNATURE) ============ -->
+<section class="tree-section" id="tree">
+  <div class="wrap">
+    <div class="eyebrow">真正性 — チャレンジ階層ツリー</div>
+    <h2>小さなチャレンジの意味は、<br>血統が証明します</h2>
+    <p class="lede">究極のチャレンジは、挑戦可能なサイズまで階層的に分解されます。<strong>リーフノードをクリックしてみてください</strong> — その小さなチャレンジが本物の問題とどうつながっているか、血統が点灯します。</p>
+
+    <div class="tree-stage">
+      <p class="tree-scroll-hint">← 横にスワイプするとツリー全体が見られます →</p>
+      <div class="tree-scroll">
+      <svg viewBox="0 0 900 470" id="treeSvg" aria-label="チャレンジ階層ツリー">
+        <!-- edges -->
+        <path class="t-edge" id="e-r-a" d="M450 92 C 450 130, 190 130, 190 168"/>
+        <path class="t-edge" id="e-r-b" d="M450 92 C 450 140, 450 140, 450 168"/>
+        <path class="t-edge" id="e-r-c" d="M450 92 C 450 130, 710 130, 710 168"/>
+        <path class="t-edge" id="e-a-1" d="M190 226 C 190 268, 95 268, 95 306"/>
+        <path class="t-edge" id="e-a-2" d="M190 226 C 190 268, 285 268, 285 306"/>
+        <path class="t-edge" id="e-b-3" d="M450 226 C 450 276, 450 276, 450 306"/>
+        <path class="t-edge" id="e-c-4" d="M710 226 C 710 268, 615 268, 615 306"/>
+        <path class="t-edge" id="e-c-5" d="M710 226 C 710 268, 805 268, 805 306"/>
+
+        <!-- root -->
+        <g class="t-node root" data-id="root" tabindex="0" role="button">
+          <rect x="285" y="34" width="330" height="58" rx="10"/>
+          <text x="450" y="58" text-anchor="middle">究極チャレンジ</text>
+          <text x="450" y="78" text-anchor="middle">視覚障害者が屋内で道に迷わないようにする</text>
+        </g>
+
+        <!-- mid layer -->
+        <g class="t-node" data-id="a" data-path="root" tabindex="0" role="button">
+          <rect x="90" y="168" width="200" height="58" rx="10"/>
+          <text x="190" y="192" text-anchor="middle">空間を認識する</text>
+          <text x="190" y="211" text-anchor="middle" opacity=".65">LiDAR屋内マッピング</text>
+        </g>
+        <g class="t-node" data-id="b" data-path="root" tabindex="0" role="button">
+          <rect x="350" y="168" width="200" height="58" rx="10"/>
+          <text x="450" y="192" text-anchor="middle">目を使わずに伝える</text>
+          <text x="450" y="211" text-anchor="middle" opacity=".65">非視覚インターフェース</text>
+        </g>
+        <g class="t-node" data-id="c" data-path="root" tabindex="0" role="button">
+          <rect x="610" y="168" width="200" height="58" rx="10"/>
+          <text x="710" y="192" text-anchor="middle">道を知る</text>
+          <text x="710" y="211" text-anchor="middle" opacity=".65">屋内地図・経路データ</text>
+        </g>
+
+        <!-- leaves -->
+        <g class="t-node leaf" data-id="l1" data-path="root,a" tabindex="0" role="button">
+          <rect x="18" y="306" width="154" height="76" rx="10"/>
+          <text x="95" y="336" text-anchor="middle">ARKitアンカーの</text>
+          <text x="95" y="354" text-anchor="middle">誤差限界を</text>
+          <text x="95" y="372" text-anchor="middle">実測してみる</text>
+        </g>
+        <g class="t-node leaf" data-id="l2" data-path="root,a" tabindex="0" role="button">
+          <rect x="208" y="306" width="154" height="76" rx="10"/>
+          <text x="285" y="336" text-anchor="middle">点群データを</text>
+          <text x="285" y="354" text-anchor="middle">平面に単純化</text>
+          <text x="285" y="372" text-anchor="middle">してみる</text>
+        </g>
+        <g class="t-node leaf" data-id="l3" data-path="root,b" tabindex="0" role="button">
+          <rect x="373" y="306" width="154" height="76" rx="10"/>
+          <text x="450" y="336" text-anchor="middle">VoiceOver操作を</text>
+          <text x="450" y="354" text-anchor="middle">目を閉じたまま</text>
+          <text x="450" y="372" text-anchor="middle">一日使ってみる</text>
+        </g>
+        <g class="t-node leaf" data-id="l4" data-path="root,c" tabindex="0" role="button">
+          <rect x="538" y="306" width="154" height="76" rx="10"/>
+          <text x="615" y="336" text-anchor="middle">建物の図面を</text>
+          <text x="615" y="354" text-anchor="middle">グラフ構造で</text>
+          <text x="615" y="372" text-anchor="middle">モデリングする</text>
+        </g>
+        <g class="t-node leaf" data-id="l5" data-path="root,c" tabindex="0" role="button">
+          <rect x="728" y="306" width="154" height="76" rx="10"/>
+          <text x="805" y="336" text-anchor="middle">経路探索を</text>
+          <text x="805" y="354" text-anchor="middle">触覚リズムに</text>
+          <text x="805" y="372" text-anchor="middle">翻訳してみる</text>
+        </g>
+
+        <text x="450" y="430" text-anchor="middle" style="font-family:'IBM Plex Mono',monospace;font-size:11px;fill:rgba(244,247,243,.5);letter-spacing:.12em">LEAF = 個人が選ぶチャレンジ · 「できないことを選ぶ」</text>
+      </svg>
+      </div>
+
+      <div class="lineage-readout" id="lineage">
+        <span class="path">リーフを選ぶと血統が表示されます</span>
+        誰かにはおもちゃに見える小さな課題が、誰かには成果へ近づく足場になります。その違いをつくるのが、このツリーです。
+      </div>
+    </div>
+
+    <p class="tree-punch">おもちゃか足場かを決めるのは、<br>チャレンジのサイズではなく<span class="hl2">つながりの可視性</span>です</p>
+  </div>
+</section>
+
+<!-- ============ DEVICES ============ -->
+<section id="devices">
+  <div class="wrap">
+    <div class="eyebrow">装置 — 構造が支える</div>
+    <h2>メンターの力量ではなく、<br>五つの装置が回します</h2>
+    <p class="lede">良いチャレンジと良い仮説を自力で立てるのは難しい、という問題を、HypoLoopは人ではなく構造で解きます。</p>
+
+    <div class="dev-grid">
+      <div class="dev-card">
+        <div class="d-num">DEVICE 01</div>
+        <h3>制約された選択</h3>
+        <p>白紙の状態から「自分のチャレンジを立てよ」ではありません。チャレンジツリーの<b>リーフノードの中から、今できないもの</b>を選びます。選択肢がチームの課題から派生するので関連性が保証され、ルール一つが難易度を保証します。</p>
+        <div class="quote">ルール: できないことを選ぶ</div>
+      </div>
+      <div class="dev-card">
+        <div class="d-num">DEVICE 02</div>
+        <h3>仮説文テンプレート</h3>
+        <p>形式こそがフィルターです。検証不可能な仮説は、そもそも文が完成しません。</p>
+        <div class="quote">私は今[X]と理解している。<br>[Y]をやってみれば分かるはずだ。</div>
+      </div>
+      <div class="dev-card">
+        <div class="d-num">DEVICE 03</div>
+        <h3>ピア検証のリチュアル</h3>
+        <p>仮説を立てた本人ではなく、チームの仲間が尋ねます。メンターがいなくても検証が回り、尋ねる仲間自身もメタ認知のトレーニングになります。</p>
+        <div class="quote">「この仮説が壊れたら、君は何を知ることになる?」</div>
+      </div>
+      <div class="dev-card">
+        <div class="d-num">DEVICE 04</div>
+        <h3>インフラ管理者としてのメンター</h3>
+        <p>メンターはチャレンジを検査する人ではなく、<b>構造物がうまく回っているかを見る人</b>です — ツリー分解、テンプレート、ピアのリチュアルの管理者。介入ではなく、インフラ管理です。</p>
+      </div>
+      <div class="dev-card full">
+        <div class="d-num">DEVICE 05</div>
+        <h3>学習デルタ評価</h3>
+        <p>成否の判定基準は「問題が解けたか」ではなく<b>「仮説と比べて何が変わったか」</b>です。問題も本物でなければならず、挑戦も本物でなければなりませんが、評価の対象は成果物ではなく学習の変化量です。個人の仮説がそのまま個人ごとの評価基準になるため、評価の曖昧さが消えます。成果物の質の低下を公式に受け入れられる根拠も、ここにあります。</p>
+      </div>
+    </div>
+
+    <div class="expert-band">
+      <div class="expert-cell">
+        <div class="who">初心者のリーフ</div>
+        <h3>基礎スキル</h3>
+        <p>ツリーのリーフから、まだ扱えない基礎スキルを選びます。学ぶべきものが、地図の上にいくらでも転がっています。</p>
+      </div>
+      <div class="expert-cell">
+        <div class="who">専門家のリーフ</div>
+        <h3>専門性を増幅する隣接領域</h3>
+        <p>10年目の開発者なら、より良い成果物のために必要なデザイン感覚や市場のドメイン知識が「できないこと」です。得意なことをさらに得意にするための周辺知識が、チャレンジになります。</p>
+      </div>
+      <div class="expert-common">同じルール、違うリーフ — 「できないことを選ぶ」が習熟度の全区間をカバーします</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="principles" id="principles">
+  <div class="wrap">
+    <div class="eyebrow">まとめ — 五つの原則</div>
+    <h2>HypoLoopを一枚で</h2>
+    <div class="pr-list">
+      <div class="pr-item">
+        <span class="no">01</span>
+        <h3>学習が目的である</h3>
+        <p>チームの成果物は手段です。衝突時は個人の学習が優先し、成果物の質の低下は公式に受け入れられます。</p>
+      </div>
+      <div class="pr-item">
+        <span class="no">02</span>
+        <h3>仮説がエンジンである</h3>
+        <p>仮説→質問→探究→評価。仮説が壊れる瞬間が最大の学習ポイントであり、検証の瞬間がそのまま試験です。</p>
+      </div>
+      <div class="pr-item">
+        <span class="no">03</span>
+        <h3>構造はフラクタルである</h3>
+        <p>チーム層と個人層が同じサイクルで回ります。個人チャレンジは、チームチャレンジの中に入れ子になります。</p>
+      </div>
+      <div class="pr-item">
+        <span class="no">04</span>
+        <h3>失敗は要求される</h3>
+        <p>失敗は許容の対象ではなく、設計の対象です。生産的失敗と心理的安全性が、環境の土台です。</p>
+      </div>
+      <div class="pr-item">
+        <span class="no">05</span>
+        <h3>血統が真正性である</h3>
+        <p>すべての小さなチャレンジは、階層ツリーを通じて究極の本物の問題とつながります。つながりの可視性が冷笑に勝ちます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-mark serif">Hypo<span>Loop</span> · 仮説循環学習</div>
+    <p>a framework where failure is not permitted — it is required</p>
+  </div>
+</footer>
+
+<script>
+// ---------- timeline scroll reveal ----------
+const steps=document.querySelectorAll('.step');
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});
+  },{threshold:.25});
+  steps.forEach(s=>io.observe(s));
+}else{steps.forEach(s=>s.classList.add('on'));}
+
+// ---------- cycle interaction ----------
+const phaseData=[
+  {tag:'PHASE 1 · HYPOTHESIZE',title:'仮説 — 「分からない」の地図を描く',isBreak:false,
+   body:`<p>情報のない状態で、<b>今の理解だけで</b>漠然とした仮説を立てます。学ぶ前にまず間違った答えを生成してみた学習者のほうが、深く学びます。事前の仮説は、以後に出会う情報が引っかかる認知のフックになります。</p><div class="tmpl">私は今[Xをこのように理解/予想]している。<br>[Yをやってみれば]この理解が正しいか分かるはずだ。</div>`},
+  {tag:'PHASE 2 · QUESTION',title:'質問 — 仮説を分解する',isBreak:false,
+   body:`<p>漠然とした仮説を<b>検証可能な質問</b>へ分解します。すべての質問が仮説という軸に収束するので、探究が発散して道を見失うことがありません。</p><p>このフェーズで仲間が尋ねます — <b>「この仮説が壊れたら、君は何を知ることになる?」</b>答えられない仮説は、まだ質問になる準備ができていないのです。</p>`},
+  {tag:'PHASE 3 · INVESTIGATE',title:'探究 — 仮説が壊れる瞬間',isBreak:true,
+   body:`<p>質問の答えを探していく過程で、学びが起きます。そして<b>仮説が壊れる瞬間こそ最大の学習ポイント</b>です — 予想と現実のギャップが大きいほど、更新される理解も大きくなります。</p><p>だからHypoLoopにおいて、失敗は事故ではなく<b>設計されたイベント</b>です。壊れない仮説は、安全すぎたというサインです。</p>`},
+  {tag:'PHASE 4 · VERIFY',title:'評価 — デルタを測る',isBreak:false,
+   body:`<p>学びがきちんと起きたかを確認します。基準は成果物ではなく<b>仮説と比べた学習デルタ</b> — 開始時点の理解と今の理解の距離です。</p><p>仮説そのものが予測だったので、この検証がそのまま想起練習であり試験です。試験がサイクルに組み込まれ、評価が終わると、更新された理解で次の仮説が始まります。</p>`}
+];
+const phases=document.querySelectorAll('.phase');
+const panel=document.getElementById('phasePanel');
+const pTag=document.getElementById('pTag'),pTitle=document.getElementById('pTitle'),pBody=document.getElementById('pBody');
+function setPhase(i){
+  phases.forEach(p=>p.classList.toggle('active',+p.dataset.phase===i));
+  const d=phaseData[i];
+  pTag.textContent=d.tag;pTitle.textContent=d.title;pBody.innerHTML=d.body;
+  panel.classList.toggle('is-break',d.isBreak);
+}
+phases.forEach(p=>{
+  p.addEventListener('click',()=>setPhase(+p.dataset.phase));
+  p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setPhase(+p.dataset.phase);}});
+});
+
+// ---------- tree lineage ----------
+const nodeNames={root:'究極チャレンジ · 視覚障害者が屋内で道に迷わないようにする',a:'空間を認識する',b:'目を使わずに伝える',c:'道を知る',
+  l1:'ARKitアンカーの誤差限界を実測してみる',l2:'点群データを平面に単純化してみる',l3:'VoiceOver操作を目を閉じたまま一日使ってみる',l4:'建物の図面をグラフ構造でモデリングする',l5:'経路探索を触覚リズムに翻訳してみる'};
+const edgeMap={a:['e-r-a'],b:['e-r-b'],c:['e-r-c'],l1:['e-r-a','e-a-1'],l2:['e-r-a','e-a-2'],l3:['e-r-b','e-b-3'],l4:['e-r-c','e-c-4'],l5:['e-r-c','e-c-5']};
+const tNodes=document.querySelectorAll('.t-node');
+const tEdges=document.querySelectorAll('.t-edge');
+const lineage=document.getElementById('lineage');
+function lightLineage(id,pathIds){
+  tNodes.forEach(n=>n.classList.remove('lit'));
+  tEdges.forEach(e=>e.classList.remove('lit'));
+  const chain=[...pathIds,id];
+  chain.forEach(cid=>{
+    const el=document.querySelector(`.t-node[data-id="${cid}"]`);
+    if(el)el.classList.add('lit');
+  });
+  (edgeMap[id]||[]).forEach(eid=>{
+    const e=document.getElementById(eid);if(e)e.classList.add('lit');
+  });
+  const pathText=chain.map(cid=>nodeNames[cid].split('·')[0].trim()).join(' → ');
+  const isLeaf=id.startsWith('l');
+  lineage.innerHTML=`<span class="path">${pathText}</span>`+
+    (isLeaf
+      ?`このチャレンジが小さく見えても、血統をたどって上れば<b>本物の問題</b>があります。「この小さな課題はなぜ意味があるのか」への答えが、ツリーの上に常に存在します。`
+      :`このノードをさらに分解すると、個人が選べるリーフが現れます。分解は真正性を失うプロセスではなく、<b>足場を置く</b>プロセスです。`);
+}
+tNodes.forEach(n=>{
+  const act=()=>{
+    const id=n.dataset.id;
+    if(id==='root'){
+      tNodes.forEach(x=>x.classList.remove('lit'));tEdges.forEach(x=>x.classList.remove('lit'));
+      n.classList.add('lit');
+      lineage.innerHTML=`<span class="path">究極チャレンジ</span>すべてのリーフの血統が、ここへ収束します。この問題が本物だからこそ、その下のすべての小さなチャレンジも本物です。`;
+      return;
+    }
+    lightLineage(id,(n.dataset.path||'').split(',').filter(Boolean));
+  };
+  n.addEventListener('click',act);
+  n.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();act();}});
+});
+</script>
+</body>
+</html>

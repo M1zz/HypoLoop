@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HypoLoop 假设循环学习 — 要求失败的学习框架</title>
+<meta name="description" content="HypoLoop(假设循环学习)是一个在团队项目中有意设计个人学习的学习框架。通过假设→提问→探究→评估的循环,学习不再是副产品,而成为目的本身。">
+<meta property="og:title" content="HypoLoop 假设循环学习">
+<meta property="og:description" content="我们不是允许失败,而是要求失败。一个在团队项目中设计个人学习的框架。">
+<link rel="alternate" hreflang="ko" href="https://m1zz.github.io/HypoLoop/ko/index.html">
+<link rel="alternate" hreflang="en" href="https://m1zz.github.io/HypoLoop/index.html">
+<link rel="alternate" hreflang="ja" href="https://m1zz.github.io/HypoLoop/ja/index.html">
+<link rel="alternate" hreflang="zh" href="https://m1zz.github.io/HypoLoop/zh/index.html">
+<link rel="alternate" hreflang="x-default" href="https://m1zz.github.io/HypoLoop/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F7F3;
+  --grid:rgba(20,50,38,.055);
+  --ink:#132B1F;
+  --ink-soft:#3D5A4C;
+  --loop:#1E6E5C;
+  --loop-soft:#DCEAE4;
+  --break:#E4572E;
+  --break-soft:#FBE9E1;
+  --line:rgba(19,43,31,.16);
+  --card:#FDFEFC;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+}
+.serif{font-family:'Noto Serif SC',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+section{padding:92px 0}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--loop);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--loop)}
+h2{font-family:'Noto Serif SC',serif;font-weight:900;font-size:clamp(25px,4vw,36px);line-height:1.35;margin-bottom:18px;letter-spacing:-.01em}
+.lede{font-size:clamp(15.5px,2.2vw,18px);color:var(--ink-soft);max-width:640px}
+.lede strong{color:var(--ink)}
+
+/* NAV */
+nav{
+  position:sticky;top:0;z-index:50;background:rgba(244,247,243,.88);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav-in{max-width:960px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Noto Serif SC',serif;font-weight:900;font-size:18px;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--loop)}
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-links a{font-size:13.5px;color:var(--ink-soft);text-decoration:none;font-weight:500}
+.nav-links a:hover{color:var(--loop)}
+.nav-links a.active{color:var(--loop);font-weight:700}
+.nav-cta{
+  font-size:13px!important;color:#fff!important;background:var(--ink);padding:8px 16px;border-radius:100px;
+}
+@media(max-width:680px){
+  .nav-in{gap:14px;padding:12px 16px}
+  .brand{flex-shrink:0}
+  .nav-links{gap:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;min-width:0;flex:1}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{white-space:nowrap;font-size:13.5px;padding:6px 0}
+  .nav-cta{display:none}
+}
+.lang-switch{display:flex;gap:2px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:3px;flex-shrink:0;margin-left:14px}
+.lang-switch a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-decoration:none;padding:4px 9px;border-radius:100px;line-height:1.4;white-space:nowrap}
+.lang-switch a:hover{color:var(--loop)}
+.lang-switch a.on{background:var(--ink);color:#fff}
+@media(max-width:680px){.lang-switch{margin-left:8px}.lang-switch a{padding:4px 7px;font-size:10px}}
+
+/* PAGE ROUTING */
+[data-page]{display:none}
+[data-page].pg-on{display:block;animation:pgIn .3s ease}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* HERO */
+.hero{padding:100px 0 90px;text-align:center;position:relative}
+.hero .mark{width:74px;height:74px;margin:0 auto 26px;display:block}
+.mark circle.o{fill:none;stroke:var(--loop);stroke-width:5}
+.mark circle.d{fill:var(--break)}
+.hero h1{font-family:'Noto Serif SC',serif;font-weight:900;font-size:clamp(38px,7vw,72px);line-height:1.18;letter-spacing:-.02em}
+.hero h1 .hl{color:var(--loop)}
+.hero .one-liner{
+  margin:26px auto 0;font-size:clamp(17px,2.6vw,21px);color:var(--ink-soft);max-width:560px;
+}
+.hero .one-liner b{color:var(--ink)}
+.hero .one-liner .req{color:var(--break);font-weight:700}
+.cta-row{margin-top:40px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:600;font-size:15px;
+  padding:14px 28px;border-radius:100px;transition:transform .15s ease,box-shadow .15s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-ghost{border:1.5px solid var(--ink);color:var(--ink);background:rgba(255,255,255,.5)}
+.hero-defs{
+  margin-top:56px;display:inline-flex;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);
+  text-align:left;flex-wrap:wrap;
+}
+.hero-def{padding:18px 26px;border-right:1px solid var(--line)}
+.hero-def:last-child{border-right:none}
+.hero-def .k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);display:block;margin-bottom:2px}
+.hero-def .v{font-size:14.5px;font-weight:600}
+@media(max-width:680px){.hero-def{border-right:none;border-bottom:1px solid var(--line);width:100%}.hero-def:last-child{border-bottom:none}}
+
+/* WHO */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.who-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 24px}
+.who-card .icon{font-size:26px;margin-bottom:14px;display:block}
+.who-card h3{font-family:'Noto Serif SC',serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.who-card p{font-size:14px;color:var(--ink-soft)}
+
+/* PROBLEM */
+.problem{background:var(--ink);color:var(--paper)}
+.problem .eyebrow{color:#8FD3BE}.problem .eyebrow::before{background:#8FD3BE}
+.problem h2{color:#fff}
+.problem .lede{color:rgba(244,247,243,.75)}
+.problem .lede strong{color:#fff}
+.pcurve{margin-top:52px;max-width:620px}
+.pc-legend{display:flex;gap:20px;margin-bottom:14px}
+.pc-key{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.04em;color:rgba(244,247,243,.72)}
+.pc-key i{width:16px;height:2px;border-radius:2px;display:inline-block}
+.pc-key i.k-team{background:#25A87C}
+.pc-key i.k-ind{background:#E4572E}
+.pcurve svg{width:100%;height:auto;display:block;overflow:visible}
+.pc-grid{stroke:rgba(244,247,243,.09);stroke-width:1}
+.pc-base{stroke:rgba(244,247,243,.22)}
+.pc-line{fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pc-team{stroke:#25A87C}
+.pc-ind{stroke:#E4572E}
+.pc-dot{stroke-width:2;stroke:#132B1F}
+.pc-dot-team{fill:#25A87C}
+.pc-dot-ind{fill:#E4572E}
+.pc-lbl{font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;font-size:13px;font-weight:600;fill:rgba(244,247,243,.92)}
+.pc-cap{font-family:'IBM Plex Mono',monospace;font-size:10px;fill:rgba(244,247,243,.5);letter-spacing:.08em}
+.pc-note{margin-top:12px;font-size:13px;color:rgba(244,247,243,.6)}
+.problem-quote{
+  margin-top:44px;font-family:'Noto Serif SC',serif;font-weight:700;
+  font-size:clamp(19px,3.4vw,27px);line-height:1.65;max-width:700px;color:#fff;
+}
+.problem-quote .strike{position:relative;color:rgba(244,247,243,.45)}
+.problem-quote .strike::after{content:"";position:absolute;left:-2%;right:-2%;top:54%;height:2.5px;background:var(--break);transform:rotate(-1.2deg)}
+.problem-quote .fix{color:#8FD3BE}
+.problem-sub{margin-top:22px;font-size:15px;color:rgba(244,247,243,.72);max-width:640px}
+.why-wrap{margin-top:44px;border:1px solid rgba(244,247,243,.18);border-radius:16px;padding:26px 28px;max-width:720px}
+.why-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:#8FD3BE;margin-bottom:18px}
+.why-chain{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.wc-tag{flex-basis:100%;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:rgba(244,247,243,.5)}
+.wc-tag.good{color:#8FD3BE}
+.wc{font-size:13.5px;line-height:1.5;background:rgba(244,247,243,.07);border:1px solid rgba(244,247,243,.22);padding:8px 14px;border-radius:100px;color:rgba(244,247,243,.85)}
+.wc.bad{border-color:rgba(228,87,46,.7);background:rgba(228,87,46,.14);color:#FFB39B}
+.wc.good{border-color:rgba(143,211,190,.7);background:rgba(143,211,190,.1);color:#8FD3BE}
+.wc-arr{color:rgba(244,247,243,.45);font-family:'IBM Plex Mono',monospace;font-size:13px}
+.why-wrap>p{margin-top:6px;font-size:14.5px;line-height:1.8;color:rgba(244,247,243,.75)}
+.why-wrap>p b{color:#8FD3BE}
+@media(max-width:680px){
+  .why-wrap{padding:20px 18px}
+  .wc{font-size:12.5px;padding:7px 12px}
+}
+
+/* CONCEPTS */
+.concept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.concept-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:30px;position:relative;overflow:hidden}
+.concept-card .cno{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--loop);letter-spacing:.16em;margin-bottom:14px}
+.concept-card h3{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;margin-bottom:10px}
+.concept-card p{font-size:14.5px;color:var(--ink-soft)}
+.concept-card p b{color:var(--ink)}
+.concept-card .mini{margin-top:16px}
+.concept-card .ex{margin-top:18px;background:var(--loop-soft);border-radius:10px;padding:14px 16px}
+.concept-card .ex .ex-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);display:block;margin-bottom:6px}
+.concept-card .ex p{font-size:13.5px;line-height:1.7;color:var(--ink-soft)}
+.concept-card .ex p b{color:var(--ink)}
+.mini svg{width:100%;max-width:220px;height:auto;overflow:visible}
+.m-line{fill:none;stroke:var(--loop);stroke-width:2}
+.m-dash{fill:none;stroke:var(--loop);stroke-width:1.4;stroke-dasharray:4 4;opacity:.6}
+.m-dot{fill:var(--card);stroke:var(--loop);stroke-width:2}
+.m-dot.b{stroke:var(--break);fill:var(--break-soft)}
+.m-txt{font-family:'IBM Plex Mono',monospace;font-size:8.5px;fill:var(--ink-soft);letter-spacing:.06em}
+
+/* PLAYBOOK */
+.playbook{border-top:1px solid var(--line)}
+.pb-steps{margin-top:48px}
+.pb-step{
+  display:grid;grid-template-columns:120px 1fr;gap:28px;padding:30px 0;border-bottom:1px solid var(--line);
+}
+.pb-step:last-child{border-bottom:none}
+.pb-step .pb-no{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--loop);letter-spacing:.12em;padding-top:4px}
+.pb-step h3{font-family:'Noto Serif SC',serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.pb-step p{font-size:14.5px;color:var(--ink-soft);max-width:620px}
+.pb-step p b{color:var(--ink)}
+.pb-step .pb-tip{
+  margin-top:12px;display:inline-block;font-size:13px;color:var(--loop);
+  background:var(--loop-soft);padding:8px 14px;border-radius:8px;
+}
+.pb-step .pb-tip.warn{color:var(--break);background:var(--break-soft)}
+.pb-tmpl{margin-top:14px;position:relative;background:var(--loop-soft);border-radius:10px;padding:16px 18px;max-width:620px}
+.pb-tmpl pre{font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.9;white-space:pre-wrap;color:var(--ink);padding-right:56px}
+.pb-copy{position:absolute;top:10px;right:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--ink);color:#fff;border:none;padding:5px 12px;border-radius:100px;cursor:pointer}
+.pb-copy:hover{background:var(--loop)}
+@media(max-width:680px){.pb-tmpl{padding:14px 14px}.pb-tmpl pre{font-size:12px;padding-right:0;padding-top:26px}}
+@media(max-width:680px){.pb-step{grid-template-columns:1fr;gap:8px}}
+
+/* MENTOR */
+.mentor-box{margin-top:72px;background:var(--card);border:1.5px solid var(--loop);border-radius:18px;padding:36px}
+.mentor-box .m-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:14px}
+.mentor-box h3{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:900;margin-bottom:12px;line-height:1.4}
+.mentor-box .m-intro{font-size:14.5px;color:var(--ink-soft);max-width:640px;line-height:1.8}
+.mentor-box .m-intro b{color:var(--ink)}
+.q-group{margin-top:26px}
+.q-group .qg-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--loop)}
+.q-list{margin-top:10px;display:flex;flex-direction:column;gap:8px;list-style:none}
+.q-item{font-size:14px;line-height:1.7;background:var(--loop-soft);border-radius:10px;padding:11px 16px;color:var(--ink);display:flex;gap:10px}
+.q-item::before{content:"Q";font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--loop);font-weight:500;flex-shrink:0;padding-top:1px}
+.q-item.sig{background:var(--break-soft)}
+.q-item.sig::before{color:var(--break)}
+.q-item.sig b{color:var(--break)}
+@media(max-width:680px){.mentor-box{padding:24px 20px}}
+
+/* TEMPLATE */
+.tmpl-section{background:var(--loop-soft)}
+.tmpl-box{
+  margin-top:40px;background:var(--card);border:1.5px solid var(--loop);border-radius:16px;padding:34px;
+  position:relative;max-width:680px;
+}
+.tmpl-box .t-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);margin-bottom:16px}
+.tmpl-box pre{
+  font-family:'IBM Plex Mono',monospace;font-size:14px;line-height:2;white-space:pre-wrap;color:var(--ink);
+}
+.tmpl-box pre .slot{background:var(--break-soft);color:var(--break);padding:1px 6px;border-radius:5px}
+.copy-btn{
+  position:absolute;top:22px;right:22px;font-family:'IBM Plex Mono',monospace;font-size:12px;
+  background:var(--ink);color:#fff;border:none;padding:8px 16px;border-radius:100px;cursor:pointer;
+}
+.copy-btn:hover{background:var(--loop)}
+.tmpl-note{margin-top:20px;font-size:14px;color:var(--ink-soft);max-width:640px}
+.tmpl-note b{color:var(--ink)}
+
+/* FAQ */
+.faq-list{margin-top:44px;max-width:760px}
+.faq{border-bottom:1px solid var(--line)}
+.faq summary{
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;
+  padding:22px 4px;font-family:'Noto Serif SC',serif;font-weight:700;font-size:17px;gap:16px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--loop);flex-shrink:0;transition:transform .2s ease}
+.faq[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 4px 24px;font-size:14.5px;color:var(--ink-soft);max-width:680px}
+.faq .a b{color:var(--ink)}
+
+/* FINAL CTA */
+.final{background:var(--ink);color:var(--paper);text-align:center}
+.final h2{color:#fff}
+.final p{color:rgba(244,247,243,.75);max-width:520px;margin:0 auto}
+.final .btn-primary{background:#8FD3BE;color:var(--ink)}
+.final .btn-ghost{border-color:rgba(244,247,243,.5);color:#fff}
+footer{padding:48px 0 64px;text-align:center;border-top:1px solid var(--line)}
+footer .f-mark{font-family:'Noto Serif SC',serif;font-weight:900;font-size:19px;margin-bottom:6px}
+footer .f-mark span{color:var(--loop)}
+footer p{font-size:12.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
+
+@media(max-width:820px){
+  section{padding:70px 0}
+  .who-grid{grid-template-columns:1fr}
+  .concept-grid{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  section{padding:56px 0}
+  .hero{padding:64px 0 56px}
+  .who-card,.concept-card{padding:24px 20px}
+  /* SVG 图表在 viewBox 缩小时文字与线条会一同变小,因此在移动端加大用户单位值进行补偿 */
+  .pc-line{stroke-width:3}
+  .pc-grid{stroke-width:1.5}
+  .pc-dot{r:7px;stroke-width:3}
+  .pc-lbl{font-size:21px}
+  .pc-cap{font-size:16px}
+  .pc-note{font-size:12.5px}
+  .tmpl-box{padding:26px 20px}
+  .tmpl-box .t-label{padding-right:86px}
+  .tmpl-box pre{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+:focus-visible{outline:2px solid var(--break);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top">Hypo<span>Loop</span></a>
+    <div class="nav-links">
+      <a href="#top">首页</a>
+      <a href="#who">适用人群</a>
+      <a href="#concepts">核心概念</a>
+      <a href="#playbook">实施指南</a>
+      <a href="#template">模板</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="#playbook">立即开始</a>
+    </div>
+    <div class="lang-switch" aria-label="Language">
+      <a href="../ko/index.html" hreflang="ko" lang="ko">한국어</a>
+      <a href="../index.html" hreflang="en" lang="en">English</a>
+      <a href="../ja/index.html" hreflang="ja" lang="ja">日本語</a>
+      <a class="on" href="index.html">中文</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top" data-page="home">
+  <div class="wrap">
+    <svg class="mark" viewBox="0 0 74 74" aria-hidden="true">
+      <circle class="o" cx="37" cy="37" r="30"/>
+      <circle class="d" cx="37" cy="67" r="6"/>
+    </svg>
+    <h1>Hypo<span class="hl">Loop</span><br>假设循环学习</h1>
+    <p class="one-liner">我们不是允许失败,<span class="req">而是要求失败。</span><br>这是一个在团队项目中<b>有意设计个人学习</b>的学习框架。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#playbook">查看实施指南</a>
+      <a class="btn btn-ghost" href="#concepts">从核心概念开始</a>
+    </div>
+    <div class="hero-defs">
+      <div class="hero-def"><span class="k">目的</span><span class="v">学习,而非解决问题</span></div>
+      <div class="hero-def"><span class="k">引擎</span><span class="v">假设 → 提问 → 探究 → 评估</span></div>
+      <div class="hero-def"><span class="k">评估</span><span class="v">学习增量(Δ),而非产出物</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- WHO -->
+<section id="who" data-page="who">
+  <div class="wrap">
+    <div class="eyebrow">For Whom</div>
+    <h2>我们为这些人打造了它</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <span class="icon">🧭</span>
+        <h3>教育者 · 导师</h3>
+        <p>你在运营基于团队项目的教育,却苦恼于“成果做出来了,个人到底学到了什么却说不清”;你希望课程靠结构自行运转,而不是依赖导师的个人能力。</p>
+      </div>
+      <div class="who-card">
+        <span class="icon">🛠️</span>
+        <h3>团队负责人 · 组织</h3>
+        <p>你想在副业项目、黑客松或新人入职中,打破成员“只做熟悉的事直到结束”的角色固化;你想明确团队成长与产出物之间的优先级。</p>
+      </div>
+      <div class="who-card">
+        <span class="icon">📓</span>
+        <h3>学习小组 · 个人学习者</h3>
+        <p>你觉得课听完了却什么也没留下;你想用“学习之前先建立假设、再推翻它”的方式,无论独自学习还是在小组中,都提高学习的密度。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" data-page="home">
+  <div class="wrap">
+    <div class="eyebrow">The Problem</div>
+    <h2>团队在前进,<br>但个人在学习吗?</h2>
+    <p class="lede">团队项目越是合理地运转,每个人就越会承担<strong>自己已经擅长的工作</strong>。产出物的质量在提升,个人的学习曲线却趋于平缓。学习被挤到一边,沦为解决问题时侥幸获得的副产品。</p>
+
+    <figure class="pcurve" role="img" aria-label="随着项目推进,团队产出持续上升而个人学习曲线保持平缓、二者差距不断拉大的趋势对比图">
+      <div class="pc-legend">
+        <span class="pc-key"><i class="k-team"></i>团队产出</span>
+        <span class="pc-key"><i class="k-ind"></i>个人学习</span>
+      </div>
+      <svg viewBox="0 0 640 270" aria-hidden="true">
+        <line class="pc-grid" x1="50" y1="66" x2="540" y2="66"/>
+        <line class="pc-grid" x1="50" y1="146" x2="540" y2="146"/>
+        <line class="pc-grid pc-base" x1="50" y1="226" x2="540" y2="226"/>
+        <path class="pc-line pc-team" d="M60 222 C200 214 330 148 540 70"/>
+        <path class="pc-line pc-ind" d="M60 222 C150 204 240 198 540 196"/>
+        <circle class="pc-dot pc-dot-team" cx="540" cy="70" r="4.5"/>
+        <circle class="pc-dot pc-dot-ind" cx="540" cy="196" r="4.5"/>
+        <text class="pc-lbl" x="552" y="74">团队产出</text>
+        <text class="pc-lbl" x="552" y="200">个人学习</text>
+        <text class="pc-cap" x="50" y="48">成长 ↑</text>
+        <text class="pc-cap" x="540" y="248" text-anchor="end">项目进展 →</text>
+      </svg>
+      <figcaption class="pc-note">团队越是合理地运转,两条曲线的差距就越大。</figcaption>
+    </figure>
+
+    <p class="problem-quote">
+      <span class="strike">“解决有价值的问题,学习自然随之而来”</span><br>
+      <span class="fix">“学习只有被有意设计,才能得到保证”</span>
+    </p>
+    <p class="problem-sub">HypoLoop 正是从更换这一前提出发。收回押在偶发学习上的赌注,让学习从一开始就成为一个被明确命名的目标。</p>
+
+    <div class="why-wrap">
+      <div class="why-k">为什么是“学习”,而不是“解决问题”</div>
+      <div class="why-chain">
+        <span class="wc-tag">只解决问题的话</span>
+        <span class="wc">只解决当前实力够得着的问题</span>
+        <span class="wc-arr">→</span>
+        <span class="wc">产出物在累积,实力却原地踏步</span>
+        <span class="wc-arr">→</span>
+        <span class="wc bad">在更难的问题面前止步</span>
+      </div>
+      <div class="why-chain">
+        <span class="wc-tag good">边学习边解决的话</span>
+        <span class="wc">在学习中攻克小挑战</span>
+        <span class="wc-arr">→</span>
+        <span class="wc">解决问题的能力本身在成长</span>
+        <span class="wc-arr">→</span>
+        <span class="wc good">最终抵达终极难题</span>
+      </div>
+      <p>这不是要放弃解决问题,而是要调换顺序。终极的真正问题,靠今天的实力是解不开的。<b>只有学习才能让我们明天解决更难的问题</b>,所以 HypoLoop 把学习置于产出物之上。小挑战不是绕路,而是通往终极问题的唯一阶梯。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPTS -->
+<section id="concepts" data-page="concepts">
+  <div class="wrap">
+    <div class="eyebrow">Core Concepts</div>
+    <h2>四大支柱</h2>
+    <p class="lede">四个概念都用同一个例子来讲解 — <strong>🍞 做面包</strong>。团队的目标是“开一家深受街坊喜爱的面包店”,而我是一名还不懂发酵的成员。</p>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="cno">CONCEPT 01</div>
+        <h3>假设引擎</h3>
+        <p>在没有信息的状态下先建立假设,拆解成可验证的问题,在探究中推翻它,再评估增量。<b>假设被推翻的瞬间是最大的学习点</b>,验证的时刻就是考试。</p>
+        <div class="mini">
+          <svg viewBox="0 0 220 70">
+            <circle class="m-dash" cx="110" cy="35" r="28"/>
+            <circle class="m-dot" cx="110" cy="7" r="5"/><text class="m-txt" x="110" y="-2" text-anchor="middle">假设</text>
+            <circle class="m-dot" cx="138" cy="35" r="5"/><text class="m-txt" x="156" y="38">提问</text>
+            <circle class="m-dot b" cx="110" cy="63" r="5"/><text class="m-txt" x="110" y="80" text-anchor="middle">探究</text>
+            <circle class="m-dot" cx="82" cy="35" r="5"/><text class="m-txt" x="46" y="38">评估</text>
+          </svg>
+        </div>
+        <div class="ex">
+          <span class="ex-k">🍞 用面包来讲</span>
+          <p>在学习之前先写下来 — <b>“我理解面包是靠泡打粉膨胀的。去掉酵母烤一次就能见分晓。”</b>结果烤出来是扁的。假设被推翻的这一刻,酵母发酵这个真正的原理被深深刻进脑海。如果一上来就先搜索,这条知识只会一扫而过。</p>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="cno">CONCEPT 02</div>
+        <h3>分形嵌套</h3>
+        <p>团队滚动着面向世界问题的假设,个人则在其中<b>嵌套自己的学习假设</b>。“在解决这个团队问题的过程中,我要有意地学会 X。”层有两个,循环只有一个。</p>
+        <div class="mini">
+          <svg viewBox="0 0 220 70">
+            <circle class="m-line" cx="110" cy="35" r="32" fill="none"/>
+            <circle class="m-dash" cx="94" cy="35" r="13"/>
+            <circle class="m-dash" cx="126" cy="35" r="13"/>
+            <text class="m-txt" x="110" y="-2" text-anchor="middle">TEAM</text>
+            <text class="m-txt" x="110" y="80" text-anchor="middle">INDIVIDUAL × N</text>
+          </svg>
+        </div>
+        <div class="ex">
+          <span class="ex-k">🍞 用面包来讲</span>
+          <p>团队滚动着<b>“我们街区的人早上会想要刚出炉的健康面包”</b>这个假设。我在其中嵌套了<b>“在筹备这家面包店的过程中,我要学会发酵”</b>这个学习假设。团队开面包店,我学发酵 — 层有两个,循环只有一个。</p>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="cno">CONCEPT 03</div>
+        <h3>挑战层级树</h3>
+        <p>把终极的真正问题层层分解到可以挑战的大小。再小的挑战也与真正的问题<b>以血统相连</b>。决定它是玩具还是踏板的,不是大小,而是连接的可见性。</p>
+        <div class="mini">
+          <svg viewBox="0 0 220 70">
+            <path class="m-line" d="M110 12 L60 38 M110 12 L110 38 M110 12 L160 38 M60 38 L40 62 M60 38 L80 62"/>
+            <circle class="m-dot" cx="110" cy="12" r="6"/>
+            <circle class="m-dot" cx="60" cy="38" r="5"/><circle class="m-dot" cx="110" cy="38" r="5"/><circle class="m-dot" cx="160" cy="38" r="5"/>
+            <circle class="m-dot b" cx="40" cy="62" r="5"/><circle class="m-dot" cx="80" cy="62" r="5"/>
+            <text class="m-txt" x="172" y="15">终极挑战</text>
+            <text class="m-txt" x="100" y="68">← 个人选择的叶子节点</text>
+          </svg>
+        </div>
+        <div class="ex">
+          <span class="ex-k">🍞 用面包来讲</span>
+          <p><b>开一家深受街坊喜爱的面包店</b> → 开发招牌健康面包 → 烤出酸面包 → <b>制作天然酵种</b>(叶子节点)。就连在玻璃瓶里养一周酵种这样的小挑战,沿着树向上追溯,也与面包店这个真正的问题血统相连。所以它是踏板,不是玩具。</p>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="cno">CONCEPT 04</div>
+        <h3>学习增量(Δ)评估</h3>
+        <p>成败的标准不是“问题解决了吗”,而是<b>“相对于假设,发生了什么变化”</b>。问题是真的,尝试也是真的,但被打分的是变化量。因此,产出物质量的下降可以被正式接受。</p>
+        <div class="mini">
+          <svg viewBox="0 0 220 70">
+            <path class="m-dash" d="M20 55 L200 55"/>
+            <circle class="m-dot" cx="50" cy="55" r="5"/><text class="m-txt" x="50" y="68" text-anchor="middle">初始理解</text>
+            <circle class="m-dot b" cx="170" cy="20" r="5"/><text class="m-txt" x="170" y="10" text-anchor="middle">当前理解</text>
+            <path class="m-line" d="M55 51 L164 24" stroke-dasharray="0"/>
+            <text class="m-txt" x="118" y="30">Δ = 学习</text>
+          </svg>
+        </div>
+        <div class="ex">
+          <span class="ex-k">🍞 用面包来讲</span>
+          <p>今天烤的酸面包塌了,失败了。但在循环开始时,我并不知道发酵温度会改变什么;而现在我能解释<b>“低温发酵造就风味,过度发酵让面团塌陷”</b>。被打分的不是面包的形状,而是这段距离(Δ)。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAYBOOK -->
+<section class="playbook" id="playbook" data-page="playbook">
+  <div class="wrap">
+    <div class="eyebrow">Playbook</div>
+    <h2>从设定问题到复盘,<br>八个步骤完成运转</h2>
+    <p class="lede">这是一个靠结构而非某位导师的能力来驱动的框架。复制每个步骤的模板,照着填写,第一个循环就开始了。</p>
+
+    <div class="pb-steps">
+      <div class="pb-step">
+        <div class="pb-no">STEP 1<br>设定问题</div>
+        <div>
+          <h3>把真正的问题立为终极挑战</h3>
+          <p>团队宣布一个真心想解决的、真实存在于世界上的问题作为终极挑战。它应当并非不可能、但也绝不容易,并与成员的兴趣和关联性相连。这个问题的真实性,就是整棵树的真实性。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>我们团队要解决 [世界上的真实问题 P]。
+这是 [谁,在什么情境下] 实际面临的问题。
+问题解决后,可以通过 [什么发生了改变] 来确认。</pre></div>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 2<br>分解树</div>
+        <div>
+          <h3>层层拆解到可以挑战的大小</h3>
+          <p>展开解决终极挑战所需的前提子挑战,不断分解,直到出现个人在一个循环内可以尝试的<b>叶子节点</b>。把树张贴在团队公共空间,让每个叶子到终极挑战的路径始终可见。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>要解决 [上级挑战],
+必须以 [子挑战 A / B / C] 为前提。
+
+叶子判定 — 这个大小是否小到一个人
+能在 1~2 周内尝试推翻假设?(否 → 再分解一次)</pre></div>
+          <span class="pb-tip">提示:一个叶子节点 = 能在 1~2 周内尝试推翻假设的大小</span>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 3<br>选择叶子</div>
+        <div>
+          <h3>每个人选自己“不会的”</h3>
+          <p>不从白纸开始设立挑战。从树的叶子节点中挑选,规则只有一条 — <b>选择现在不会的。</b>对新手来说,叶子是基础技能;对熟手来说,叶子是能放大专业能力的相邻领域(设计、领域知识、市场)。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>我选择 [叶子 L]。
+现在的我做不到这件事 — 依据:[一旦尝试就会发生的事]。
+这个叶子通过 [叶子 → 中间 → 终极] 的路径
+与团队挑战相连。</pre></div>
+          <span class="pb-tip warn">注意:一旦选了自己擅长的,使用这个框架的理由就消失了</span>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 4<br>撰写假设</div>
+        <div>
+          <h3>在学习之前,用当下的理解写下假设</h3>
+          <p>在搜索之前、听课之前,<b>不借助任何信息</b>,仅凭当前的理解填写假设模板。越别扭、错得越多越好。这个假设将成为认知钩子,勾住之后遇到的所有信息。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>我现在对 [对象 X] 是 [这样理解/预期] 的。
+试着做 [验证行动 Y],就能看出这个理解是否正确。
+如果这个假设被推翻,我将学到 [将会学到的东西]。</pre></div>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 5<br>同伴验证</div>
+        <div>
+          <h3>由同伴提出一个问题</h3>
+          <p>提问的不是建立假设的本人,而是团队同伴 — <b>“如果这个假设被推翻,你会学到什么?”</b>答不上来,就修改假设重写。有了这个仪式,验证无需导师也能运转,提问者自己也在训练元认知。导师不是干预者,而是照看这套结构是否运转良好的基础设施管理者。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>提问:“如果这个假设被推翻,你会学到什么?”
+通过 — 回答指向一个具体的理解。
+驳回 — 验证行动模糊 / 学不到任何东西
+       / 是已经知道的东西。
+被驳回后,修改假设并重写。</pre></div>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 6<br>探究</div>
+        <div>
+          <h3>在解决团队问题的同时推翻假设</h3>
+          <p>不必另设学习时间,<b>解决团队问题的过程本身</b>就是假设的实验场。假设被推翻的瞬间要当场记录 — 预期与现实的落差越大,理解的更新也越大。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>[探究日志 — 每当假设被推翻时]
+预期:[原本预期的]
+现实:[实际发生的]
+从落差中学到的:[更新后的理解]</pre></div>
+          <span class="pb-tip">假设被推翻的瞬间是最大的学习点 — 不要事后补记,要当场记录</span>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 7<br>增量复盘</div>
+        <div>
+          <h3>复盘的是变化量,不是产出物</h3>
+          <p>循环结束时,每个人重新拿出起点的假设,测量<b>当时的理解与现在理解之间的距离(增量Δ)</b>。同时记录这次学习把团队挑战推进到了哪里 — 学习与解决在这里合而为一。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>起点的我 [是这样理解] 的。
+现在的我 [是这样理解] 的。
+增量(Δ):[什么被更新了]
+对解决的贡献:[这次学习把团队挑战
+推进到了哪里]</pre></div>
+          <span class="pb-tip warn">被打分的不是产出物,而是增量 — 即使成果粗糙,只要增量够大就是成功</span>
+        </div>
+      </div>
+      <div class="pb-step">
+        <div class="pb-no">STEP 8<br>下一循环</div>
+        <div>
+          <h3>用更新的理解建立下一个假设</h3>
+          <p>复盘中更新的理解,就是下一循环的起点。下一个叶子要选<b>更不会的</b>,团队层也以同样的节奏运转 — 团队假设被推翻不是失败,而是转向的依据。循环永不停止。</p>
+          <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>下一个叶子:[比这次更不会的]
+下一个假设:[用更新的理解重写]
+团队层反馈:[如有被推翻的团队假设 → 转向方向]</pre></div>
+          <span class="pb-tip">从未被推翻的假设 = 定得太安全的信号。下一个叶子,选更不会的。</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mentor-box" id="mentor">
+      <div class="m-tag">MENTOR · FACILITATOR</div>
+      <h3>导师不教 — 只提问</h3>
+      <p class="m-intro">导师·引导者既不是传授知识的人,也不是检查挑战的人。他是照看结构是否运转良好的<b>基础设施管理者</b>,是在需要的时刻<b>抛出一个问题的人</b>。他不给答案 — 因为寻找答案的过程正是学习者的循环。下面这些问题不是导师的专利。<b>即使没有导师,只要队友之间互相提问</b>,框架就能运转。</p>
+
+      <div class="q-group">
+        <div class="qg-k">选择叶子时</div>
+        <ul class="q-list">
+          <li class="q-item">那个,你现在不就已经会了吗?说你不会,依据是什么?</li>
+          <li class="q-item">能用自己的话说说,从那个叶子到终极挑战的路径吗?</li>
+        </ul>
+      </div>
+      <div class="q-group">
+        <div class="qg-k">建立假设时</div>
+        <ul class="q-list">
+          <li class="q-item sig"><b>如果这个假设被推翻,你会学到什么?</b></li>
+          <li class="q-item">这真的是在搜索或学习之前写下的假设吗?</li>
+          <li class="q-item">那个验证行动,1~2 周内真的能做完吗?</li>
+        </ul>
+      </div>
+      <div class="q-group">
+        <div class="qg-k">探究过程中</div>
+        <ul class="q-list">
+          <li class="q-item">最近有没有哪个瞬间和预期不一样?记在哪里了?</li>
+          <li class="q-item">如果假设一个都还没被推翻 — 会不会是定得太安全了?</li>
+        </ul>
+      </div>
+      <div class="q-group">
+        <div class="qg-k">关闭循环时</div>
+        <ul class="q-list">
+          <li class="q-item">循环开始时的你,会怎么解释现在这个东西?</li>
+          <li class="q-item">这次学到的东西,把团队挑战推进到了哪里?</li>
+          <li class="q-item">用更新后的理解,你要建立的下一个假设是什么?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMPLATE -->
+<section class="tmpl-section" id="template" data-page="template">
+  <div class="wrap">
+    <div class="eyebrow">Hypothesis Template</div>
+    <h2>假设句式模板</h2>
+    <p class="lede">格式本身就是过滤器。无法验证的假设,是写不完这个句子的。</p>
+
+    <div class="tmpl-box">
+      <div class="t-label">TEMPLATE · 复制后即可使用</div>
+      <pre id="tmplText">我现在对 <span class="slot">[对象 X]</span>
+是 <span class="slot">[这样理解/预期]</span> 的。
+
+试着做 <span class="slot">[验证行动 Y]</span>,
+就能看出这个理解是否正确。
+
+如果这个假设被推翻,
+我将学到 <span class="slot">[将会学到的东西]</span>。</pre>
+      <button class="copy-btn" id="copyBtn">复制</button>
+    </div>
+    <p class="tmpl-note">最后一行就是同伴验证问题的答案。提前写好这一行,就能立刻回答<b>“被推翻的话你会学到什么?”</b>;写不出来,说明假设还没有准备好。</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" data-page="faq">
+  <div class="wrap">
+    <div class="eyebrow">FAQ</div>
+    <h2>常见问题</h2>
+    <div class="faq-list">
+      <details class="faq">
+        <summary>产出物质量下降,真的没关系吗?</summary>
+        <div class="a">不只是没关系,这本身就是设计的一部分。因为在 HypoLoop 中被打分的不是产出物,而是<b>学习增量(Δ)</b>。不过,问题本身必须是真的,尝试也必须是真的 — 真实性由层级树来守护。只要每个小挑战都与终极的真正问题血统相连,粗糙的成果就是踏板,而不是玩具。</div>
+      </details>
+      <details class="faq">
+        <summary>熟练的专家在这个框架里能学到什么?</summary>
+        <div class="a">规则相同 — 选择自己不会的。只不过专家的“不会的”不是基础技能,而是<b>能放大自身专业能力的相邻领域</b>。对一位十年经验的开发者来说,为做出更好成果所需的设计感觉或市场领域知识,就是他的叶子节点。为了把擅长的事做得更好而习得周边知识,这就是专家的挑战。</div>
+      </details>
+      <details class="faq">
+        <summary>没有导师或引导者也能运转吗?</summary>
+        <div class="a">这正是目标。树的分解负责关联性和难度,假设模板负责可验证性,同伴验证仪式负责质量。如果有导师,其角色也不是干预,而是<b>照看这套结构是否运转良好的基础设施管理</b>。学习小组或小团队完全可以在没有导师的情况下,仅靠同伴验证起步。</div>
+      </details>
+      <details class="faq">
+        <summary>团队成果与个人学习冲突了怎么办?</summary>
+        <div class="a">个人学习优先。这不是例外条款,而是框架的身份认同 — HypoLoop 不是解决问题的框架,而是学习的框架,而学习最终必须发生在个人身上。正因为这条原则,承担陌生的部分不是给团队添麻烦,而是<b>正确的使用方式</b>。</div>
+      </details>
+      <details class="faq">
+        <summary>一个人也能用吗?</summary>
+        <div class="a">可以。把团队层设为“我想做出的真正成果”,把它分解成层级树,再在每个叶子上运转假设循环即可。同伴验证可以由学习伙伴、社区,或留给未来自己的记录来替代。核心 — <b>在学习之前先写假设</b> — 在独自一人时同样有效。</div>
+      </details>
+      <details class="faq">
+        <summary>能与现有的挑战式方法论一起使用吗?</summary>
+        <div class="a">HypoLoop 不是某种方法论的改良版,而是独立框架;但它继承了挑战带来的动机能量,因此可以用<b>在挑战式课程之上叠加个人学习层</b>的方式结合。不妨从把现有的团队挑战设为终极挑战,再加入树的分解和个人假设循环开始。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" data-page="home">
+  <div class="wrap">
+    <h2>在下一个项目中,<br>建立你的第一个假设</h2>
+    <p>你需要的,只是一个真正的问题、一张树,和一个做好了被推翻准备的假设。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#playbook">再看一遍实施指南</a>
+      <a class="btn btn-ghost" href="#template">复制模板</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-mark">Hypo<span>Loop</span> · 假设循环学习</div>
+    <p>failure is not permitted — it is required</p>
+  </div>
+</footer>
+
+<script>
+/* PAGE ROUTER — 点击标签时切换页面而非滚动 */
+const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',faq:'faq'};
+function route(){
+  const hash=location.hash.replace('#','');
+  const pg=routes[hash]||'home';
+  document.querySelectorAll('[data-page]').forEach(el=>{
+    el.classList.toggle('pg-on',el.dataset.page===pg);
+  });
+  document.querySelectorAll('.nav-links a:not(.nav-cta)').forEach(a=>{
+    const target=routes[a.getAttribute('href').replace('#','')]||'home';
+    a.classList.toggle('active',target===pg);
+  });
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+  const act=document.querySelector('.nav-links a.active');
+  if(act)act.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+}
+window.addEventListener('hashchange',route);
+route();
+
+async function copyText(text){
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const ta=document.createElement('textarea');
+    ta.value=text;document.body.appendChild(ta);ta.select();
+    document.execCommand('copy');document.body.removeChild(ta);
+  }
+}
+const copyBtn=document.getElementById('copyBtn');
+copyBtn.addEventListener('click',async()=>{
+  await copyText(`我现在对 [对象 X]\n是 [这样理解/预期] 的。\n\n试着做 [验证行动 Y],\n就能看出这个理解是否正确。\n\n如果这个假设被推翻,\n我将学到 [将会学到的东西]。`);
+  copyBtn.textContent='已复制 ✓';
+  setTimeout(()=>copyBtn.textContent='复制',2000);
+});
+document.querySelectorAll('.pb-copy').forEach(btn=>{
+  btn.addEventListener('click',async()=>{
+    await copyText(btn.parentElement.querySelector('pre').innerText);
+    btn.textContent='已复制 ✓';
+    setTimeout(()=>btn.textContent='复制',2000);
+  });
+});
+document.querySelectorAll('.lang-switch a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    if(location.hash)a.href=a.getAttribute('href').split('#')[0]+location.hash;
+  });
+});
+</script>
+</body>
+</html>
