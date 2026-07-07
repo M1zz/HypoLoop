@@ -283,6 +283,16 @@ nav{
 .copy-btn:hover{background:var(--loop)}
 .tmpl-note{margin-top:20px;font-size:14px;color:var(--ink-soft);max-width:640px}
 .tmpl-note b{color:var(--ink)}
+.tg-head{margin-top:64px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);display:flex;align-items:center;gap:10px}
+.tg-head::after{content:"";flex:1;height:1px;background:var(--line)}
+.tg-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.tg-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.tg-card.full{grid-column:1/-1}
+.tg-card .tg-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);margin-bottom:6px}
+.tg-card h3{font-family:'Noto Serif SC',serif;font-size:17px;font-weight:700;margin-bottom:4px}
+.tg-card .tg-use{font-size:12.5px;color:var(--ink-soft);margin-bottom:4px}
+.tg-card .pb-tmpl{max-width:none;margin-top:auto}
+@media(max-width:820px){.tg-grid{grid-template-columns:1fr}}
 
 /* FAQ */
 .faq-list{margin-top:44px;max-width:760px}
@@ -853,9 +863,9 @@ footer .f-contact a:hover{text-decoration:underline}
 <!-- TEMPLATE -->
 <section class="tmpl-section" id="template" data-page="template">
   <div class="wrap">
-    <div class="eyebrow">Hypothesis Template</div>
-    <h2>假设句式模板</h2>
-    <p class="lede">格式本身就是过滤器。无法验证的假设,是写不完这个句子的。</p>
+    <div class="eyebrow">Templates</div>
+    <h2>模板合集 —<br>复制即可开始</h2>
+    <p class="lede">循环所需的全部句式模板,都汇集在这一页。格式本身就是过滤器 — <strong>填不出空格,说明还没有准备好</strong>。</p>
 
     <div class="tmpl-box">
       <div class="t-label">TEMPLATE · 复制后即可使用</div>
@@ -870,6 +880,131 @@ footer .f-contact a:hover{text-decoration:underline}
       <button class="copy-btn" id="copyBtn">复制</button>
     </div>
     <p class="tmpl-note">最后一行就是同伴验证问题的答案。提前写好这一行,就能立刻回答<b>“被推翻的话你会学到什么?”</b>;写不出来,说明假设还没有准备好。</p>
+
+    <div class="tg-head">CYCLE SHEET — 一页纸走完一个循环</div>
+    <div class="tg-grid">
+      <div class="tg-card full">
+        <div class="tg-k">ALL-IN-ONE</div>
+        <h3>循环表</h3>
+        <p class="tg-use">粘贴到 Notion 或文档中,一个循环期间只填这一页。它是下方 8 个步骤模板的浓缩版。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>[循环表 — 姓名: · 周期: ~ ]
+
+叶子:[从树上选出的、现在不会的]
+做不到的依据:[一旦尝试就会发生的事]
+血统:[叶子 → 中间 → 终极挑战]
+
+假设:我现在对 [对象 X] 是 [这样理解/预期] 的。
+验证行动:[1~2 周内可以尝试的 Y]
+被推翻后会学到:[一个具体的理解]
+同伴验证:通过 / 驳回 — [同伴姓名 · 日期]
+
+探究日志(每次被推翻时):
+- 预期: → 现实: → 学到的:
+- 预期: → 现实: → 学到的:
+
+增量(Δ):[起点的理解] → [现在的理解]
+对解决的贡献:[把团队挑战推进到了哪里]
+下一个叶子:[比这次更不会的]</pre></div>
+      </div>
+    </div>
+
+    <div class="tg-head">STEP TEMPLATES — 全部八个步骤</div>
+    <div class="tg-grid">
+      <div class="tg-card">
+        <div class="tg-k">STEP 1 · 设定问题</div>
+        <h3>终极挑战宣言</h3>
+        <p class="tg-use">在启动会上由全队一起填写,出声朗读后确定。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>我们团队要解决 [世界上的真实问题 P]。
+这是 [谁,在什么情境下] 实际面临的问题。
+问题解决后,可以通过 [什么发生了改变] 来确认。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 2 · 分解树</div>
+        <h3>分解 + 叶子判定</h3>
+        <p class="tg-use">对每个节点提出叶子判定问题,答案是否就再分解一次。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>要解决 [上级挑战],
+必须以 [子挑战 A / B / C] 为前提。
+
+叶子判定 — 这个大小是否小到一个人
+能在 1~2 周内尝试推翻假设?(否 → 再分解一次)</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 3 · 选择叶子</div>
+        <h3>挑选“不会的”</h3>
+        <p class="tg-use">规则只有一条 — 现在不会的。写出依据才算完成。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>我选择 [叶子 L]。
+现在的我做不到这件事 — 依据:[一旦尝试就会发生的事]。
+这个叶子通过 [叶子 → 中间 → 终极] 的路径
+与团队挑战相连。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 4 · 撰写假设</div>
+        <h3>假设句式</h3>
+        <p class="tg-use">搜索之前,15 分钟,只凭当下的理解。错得越多越好。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>我现在对 [对象 X] 是 [这样理解/预期] 的。
+试着做 [验证行动 Y],就能看出这个理解是否正确。
+如果这个假设被推翻,我将学到 [将会学到的东西]。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 5 · 同伴验证</div>
+        <h3>验证问答判定表</h3>
+        <p class="tg-use">提问者只提问 — 禁止建议。来回不超过 3 分钟。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>提问:“如果这个假设被推翻,你会学到什么?”
+通过 — 回答指向一个具体的理解。
+驳回 — 验证行动模糊 / 学不到任何东西
+       / 是已经知道的东西。
+被驳回后,修改假设并重写。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 6 · 探究</div>
+        <h3>探究日志</h3>
+        <p class="tg-use">在假设被推翻的当场,5 分钟内写完。不必写得漂亮。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>[探究日志 — 每当假设被推翻时]
+预期:[原本预期的]
+现实:[实际发生的]
+从落差中学到的:[更新后的理解]</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 7 · 增量复盘</div>
+        <h3>增量复盘</h3>
+        <p class="tg-use">复盘变化量而非产出物。把起点假设的原文放在旁边来写。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>起点的我 [是这样理解] 的。
+现在的我 [是这样理解] 的。
+增量(Δ):[什么被更新了]
+对解决的贡献:[这次学习把团队挑战
+推进到了哪里]</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 8 · 下一循环</div>
+        <h3>下一循环计划</h3>
+        <p class="tg-use">下一个叶子选更不会的;被推翻的团队假设化为转向方向。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>下一个叶子:[比这次更不会的]
+下一个假设:[用更新的理解重写]
+团队层反馈:[如有被推翻的团队假设 → 转向方向]</pre></div>
+      </div>
+    </div>
+
+    <div class="tg-head">MEETING — 会议运营</div>
+    <div class="tg-grid">
+      <div class="tg-card full">
+        <div class="tg-k">WEEKLY · 团队·学习小组通用</div>
+        <h3>每周例会议程</h3>
+        <p class="tg-use">学习小组把循环压缩为一周,用这份议程运转。60~90 分钟。</p>
+        <div class="pb-tmpl"><button class="pb-copy">复制</button><pre>[每周例会议程 — 60~90分钟]
+
+1. 增量分享(每人3分钟)
+   原样朗读上次的假设原文,
+   只谈与当前理解的距离。禁止炫耀成果物。
+2. 炫耀被推翻的瞬间
+   每人一个与预期不符的瞬间。
+   如果没人被推翻 → 全员叶子升级。
+3. 撰写下一个假设(15分钟,当场)
+   在搜索之前写。
+4. 同伴验证(两人一组)
+   “如果这个假设被推翻,你会学到什么?”
+   直到通过。只许提问,不许给答案。</pre></div>
+      </div>
+    </div>
   </div>
 </section>
 

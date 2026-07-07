@@ -284,6 +284,16 @@ nav{
 .copy-btn:hover{background:var(--loop)}
 .tmpl-note{margin-top:20px;font-size:14px;color:var(--ink-soft);max-width:640px}
 .tmpl-note b{color:var(--ink)}
+.tg-head{margin-top:64px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);display:flex;align-items:center;gap:10px}
+.tg-head::after{content:"";flex:1;height:1px;background:var(--line)}
+.tg-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.tg-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.tg-card.full{grid-column:1/-1}
+.tg-card .tg-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);margin-bottom:6px}
+.tg-card h3{font-family:'Noto Serif',serif;font-size:17px;font-weight:700;margin-bottom:4px}
+.tg-card .tg-use{font-size:12.5px;color:var(--ink-soft);margin-bottom:4px}
+.tg-card .pb-tmpl{max-width:none;margin-top:auto}
+@media(max-width:820px){.tg-grid{grid-template-columns:1fr}}
 
 /* FAQ */
 .faq-list{margin-top:44px;max-width:760px}
@@ -854,9 +864,9 @@ Team-layer update: [if a team hypothesis was rejected → pivot direction]</pre>
 <!-- TEMPLATE -->
 <section class="tmpl-section" id="template" data-page="template">
   <div class="wrap">
-    <div class="eyebrow">Hypothesis Template</div>
-    <h2>The Hypothesis Sentence Template</h2>
-    <p class="lede">The form is the filter. An unverifiable hypothesis cannot complete this sentence.</p>
+    <div class="eyebrow">Templates</div>
+    <h2>The template collection —<br>copy and start right away</h2>
+    <p class="lede">Every sentence frame the cycle needs, gathered in one place. The form is the filter — <strong>if you can't fill in the blanks, you're not ready yet</strong>.</p>
 
     <div class="tmpl-box">
       <div class="t-label">TEMPLATE · Copy and use as is</div>
@@ -871,6 +881,132 @@ learn <span class="slot">[what I will come to know]</span>.</pre>
       <button class="copy-btn" id="copyBtn">Copy</button>
     </div>
     <p class="tmpl-note">The last line is the answer to the peer-verification question. Write it in advance and you can answer <b>"If it breaks, what will you learn?"</b> on the spot; if you can't write it, the hypothesis isn't ready yet.</p>
+
+    <div class="tg-head">CYCLE SHEET — one cycle on one page</div>
+    <div class="tg-grid">
+      <div class="tg-card full">
+        <div class="tg-k">ALL-IN-ONE</div>
+        <h3>Cycle Sheet</h3>
+        <p class="tg-use">Paste into Notion or a doc and fill in this single sheet over one cycle. A condensed version of the 8 step templates below.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>[Cycle sheet — name: · period: ~ ]
+
+Leaf: [something from the tree I can't do right now]
+Why I can't do it yet: [what happens when I try]
+Lineage: [leaf → intermediate → ultimate challenge]
+
+Hypothesis: Right now I understand/expect [subject X] [like this].
+Verification action: [a Y I can try within 1–2 weeks]
+What breaking reveals: [one concrete piece of understanding]
+Peer check: pass / rejected — [peer's name · date]
+
+Investigation log (every break):
+- Expected: → Reality: → Learned:
+- Expected: → Reality: → Learned:
+
+Delta (Δ): [starting understanding] → [current understanding]
+Contribution to the solution: [how far the team challenge advanced]
+Next leaf: [something I know even less about than this time]</pre></div>
+      </div>
+    </div>
+
+    <div class="tg-head">STEP TEMPLATES — all eight steps</div>
+    <div class="tg-grid">
+      <div class="tg-card">
+        <div class="tg-k">STEP 1 · FRAME THE PROBLEM</div>
+        <h3>Ultimate-challenge declaration</h3>
+        <p class="tg-use">At kickoff, the whole team fills it in together, reads it aloud, and makes it official.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Our team sets out to solve [real-world problem P].
+This is a problem [who] actually faces [in what situation].
+When it is solved, we will know by [what has changed].</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 2 · DECOMPOSE THE TREE</div>
+        <h3>Decomposition + leaf test</h3>
+        <p class="tg-use">Ask the leaf-test question of every node; if the answer is no, split once more.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>To solve [parent challenge],
+[sub-challenges A / B / C] must come first.
+
+Leaf test — is it small enough for one person to try
+breaking a hypothesis within 1–2 weeks? (No → decompose once more)</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 3 · PICK A LEAF</div>
+        <h3>Picking what you can't do</h3>
+        <p class="tg-use">One rule — something you can't do right now. It isn't done until the evidence is written.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>I pick [leaf L].
+Right now I can't do this — evidence: [what happens when I try].
+This leaf connects to the team challenge
+via the path [leaf → intermediate → ultimate].</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 4 · WRITE THE HYPOTHESIS</div>
+        <h3>Hypothesis sentence</h3>
+        <p class="tg-use">Before searching, 15 minutes, from your current understanding only. The wronger, the better.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Right now I understand/expect [subject X] [like this].
+Trying [verification action Y] will reveal whether this understanding holds.
+If this hypothesis breaks, I will learn [what I will come to know].</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 5 · PEER VERIFICATION</div>
+        <h3>Verification verdict sheet</h3>
+        <p class="tg-use">The asker asks questions only — no advice. Keep the round trip under 3 minutes.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Question: "If this hypothesis breaks, what will you learn?"
+Pass — the answer points to one concrete piece of understanding.
+Reject — the verification action is vague / there is nothing to learn
+       / it is something already known.
+If rejected, refine the hypothesis and write it again.</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 6 · INVESTIGATE</div>
+        <h3>Investigation log</h3>
+        <p class="tg-use">On the spot where the hypothesis broke, within 5 minutes. It doesn't need to be well written.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>[Investigation log — every time a hypothesis breaks]
+Expected: [what I expected]
+Reality: [what actually happened]
+Learned from the gap: [updated understanding]</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 7 · DELTA RETROSPECTIVE</div>
+        <h3>Delta retrospective</h3>
+        <p class="tg-use">The change, not the deliverable. Write it with your original starting hypothesis at hand.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>At the start, I understood [this].
+Now I understand [this].
+Delta (Δ): [what was updated]
+Contribution to solving: [how far this learning
+advanced the team challenge]</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 8 · NEXT CYCLE</div>
+        <h3>Next-cycle plan</h3>
+        <p class="tg-use">The next leaf is something you know even less about. A rejected team hypothesis becomes the pivot direction.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>Next leaf: [something I know even less about than this time]
+Next hypothesis: [rewritten with my updated understanding]
+Team-layer update: [if a team hypothesis was rejected → pivot direction]</pre></div>
+      </div>
+    </div>
+
+    <div class="tg-head">MEETING — running the ritual</div>
+    <div class="tg-grid">
+      <div class="tg-card full">
+        <div class="tg-k">WEEKLY · FOR TEAMS AND STUDY GROUPS</div>
+        <h3>Weekly meeting agenda</h3>
+        <p class="tg-use">Study groups compress the cycle to one week and run it on this agenda. 60–90 min.</p>
+        <div class="pb-tmpl"><button class="pb-copy">Copy</button><pre>[Weekly meeting agenda — 60–90 min]
+
+1. Delta sharing (3 min each)
+   Read your original hypothesis aloud, exactly as written,
+   and speak only about the distance to your current
+   understanding. No deliverable show-and-tell.
+2. Bragging about breaks
+   One moment that defied expectations each.
+   If nobody's hypothesis broke → everyone levels up their leaf.
+3. Write the next hypothesis (15 min, on the spot)
+   Written before searching.
+4. Peer check (in pairs)
+   "If this hypothesis breaks, what will you learn?"
+   Until it passes. Questions only, no answers.</pre></div>
+      </div>
+    </div>
   </div>
 </section>
 

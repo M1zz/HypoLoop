@@ -283,6 +283,16 @@ nav{
 .copy-btn:hover{background:var(--loop)}
 .tmpl-note{margin-top:20px;font-size:14px;color:var(--ink-soft);max-width:640px}
 .tmpl-note b{color:var(--ink)}
+.tg-head{margin-top:64px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);display:flex;align-items:center;gap:10px}
+.tg-head::after{content:"";flex:1;height:1px;background:var(--line)}
+.tg-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.tg-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}
+.tg-card.full{grid-column:1/-1}
+.tg-card .tg-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);margin-bottom:6px}
+.tg-card h3{font-family:'Noto Serif JP',serif;font-size:17px;font-weight:700;margin-bottom:4px}
+.tg-card .tg-use{font-size:12.5px;color:var(--ink-soft);margin-bottom:4px}
+.tg-card .pb-tmpl{max-width:none;margin-top:auto}
+@media(max-width:820px){.tg-grid{grid-template-columns:1fr}}
 
 /* FAQ */
 .faq-list{margin-top:44px;max-width:760px}
@@ -853,9 +863,9 @@ footer .f-contact a:hover{text-decoration:underline}
 <!-- TEMPLATE -->
 <section class="tmpl-section" id="template" data-page="template">
   <div class="wrap">
-    <div class="eyebrow">Hypothesis Template</div>
-    <h2>仮説文テンプレート</h2>
-    <p class="lede">形式こそがフィルターです。検証不可能な仮説は、この文を完成させられません。</p>
+    <div class="eyebrow">Templates</div>
+    <h2>テンプレート集 —<br>コピーしてすぐ始めましょう</h2>
+    <p class="lede">サイクルに必要なすべての文章テンプレートを一か所に集めました。形式こそがフィルターです — <strong>空欄を埋められないなら、まだ準備ができていないということ</strong>です。</p>
 
     <div class="tmpl-box">
       <div class="t-label">TEMPLATE · コピーしてそのまま使えます</div>
@@ -870,6 +880,131 @@ footer .f-contact a:hover{text-decoration:underline}
       <button class="copy-btn" id="copyBtn">コピー</button>
     </div>
     <p class="tmpl-note">最後の行が、ピア検証の質問への答えです。この行をあらかじめ書いておけば<b>「壊れたら何を知ることになる?」</b>にすぐ答えられ、書けなければ仮説はまだ準備ができていないということです。</p>
+
+    <div class="tg-head">CYCLE SHEET — 1サイクルを1枚に</div>
+    <div class="tg-grid">
+      <div class="tg-card full">
+        <div class="tg-k">ALL-IN-ONE</div>
+        <h3>サイクルシート</h3>
+        <p class="tg-use">Notionや文書に貼り付けて、1サイクルの間この1枚だけを埋めます。下の8ステップテンプレートの要約版です。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>[サイクルシート — 名前: · 期間: 〜 ]
+
+リーフ: [ツリーから選んだ、今できないこと]
+できない根拠: [試みると起きること]
+血統: [リーフ → 中間 → 究極チャレンジ]
+
+仮説: 私は今[対象X]を[このように理解/予想]している。
+検証行動: [1〜2週間でやってみられるY]
+壊れたら知ること: [具体的な理解を一つ]
+ピア検証: 通過 / 差し戻し — [仲間の名前 · 日付]
+
+探究ログ(壊れるたびに):
+- 予想: → 現実: → 学んだこと:
+- 予想: → 現実: → 学んだこと:
+
+デルタ(Δ): [始まりの理解] → [今の理解]
+解決への貢献: [チームチャレンジをどこまで前進させたか]
+次のリーフ: [今回よりもっと分からないもの]</pre></div>
+      </div>
+    </div>
+
+    <div class="tg-head">STEP TEMPLATES — 8ステップすべて</div>
+    <div class="tg-grid">
+      <div class="tg-card">
+        <div class="tg-k">STEP 1 · 問題設定</div>
+        <h3>究極チャレンジ宣言</h3>
+        <p class="tg-use">キックオフでチーム全体が一緒に埋め、声に出して読んで確定します。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>私たちのチームは[世界の本物の問題P]を解決しようとしている。
+この問題は[誰が、どんな状況で]実際に直面している問題だ。
+解決されれば[何が変わったか]で確認できる。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 2 · ツリー分解</div>
+        <h3>分解 + リーフ判定</h3>
+        <p class="tg-use">ノードごとにリーフ判定の質問を投げかけ、いいえならもう一段分解します。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>[上位チャレンジ]を解決するには
+[下位チャレンジ A / B / C]が前提となる。
+
+リーフ判定 — 一人が1〜2週間で仮説を
+壊してみられるサイズか?(いいえ → もう一段分解)</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 3 · リーフ選択</div>
+        <h3>できないことを選ぶ</h3>
+        <p class="tg-use">ルールはただ一つ — 今できないこと。根拠まで書いて完成です。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>私は[リーフL]を選ぶ。
+今の私にはこれができない — 根拠: [試みると起きること]。
+このリーフは[リーフ → 中間 → 究極]の経路で
+チームチャレンジとつながっている。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 4 · 仮説作成</div>
+        <h3>仮説文</h3>
+        <p class="tg-use">検索する前に、15分、今の理解だけで。間違っているほど良いのです。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>私は今[対象X]を[このように理解/予想]している。
+[検証行動Y]をやってみれば、この理解が正しいか分かるはずだ。
+この仮説が壊れたら、私は[分かるはずのこと]を知ることになる。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 5 · ピア検証</div>
+        <h3>検証問答の判定表</h3>
+        <p class="tg-use">尋ねる側は質問のみ — アドバイス禁止。往復3分以内に。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>質問: 「この仮説が壊れたら、君は何を知ることになる?」
+合格 — 答えが具体的な理解を一つ指している。
+差し戻し — 検証行動が曖昧だ / 知ることになるものがない
+       / すでに知っていることだ。
+差し戻されたら、仮説を磨いて書き直す。</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 6 · 探究</div>
+        <h3>探究ログ</h3>
+        <p class="tg-use">仮説が壊れたその場で5分以内に。上手に書く必要はありません。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>[探究ログ — 仮説が壊れた瞬間ごとに]
+予想: [予想していたこと]
+現実: [実際に起きたこと]
+ギャップから学んだこと: [更新された理解]</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 7 · デルタ振り返り</div>
+        <h3>デルタ振り返り</h3>
+        <p class="tg-use">成果物ではなく変化量。開始時の仮説の原文を横に置いて書きます。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>始まりの私は[このように理解]していた。
+今の私は[このように理解]している。
+デルタ(Δ): [何が更新されたか]
+解決への貢献: [この学びがチームチャレンジを
+どこまで前進させたか]</pre></div>
+      </div>
+      <div class="tg-card">
+        <div class="tg-k">STEP 8 · 次のサイクル</div>
+        <h3>次のサイクル計画</h3>
+        <p class="tg-use">次のリーフはもっと分からないものを。棄却されたチーム仮説はピボットの方向へ。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>次のリーフ: [今回よりもっと分からないもの]
+次の仮説: [更新された理解で書き直す]
+チーム層への反映: [棄却されたチーム仮説があれば → ピボットの方向]</pre></div>
+      </div>
+    </div>
+
+    <div class="tg-head">MEETING — ミーティング運営</div>
+    <div class="tg-grid">
+      <div class="tg-card full">
+        <div class="tg-k">WEEKLY · チーム・勉強会共用</div>
+        <h3>週次ミーティングアジェンダ</h3>
+        <p class="tg-use">勉強会はサイクルを1週間に圧縮してこのアジェンダで回します。60〜90分。</p>
+        <div class="pb-tmpl"><button class="pb-copy">コピー</button><pre>[週次ミーティングアジェンダ — 60〜90分]
+
+1. デルタ共有(1人3分)
+   前回の仮説の原文をそのまま読み、今の理解との
+   距離だけを話す。成果物の自慢は禁止。
+2. 壊れた瞬間の自慢
+   予想と違った瞬間を1つずつ。
+   誰も壊れなかったら → 全員リーフを一段上げる。
+3. 次の仮説作成(15分、その場で)
+   検索する前に書く。
+4. ピア検証(2人1組)
+   「この仮説が壊れたら、君は何を知ることになる?」
+   通過するまで。質問のみ、答えは禁止。</pre></div>
+      </div>
+    </div>
   </div>
 </section>
 
