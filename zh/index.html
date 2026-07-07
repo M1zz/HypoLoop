@@ -243,7 +243,7 @@ nav{
 .c-row .c-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--loop);padding-top:3px}
 .c-row .c-v{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
 .c-row .c-v b{color:var(--ink)}
-.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8}
+.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8;white-space:pre-wrap}
 .c-quote.break{background:var(--break-soft)}
 .c-delta{margin:14px 0;background:var(--ink);color:var(--paper);border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.8}
 .c-delta b{color:#8FD3BE}
@@ -1013,22 +1013,59 @@ footer .f-contact a:hover{text-decoration:underline}
   <div class="wrap">
     <div class="eyebrow">Samples</div>
     <h2>完整走完八个步骤的<br>五个循环</h2>
-    <p class="lede">这是团队规模、熟练度和领域各不相同的五个进行示例。从实际填好的模板、<strong>假设被推翻的瞬间</strong>,到测得的增量,你可以原样看到一个循环的全过程。(这些是以运营场景为基础重构的示例。)</p>
+    <p class="lede">五个进行示例来自不同的团队规模、熟练度和领域。<strong>第一个案例是按天记录、完整走过八个步骤的详细演练</strong> — 想看框架实际如何运转,请从它读起。(这些是以运营场景为基础重构的示例。)</p>
 
     <div class="case-list">
       <details class="case">
-        <summary><span class="c-no">SAMPLE 01</span><span class="c-title">🍞 街角面包店</span><span class="c-who">副业项目 4 人 · 全员非科班新手</span></summary>
+        <summary><span class="c-no">SAMPLE 01 · 详细演练</span><span class="c-title">🍞 街角面包店</span><span class="c-who">副业项目 4 人 · 全员非科班新手 · 2 周循环</span></summary>
         <div class="c-body">
           <div class="c-flow">
-            <div class="c-row"><div class="c-k">终极挑战</div><div class="c-v"><span class="c-quote">我们团队要解决“在街区里买不到刚出炉的健康面包”的问题。这是靠面包解决早餐的上班路上的邻居们每天面临的问题。问题解决后,可以通过早上 7 点店门口排起队来确认。</span></div></div>
-            <div class="c-row"><div class="c-k">树 → 叶子</div><div class="c-v">开面包店 → 开发招牌健康面包 → 烤出酸面包 → <b>制作天然酵种</b></div></div>
-            <div class="c-row"><div class="c-k">选择依据</div><div class="c-v">“我以为面粉加水放一周只会长霉 — 分不清发酵和腐败。”</div></div>
-            <div class="c-row"><div class="c-k">假设</div><div class="c-v"><span class="c-quote">我现在理解面包是靠泡打粉膨胀的。去掉酵母烤一次就能见分晓。如果这个假设被推翻,我将学到让面团膨胀的真正原理。</span></div></div>
-            <div class="c-row"><div class="c-k">同伴验证</div><div class="c-v">Q“被推翻的话你会学到什么?” — A“膨胀是因为化学膨松剂,还是因为生物发酵。” → <b>通过</b></div></div>
-            <div class="c-row"><div class="c-k">被推翻的瞬间</div><div class="c-v"><span class="c-quote break">预期:去掉酵母就完全不会膨胀 / 现实:放了一天,竟然“稍微”膨胀了 / 学到的:空气中住着野生酵母 — 发酵不是加进去的,而是自己发生的。</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 1<br>设定问题<br>DAY 1 · 90分钟</div><div class="c-v">四个人聚在一起,每人把“最近六个月里遇到的不便”写成 5 张便利贴,共 20 张贴上墙。归类之后得到<b>早餐 · 通勤 · 社区商圈</b>三簇。对每一簇抛出实存验证问题 — “我们能指出一个真实经历这个问题的人吗?”对“街区里没有面包店”,全员都指向了自己和隔壁组的同事;而“通勤很无聊”没有一个人能指出为此惋惜的人,落选。用每人 2 票的投票(兴趣 1 票 + 力所能及 1 票)敲定之后,大家一起填好宣言,全员出声朗读。<span class="c-quote">我们团队要解决“在街区里买不到刚出炉的健康面包”的问题。这是靠面包解决早餐的上班路上的邻居们每天面临的问题。问题解决后,可以通过早上 7 点店门口排起队来确认。</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 2<br>分解树<br>DAY 1 · 60分钟</div><div class="c-v">从技术、用户、运营三个方向追问“要开成面包店,得先做成什么?”,得到三个分支。对“烤出酸面包”抛出叶子判定问题 — “这个大小是否小到一个人能在 1~2 周内尝试推翻假设?” — 答案是<b>否</b>。再分解一次,得到三个叶子,并把完成的树发布到 Notion。<span class="c-quote">开面包店
+├─ 开发招牌健康面包(技术)
+│   └─ 烤出酸面包 ← 叶子判定:否,再分解
+│       ├─ 制作天然酵种 ← 叶子
+│       ├─ 掌握揉面与整形 ← 叶子
+│       └─ 掌控烘烤温度 ← 叶子
+├─ 争取早晨的顾客(用户)→ 作为团队假设
+└─ 找到小规模起步的方法(运营)</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 3<br>选择叶子<br>DAY 2 · 20分钟</div><div class="c-v">扫一遍叶子,给“现在让我做我做不来的”做标记。“揉面与整形”感觉照着 YouTube 就能跟做,于是排除 — 依据只有“只是没做过”的叶子是弱叶子。酵种不一样。<span class="c-quote">我选择“制作天然酵种”。
+依据:我以为面粉加水放一周只会长霉
+— 我分不清发酵和腐败。
+血统:酵种 → 酸面包 → 招牌面包 → 面包店。</span>把这条路径出声讲给同伴听时毫无卡顿,树无需修补即告通过。</div></div>
+            <div class="c-row"><div class="c-k">STEP 4<br>撰写假设<br>DAY 2 · 15分钟</div><div class="c-v">计时器 15 分钟,搜索框、YouTube、AI 全部关掉。最难的是忍住“搜一下 3 分钟就有答案”的冲动。只凭此刻脑中的理解填满了三行。<span class="c-quote">我现在理解面包是靠泡打粉膨胀的。
+去掉酵母烤一次,这个理解对不对就能见分晓。
+如果这个假设被推翻,我将学到让面团膨胀的真正原理。</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 5<br>同伴验证<br>DAY 2 · 10分钟</div><div class="c-v">其实最初的假设并不是这个。第一次提交的假设是<b>“我不懂发酵。做一次酵种就会懂了”</b>,面对同伴的提问只答得出“会…懂发酵吧?”,于是被<b>驳回</b>(会学到什么太模糊)。当场重新追问“我到底真正误解了什么?”,改写成泡打粉假设,再次挑战。<span class="c-quote break">Q“如果这个假设被推翻,你会学到什么?”
+第 1 次:“会懂发酵” → 驳回(模糊)
+第 2 次:“能分清膨胀是因为化学膨松剂
+     还是因为生物发酵” → 通过</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 6<br>探究<br>DAY 3~11</div><div class="c-v">不安排单独的学习时间 — 面包店的筹备(团队作业)本身就是实验场。在玻璃瓶里养起酵种,并让一份去掉酵母的面团作为对照组一起运转。每当假设被推翻的瞬间,当场写下 3 行日志:<span class="c-quote break">DAY 3 — 预期:面粉+水只会坏掉
+现实:第 3 天冒起气泡,散发酸香
+学到的:不是腐坏,发酵正在“发生”
+
+DAY 5 — 预期:去掉酵母就完全不会膨胀
+现实:放了一天,竟然“稍微”膨胀了 ← 假设被推翻的瞬间
+学到的:空气中住着野生酵母。
+发酵不是加进去的,而是自己发生的
+
+DAY 9 — 预期:酵种放得越多,膨胀得越好
+现实:过度发酵,面团塌了
+学到的:发酵不是用量的函数,而是时间·温度的函数</span>同一时期,<b>团队层也在验证自己的假设</b> — 带着“街坊们早上想要现烤的健康面包”,在周末早晨的咖啡店门口访谈了 12 位邻居。比起“现烤”,大家对<b>“健康食材”</b>反响更大。层有两个,循环只转一个。</div></div>
+            <div class="c-row"><div class="c-k">STEP 7<br>增量复盘<br>DAY 12 · 60分钟</div><div class="c-v">每人把 DAY 2 的假设原文一字不改地朗读出来,再像讲给“当时的自己”听那样填写增量。试制的酸面包 1 号是塌的 — 但被打分的不是面包的形状,而是这段距离。<span class="c-quote">开始的我理解为膨胀是泡打粉的化学反应。
+现在的我知道原理是酵母分解糖时释放的 CO₂,
+膨松剂只是那条捷径。额外的收获是,
+发酵是时间·温度的函数,这一点我也用身体记住了。
+增量(Δ):化学 → 生物,以及用量 → 时间·温度
+对解决问题的贡献:招牌酸面包试制品 1 号
+— 虽然塌了,但通过了团队试吃。</span></div></div>
           </div>
-          <div class="c-delta"><b>Δ 增量:</b>“膨胀 = 膨松剂的化学反应” → “膨胀 = 酵母分解糖时释放的 CO₂,膨松剂只是那条捷径。” <b>团队贡献:</b>招牌酸面包试制品 1 号。</div>
-          <div class="c-flow"><div class="c-row"><div class="c-k">下一个循环</div><div class="c-v">低温发酵与风味的关系 — 带着“发酵时间越长越好”这个下一个假设出发。</div></div></div>
+          <div class="c-delta"><b>Δ 增量:</b>“膨胀 = 膨松剂的化学反应” → “膨胀 = 酵母分解糖时释放的 CO₂,膨松剂只是那条捷径。” <b>团队贡献:</b>招牌酸面包试制品 1 号。<b>被打分的不是产出物的质量(塌掉的面包),而是增量 — 成功。</b></div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">STEP 8<br>下一循环<br>DAY 12 · 30分钟</div><div class="c-v">更新了树 — 给酵种叶子标上完成,并<b>新增探究中发现的“低温发酵”分支</b>。下一个叶子,选更不懂的。<span class="c-quote">下一个叶子:实验低温发酵如何改变风味
+下一个假设:我理解为发酵时间越长越好
+— 分别烤 24·48·72 小时来对比,就能见分晓
+团队层反映:根据访谈结果,把讯息从“现烤”为中心
+转向“健康食材”为中心</span></div></div></div>
         </div>
       </details>
 

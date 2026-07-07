@@ -243,7 +243,7 @@ nav{
 .c-row .c-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--loop);padding-top:3px}
 .c-row .c-v{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
 .c-row .c-v b{color:var(--ink)}
-.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8}
+.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8;white-space:pre-wrap}
 .c-quote.break{background:var(--break-soft)}
 .c-delta{margin:14px 0;background:var(--ink);color:var(--paper);border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.8}
 .c-delta b{color:#8FD3BE}
@@ -1013,22 +1013,59 @@ footer .f-contact a:hover{text-decoration:underline}
   <div class="wrap">
     <div class="eyebrow">Samples</div>
     <h2>八つのステップを最後まで通過した<br>五つのサイクル</h2>
-    <p class="lede">チームの規模も、熟練度も、ドメインも異なる5つの進行サンプルです。実際に埋められたテンプレート、<strong>仮説が壊れた瞬間</strong>、測定されたデルタまで、1サイクルの全過程をそのまま見ることができます。(運営シナリオをもとに再構成したサンプルです。)</p>
+    <p class="lede">チームの規模も、熟練度も、ドメインも異なる5つのサンプルです。<strong>最初の事例は、8つのステップの全過程を1日単位でたどる詳細ウォークスルー</strong>です — フレームワークが実際にどう回るのかを見るなら、ここから読んでください。(運営シナリオをもとに再構成したサンプルです。)</p>
 
     <div class="case-list">
       <details class="case">
-        <summary><span class="c-no">SAMPLE 01</span><span class="c-title">🍞 地元のパン屋</span><span class="c-who">サイドプロジェクト4人 · 全員が非専門の初心者</span></summary>
+        <summary><span class="c-no">SAMPLE 01 · 詳細ウォークスルー</span><span class="c-title">🍞 地元のパン屋</span><span class="c-who">サイドプロジェクト4人 · 全員未経験 · 2週間サイクル</span></summary>
         <div class="c-body">
           <div class="c-flow">
-            <div class="c-row"><div class="c-k">究極チャレンジ</div><div class="c-v"><span class="c-quote">私たちのチームは『地元で焼きたての健康的なパンを買える場所がない』という問題を解決しようとしている。朝食をパンで済ませる通勤途中の隣人たちが毎日直面している問題だ。解決されれば、朝7時に店の前に行列ができることで確認できる。</span></div></div>
-            <div class="c-row"><div class="c-k">ツリー → リーフ</div><div class="c-v">パン屋を開く → 看板となる健康パンの開発 → サワードウを焼く → <b>天然酵母種をつくる</b></div></div>
-            <div class="c-row"><div class="c-k">選択の根拠</div><div class="c-v">「小麦粉と水を1週間置いたらカビが生えると思っている — 発酵と腐敗を区別できない。」</div></div>
-            <div class="c-row"><div class="c-k">仮説</div><div class="c-v"><span class="c-quote">私は今、パンはベーキングパウダーのおかげで膨らむと理解している。イーストを抜いて焼いてみれば分かるはずだ。この仮説が壊れたら、私は生地を膨らませる本当の原理を知ることになる。</span></div></div>
-            <div class="c-row"><div class="c-k">ピア検証</div><div class="c-v">Q「壊れたら何を知ることになる?」— A「膨らみが化学膨張剤のせいなのか、生物学的な発酵のせいなのか。」→ <b>合格</b></div></div>
-            <div class="c-row"><div class="c-k">壊れた瞬間</div><div class="c-v"><span class="c-quote break">予想: イーストを抜けばまったく膨らまない / 現実: 1日置いたら『少し』膨らんでいた / 学んだこと: 空気中に野生酵母が生きている — 発酵は加えるものではなく、起きるものだ。</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 1<br>問題設定<br>DAY 1 · 90分</div><div class="c-v">4人で集まり、各自「最近6か月以内に感じた不便」を付箋5枚ずつ、計20枚を壁に貼りました。まとめてみると<b>朝食 · 通勤 · 地元商圏</b>の3クラスタ。クラスタごとに実在検証の質問を投げかけました —「これを実際に経験している人を指させるか?」。『地元にパン屋がない』には全員が自分自身と隣のチームの同僚を指させましたが、『通勤の退屈さ』は困っている人を誰も指させず脱落しました。1人2票の投票(興味に1票 + 引き受けられることに1票)で確定した後、宣言文をみんなで埋め、全員が声に出して読みました。<span class="c-quote">私たちのチームは『地元で焼きたての健康的なパンを買える場所がない』という問題を解決しようとしている。朝食をパンで済ませる通勤途中の隣人たちが毎日直面している問題だ。解決されれば、朝7時に店の前に行列ができることで確認できる。</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 2<br>ツリー分解<br>DAY 1 · 60分</div><div class="c-v">「パン屋になるには、まず何ができていなければならない?」を技術・ユーザー・運営の3方向から問い、3本の枝を得ました。『サワードウを焼く』にリーフ判定の質問 —「1人が1〜2週間で仮説を壊してみられるサイズか?」— を投げると<b>いいえ</b>。もう一段分解してリーフが3つになり、完成したツリーをNotionに掲示しました。<span class="c-quote">パン屋を開く
+├─ 看板となる健康パンの開発 (技術)
+│   └─ サワードウを焼く ← リーフ判定: いいえ、さらに分解
+│       ├─ 天然酵母種をつくる ← リーフ
+│       ├─ こねと成形を身につける ← リーフ
+│       └─ 焼成温度を扱う ← リーフ
+├─ 朝のお客をつかむ (ユーザー) → チーム仮説へ
+└─ 小さく始める方法を探す (運営)</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 3<br>リーフ選択<br>DAY 2 · 20分</div><div class="c-v">リーフをざっと見て「今やれと言われたらできないもの」に印をつけました。『こねと成形』はYouTubeを見れば真似できそうなので除外 — 根拠が「やったことがないだけ」なら弱いリーフです。酵母種は違いました。<span class="c-quote">私は『天然酵母種をつくる』を選ぶ。
+根拠: 小麦粉と水を1週間置いたらカビが生えると思っている
+— 発酵と腐敗を区別できない。
+血統: 酵母種 → サワードウ → 看板のパン → パン屋。</span>この血統を同僚に声に出して説明したとき詰まるところがなく、ツリーの手直しなしで通過しました。</div></div>
+            <div class="c-row"><div class="c-k">STEP 4<br>仮説作成<br>DAY 2 · 15分</div><div class="c-v">タイマー15分、検索窓・YouTube・AIをすべて閉じる。「検索すれば3分で分かるのに」という衝動をこらえるのが一番難しかったといいます。今の頭の中の理解だけで3行を埋めました。<span class="c-quote">私は今、パンはベーキングパウダーのおかげで膨らむと理解している。
+イーストを抜いて焼いてみれば、この理解が正しいか分かるはずだ。
+この仮説が壊れたら、私は生地を膨らませる本当の原理を知ることになる。</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 5<br>ピア検証<br>DAY 2 · 10分</div><div class="c-v">実は最初の仮説はこれではありませんでした。最初に出した仮説は<b>「私は発酵を知らない。酵母種を作ってみれば分かるだろう」</b>で、同僚の質問に「発酵が…分かるようになる?」としか答えられず<b>差し戻し</b>になりました(知ることになる内容が曖昧)。その場で「自分は本当は何を間違って理解しているのか?」を掘り直し、ベーキングパウダー仮説に書き直して再挑戦しました。<span class="c-quote break">Q「この仮説が壊れたら、君は何を知ることになる?」
+1回目:「発酵が分かるようになる」→ 差し戻し (曖昧)
+2回目:「膨らみが化学膨張剤のせいなのか
+     生物学的な発酵のせいなのか区別できるようになる」→ 通過</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 6<br>探究<br>DAY 3〜11</div><div class="c-v">別途の勉強時間はなし。パン屋の準備(チーム作業)がそのまま実験場になりました。ガラス瓶に酵母種を仕込み、対照群としてイーストを抜いた生地も並行して回しました。壊れた瞬間ごとに、その場でログ3行:<span class="c-quote break">DAY 3 — 予想: 小麦粉+水はただ腐るだけ
+現実: 3日目に気泡が上がり、酸っぱい香りがする
+学んだこと: 腐敗ではなく発酵が『起きて』いる
+
+DAY 5 — 予想: イーストを抜けばまったく膨らまない
+現実: 1日置いたら『少し』膨らんでいた ← 仮説が壊れた瞬間
+学んだこと: 空気中に野生酵母が生きている。
+発酵は加えるものではなく、起きるものだ
+
+DAY 9 — 予想: 酵母種を多く入れるほどよく膨らむ
+現実: 過発酵で生地が崩壊した
+学んだこと: 発酵は量ではなく時間・温度の関数だ</span>同じ期間、<b>チーム層も自らの仮説を検証</b>しました —「近所の人は朝、焼きたての健康パンを求めるはずだ」を携えて、週末の朝カフェの前で近隣住民12人にインタビュー。『焼きたて』よりも<b>『健康的な素材』</b>への反応が大きかったのです。層は2つ、サイクルは1つで回ったことになります。</div></div>
+            <div class="c-row"><div class="c-k">STEP 7<br>デルタ振り返り<br>DAY 12 · 60分</div><div class="c-v">各自がDAY 2の仮説の原文を修正なしにそのまま音読し、「あのときの自分」に説明するようにデルタを埋めました。試作サワードウ1号は平らでしたが — 採点されるのはパンの形ではなく、この距離です。<span class="c-quote">開始時の私は、膨らみはベーキングパウダーの化学反応だと理解していた。
+今の私は、酵母が糖を分解しながら出すCO₂が原理であり、
+膨張剤はその近道だと知っている。おまけに、発酵が
+時間・温度の関数であることも体で知っている。
+デルタ(Δ): 化学 → 生物、そして量 → 時間・温度
+解決への貢献: 看板サワードウ試作品1号
+— 平らだがチーム試食は通過。</span></div></div>
           </div>
-          <div class="c-delta"><b>Δ デルタ:</b>「膨らみ = 膨張剤の化学反応」→「膨らみ = 酵母が糖を分解しながら出すCO₂。膨張剤はその近道。」<b>チームへの貢献:</b> 看板サワードウ試作品1号。</div>
-          <div class="c-flow"><div class="c-row"><div class="c-k">次のサイクル</div><div class="c-v">低温発酵と風味の関係 — 「発酵は長いほど良い」という次の仮説へ。</div></div></div>
+          <div class="c-delta"><b>Δ デルタ:</b>「膨らみ = 膨張剤の化学反応」→「膨らみ = 酵母が糖を分解しながら出すCO₂。膨張剤はその近道。」<b>チームへの貢献:</b> 看板サワードウ試作品1号。<b>採点されたのは成果物の質(平らなパン)ではなくデルタでした — 成功です。</b></div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">STEP 8<br>次のサイクル<br>DAY 12 · 30分</div><div class="c-v">ツリーを更新しました — 酵母種のリーフに完了マーク、探究中に発見した<b>『低温発酵』の枝を新設</b>。次のリーフは、もっと知らないものへ。<span class="c-quote">次のリーフ: 低温発酵が風味をどう変えるかを実験する
+次の仮説: 発酵は長いほど良いと理解している
+— 24・48・72時間で焼いて比較すれば分かるはずだ
+チーム層への反映: インタビュー結果を受けて『焼きたて』中心から
+『健康的な素材』中心へメッセージをピボット</span></div></div></div>
         </div>
       </details>
 

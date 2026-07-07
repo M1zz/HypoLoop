@@ -244,7 +244,7 @@ nav{
 .c-row .c-k{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--loop);padding-top:3px}
 .c-row .c-v{font-size:13.5px;color:var(--ink-soft);line-height:1.75}
 .c-row .c-v b{color:var(--ink)}
-.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8}
+.c-quote{font-family:'IBM Plex Mono',monospace;font-size:12px;background:var(--loop-soft);color:var(--ink);padding:10px 14px;border-radius:8px;display:block;margin-top:6px;line-height:1.8;white-space:pre-wrap}
 .c-quote.break{background:var(--break-soft)}
 .c-delta{margin:14px 0;background:var(--ink);color:var(--paper);border-radius:10px;padding:14px 18px;font-size:13.5px;line-height:1.8}
 .c-delta b{color:#8FD3BE}
@@ -1015,22 +1015,60 @@ Team-layer update: [if a team hypothesis was rejected → pivot direction]</pre>
   <div class="wrap">
     <div class="eyebrow">Samples</div>
     <h2>Five cycles that made it<br>through all eight steps</h2>
-    <p class="lede">Five worked samples across different team sizes, skill levels, and domains. Each shows one full cycle exactly as it ran — the templates actually filled in, <strong>the moment the hypothesis broke</strong>, and the delta that was measured. (These samples are reconstructed from operating scenarios.)</p>
+    <p class="lede">Five samples across different team sizes, skill levels, and domains. <strong>The first case is a detailed walkthrough that follows all eight steps day by day</strong> — start there to see how the framework actually runs. (These samples are reconstructed from operating scenarios.)</p>
 
     <div class="case-list">
       <details class="case">
-        <summary><span class="c-no">SAMPLE 01</span><span class="c-title">🍞 The Neighborhood Bakery</span><span class="c-who">Side project, 4 people · all first-time beginners</span></summary>
+        <summary><span class="c-no">SAMPLE 01 · DETAILED WALKTHROUGH</span><span class="c-title">🍞 Neighborhood bakery</span><span class="c-who">4-person side project · all beginners · 2-week cycle</span></summary>
         <div class="c-body">
           <div class="c-flow">
-            <div class="c-row"><div class="c-k">Ultimate challenge</div><div class="c-v"><span class="c-quote">Our team sets out to solve "there is nowhere in the neighborhood to buy fresh-baked healthy bread." Our commuting neighbors, who make do with bread for breakfast, face it every morning. When it is solved, we will know by the line forming outside the shop at 7 a.m.</span></div></div>
-            <div class="c-row"><div class="c-k">Tree → leaf</div><div class="c-v">Open a bakery → develop a signature healthy bread → bake sourdough → <b>grow a natural starter</b></div></div>
-            <div class="c-row"><div class="c-k">Why this leaf</div><div class="c-v">"I assume flour and water left out for a week will simply grow mold — I can't tell fermentation from rot."</div></div>
-            <div class="c-row"><div class="c-k">Hypothesis</div><div class="c-v"><span class="c-quote">Right now I understand that bread rises because of baking powder. Baking a loaf without yeast will reveal whether that's true. If this hypothesis breaks, I will learn the real principle that makes dough rise.</span></div></div>
-            <div class="c-row"><div class="c-k">Peer check</div><div class="c-v">Q "If it breaks, what will you learn?" — A "Whether the rise comes from a chemical leavener or from biological fermentation." → <b>Pass</b></div></div>
-            <div class="c-row"><div class="c-k">The break</div><div class="c-v"><span class="c-quote break">Expected: without yeast, no rise at all / Reality: left for a day, it had risen "a little" / Learned: wild yeast lives in the air — fermentation isn't something you add, it's something that happens.</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 1<br>Frame the problem<br>DAY 1 · 90 min</div><div class="c-v">The four got together, each wrote five sticky notes of "inconveniences I've hit in the past six months," and put all 20 on the wall. Clustered, they made three piles: <b>breakfast · commuting · local shops</b>. Each cluster faced the reality-check question — "can we point to a real person who actually has this?" For "nowhere to buy bread in the neighborhood," everyone pointed to themselves and a colleague on the next team; for "commute boredom," nobody could point to a single person who missed a fix, so it was dropped. After a two-votes-per-person round (one vote for interest + one for "we can handle it"), they filled in the declaration together and read it aloud, all four.<span class="c-quote">Our team sets out to solve "there is nowhere in the neighborhood to buy fresh-baked healthy bread." Our commuting neighbors, who make do with bread for breakfast, face it every morning. When it is solved, we will know by the line forming outside the shop at 7 a.m.</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 2<br>Decompose the tree<br>DAY 1 · 60 min</div><div class="c-v">Asking "what has to be true before this becomes a bakery?" from three directions — tech, users, operations — produced three branches. "Bake sourdough" got the leaf test — "is it small enough for one person to try breaking a hypothesis within 1–2 weeks?" — and the answer was <b>no</b>. One more split yielded three leaves, and the finished tree was posted to Notion.<span class="c-quote">Open a bakery
+├─ Develop a signature healthy bread (tech)
+│   └─ Bake sourdough ← leaf test: no, split again
+│       ├─ Grow a natural starter ← leaf
+│       ├─ Learn kneading &amp; shaping ← leaf
+│       └─ Handle baking temperature ← leaf
+├─ Win morning customers (users) → becomes the team hypothesis
+└─ Find a way to start small (operations)</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 3<br>Pick a leaf<br>DAY 2 · 20 min</div><div class="c-v">Scanning the leaves, each person marked "the ones I couldn't do if asked right now." "Kneading &amp; shaping" was ruled out — it looked like something you could follow along on YouTube, and when the only evidence is "I haven't tried it," the leaf is weak. The starter was different.<span class="c-quote">I choose "grow a natural starter."
+Evidence: I assume flour and water left out for a week will grow mold
+— I can't tell fermentation from rot.
+Lineage: starter → sourdough → signature bread → bakery.</span>Explaining the path aloud to a peer went without a snag, so it passed with no tree repair needed.</div></div>
+            <div class="c-row"><div class="c-k">STEP 4<br>Write the hypothesis<br>DAY 2 · 15 min</div><div class="c-v">A 15-minute timer, with the search bar, YouTube, and AI all closed. The hardest part was resisting the urge — "a search would turn this up in three minutes." The three lines were filled in from nothing but the understanding already in his head.<span class="c-quote">Right now I understand that bread rises because of baking powder.
+Baking a loaf without yeast will reveal whether that's true.
+If this hypothesis breaks, I will learn the real principle that makes dough rise.</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 5<br>Peer verification<br>DAY 2 · 10 min</div><div class="c-v">That wasn't actually the first hypothesis. The first attempt was <b>"I don't know fermentation. Making a starter will teach me"</b> — and when the peer asked the question, the only answer he could manage was "I'll... learn fermentation?" <b>Rejected</b> (what would be learned was vague). On the spot he dug back into "what do I actually have wrong?" and reworked it into the baking-powder hypothesis for a second try.<span class="c-quote break">Q "If this hypothesis breaks, what will you learn?"
+1st attempt: "I'll learn fermentation" → rejected (vague)
+2nd attempt: "I'll be able to tell whether the rise comes from
+     a chemical leavener or from biological fermentation" → passed</span></div></div>
+            <div class="c-row"><div class="c-k">STEP 6<br>Investigate<br>DAY 3–11</div><div class="c-v">No separate study time — prepping the bakery (the team's work) was the lab itself. A starter went into a glass jar, with a yeastless dough running alongside as the control. Each time something broke, three log lines on the spot:<span class="c-quote break">DAY 3 — Expected: flour + water just goes bad
+Reality: by day 3, bubbles rising and a sour smell
+Learned: fermentation is "happening" — not rot
+
+DAY 5 — Expected: without yeast, no rise at all
+Reality: left for a day, it had risen "a little" ← the break
+Learned: wild yeast lives in the air.
+Fermentation isn't something you add — it's something that happens
+
+DAY 9 — Expected: more starter means a better rise
+Reality: over-fermentation collapsed the dough
+Learned: fermentation is a function of time and temperature, not quantity</span>Over the same stretch, <b>the team layer tested its own hypothesis</b> — "neighbors want fresh-baked healthy bread in the morning" — by interviewing 12 neighbors outside a café on a weekend morning. <b>"Healthy ingredients"</b> drew a stronger response than "fresh-baked." Two layers, one cycle.</div></div>
+            <div class="c-row"><div class="c-k">STEP 7<br>Delta retrospective<br>DAY 12 · 60 min</div><div class="c-v">Each person read their DAY 2 hypothesis aloud, exactly as written with no edits, and filled in the delta as if explaining it to "the me of that day." Sourdough prototype no. 1 came out flat — but what gets graded is this distance, not the shape of the bread.<span class="c-quote">The me at the start understood the rise as baking powder's chemical reaction.
+The me of today knows the principle is the CO₂ yeast gives off
+while breaking down sugar, and that the leavener is a shortcut to it.
+As a bonus, I now know in my bones that fermentation
+is a function of time and temperature.
+Delta (Δ): chemistry → biology, and quantity → time · temperature
+Contribution to the solution: signature sourdough prototype no. 1
+— flat, but it passed the team tasting.</span></div></div>
           </div>
-          <div class="c-delta"><b>Δ Delta:</b> "Rise = a leavener's chemical reaction" → "Rise = the CO₂ yeast gives off while breaking down sugar. The leavener is the shortcut." <b>Team contribution:</b> signature sourdough prototype no. 1.</div>
-          <div class="c-flow"><div class="c-row"><div class="c-k">Next cycle</div><div class="c-v">Cold fermentation and flavor — on to the next hypothesis: "the longer the fermentation, the better."</div></div></div>
+          <div class="c-delta"><b>Δ Delta:</b> "Rise = a leavener's chemical reaction" → "Rise = the CO₂ yeast gives off while breaking down sugar. The leavener is the shortcut." <b>Team contribution:</b> signature sourdough prototype no. 1. <b>What got graded was the delta, not the flat loaf — success.</b></div>
+          <div class="c-flow"><div class="c-row"><div class="c-k">STEP 8<br>Next cycle<br>DAY 12 · 30 min</div><div class="c-v">The tree got its update — the starter leaf marked done, and a new <b>"cold fermentation" branch</b>, discovered during the investigation, added. The next leaf: something known even less.<span class="c-quote">Next leaf: experiment with how cold fermentation changes flavor
+Next hypothesis: I understand that longer fermentation is always better
+— baking at 24, 48, and 72 hours and comparing will reveal whether that's true
+Team layer folded in: per the interviews, pivot the messaging
+from "fresh-baked" to "healthy ingredients"</span></div></div></div>
         </div>
       </details>
 
