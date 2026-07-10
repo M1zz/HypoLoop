@@ -284,6 +284,14 @@ nav{
 .copy-btn:hover{background:var(--loop)}
 .tmpl-note{margin-top:20px;font-size:14px;color:var(--ink-soft);max-width:640px}
 .tmpl-note b{color:var(--ink)}
+.ev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:44px}
+.ev-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 22px}
+.ev-card .ek{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--loop);display:block;margin-bottom:10px}
+.ev-card h3{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;margin-bottom:8px}
+.ev-card p{font-size:13.5px;color:var(--ink-soft)}
+.ev-card p b{color:var(--ink)}
+.ev-note{margin-top:26px;font-size:13.5px;color:var(--ink-soft)}
+@media(max-width:680px){.ev-grid{grid-template-columns:1fr}}
 .tg-head{margin-top:64px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--loop);display:flex;align-items:center;gap:10px}
 .tg-head::after{content:"";flex:1;height:1px;background:var(--line)}
 .tg-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
@@ -369,6 +377,7 @@ footer .f-contact a:hover{text-decoration:underline}
       <a href="#playbook">운영 가이드</a>
       <a href="#template">템플릿</a>
       <a href="#samples">사례</a>
+      <a href="#evidence">근거</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#playbook">지금 시작하기</a>
     </div>
@@ -1141,6 +1150,59 @@ DAY 9 — 예상: 발효종을 많이 넣을수록 잘 부푼다
   </div>
 </section>
 
+<!-- EVIDENCE -->
+<section id="evidence" data-page="evidence">
+  <div class="wrap">
+    <div class="eyebrow">Evidence</div>
+    <h2>제안이 아니라 근거입니다</h2>
+    <p class="lede">HypoLoop의 각 축은 새로 발명한 주장이 아니라, <strong>학습과학·인지과학·뇌과학에서 반복 검증된 결과들</strong>을 하나의 운용 구조로 조립한 것입니다.</p>
+
+    <div class="ev-grid">
+      <div class="ev-card">
+        <span class="ek">HYPOTHESIS FIRST</span>
+        <h3>배우기 전에 먼저 가설을 쓴다</h3>
+        <p>정답을 배우기 전에 스스로 (틀린) 답을 생성해 본 학습자가 더 깊게 배웁니다 — <b>생산적 실패</b>(Kapur, 2008), <b>사전시험 효과</b>(Richland 외, 2009), <b>생성 효과</b>(Slamecka &amp; Graf, 1978).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">PREDICTION ERROR</span>
+        <h3>가설이 깨지는 순간이 최대 학습 지점</h3>
+        <p>뇌는 예상과 현실의 격차, 즉 예측 오차로 배웁니다 — <b>도파민 예측 오차 학습</b>(Schultz 외, 1997, Science), <b>과잉교정 효과</b>(Butterfield &amp; Metcalfe, 2001), <b>예측하는 뇌</b>(Clark, 2013).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">BUILT-IN ASSESSMENT</span>
+        <h3>검증하는 순간이 곧 시험</h3>
+        <p>다시 읽기보다 스스로 답을 꺼내 보는 인출이 장기 기억을 강화하고, 과정 안의 평가가 성과를 끌어올립니다 — <b>시험 효과</b>(Roediger &amp; Karpicke, 2006), <b>형성평가</b>(Black &amp; Wiliam, 1998).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">SAFE TO FAIL</span>
+        <h3>실패는 요구된다</h3>
+        <p>실수를 드러내도 평판이 깎이지 않는 팀에서만 학습 행동이 일어나고, 실수를 성장 신호로 받아들일수록 오류 직후의 뇌 반응과 다음 시도의 정확도가 오릅니다 — <b>심리적 안전</b>(Edmondson, 1999), <b>오류 모니터링</b>(Moser 외, 2011).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">LEAF SELECTION</span>
+        <h3>배우고 싶은 것이 있는 도전을 고른다</h3>
+        <p>학습은 현재 역량의 가장자리에서 일어나고, 호기심은 기억 회로를 미리 열어 둡니다 — <b>근접발달영역</b>(Vygotsky, 1978), <b>몰입</b>(Csikszentmihalyi, 1990), <b>의도적 수련</b>(Ericsson 외, 1993), <b>호기심과 기억</b>(Gruber 외, 2014).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">CHALLENGE TREE</span>
+        <h3>트리 분해와 혈통</h3>
+        <p>감당 가능한 단위로 쪼개되 전체 목표와의 연결을 보이게 유지하는 것이 학습을 지탱합니다 — <b>스캐폴딩</b>(Wood 외, 1976), <b>인지부하 이론</b>(Sweller, 1988), <b>유용성 가치 개입</b>(Hulleman &amp; Harackiewicz, 2009, Science).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">RITUAL &amp; TEMPLATE</span>
+        <h3>사람이 아니라 구조가 지탱한다</h3>
+        <p>문장 형식으로 쓰인 의도는 실행률을 높이고, 정해진 질문 프로토콜은 튜터 없이도 깊은 처리를 만듭니다 — <b>실행 의도</b>(Gollwitzer, 1999), <b>자기 설명</b>(Chi 외, 1994), <b>안내된 동료 질문</b>(King, 1994).</p>
+      </div>
+      <div class="ev-card">
+        <span class="ek">LEARNING DELTA</span>
+        <h3>산출물이 아니라 델타를 잰다</h3>
+        <p>자신의 이전 상태 대비 향상을 재는 평가가 동기와 지속성을 높이고, 학습을 명시적 목표로 세울 때 이해가 깊어집니다 — <b>자기준거 평가</b>(Hughes, 2011), <b>학습 목표 지향</b>(Dweck, 1986), <b>의도적 학습</b>(Bereiter &amp; Scardamalia, 1989).</p>
+      </div>
+    </div>
+    <p class="ev-note">각 연구의 자세한 소개와 전체 참고 문헌은 제안글 별첨 <b>“이 프레임워크가 딛고 선 근거들”</b>에 정리되어 있습니다.</p>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="faq" data-page="faq">
   <div class="wrap">
@@ -1199,7 +1261,7 @@ DAY 9 — 예상: 발효종을 많이 넣을수록 잘 부푼다
 
 <script>
 /* PAGE ROUTER — 탭 클릭 시 스크롤 대신 페이지 전환 */
-const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',samples:'samples',faq:'faq'};
+const routes={'':'home',top:'home',who:'who',concepts:'concepts',playbook:'playbook',template:'template',samples:'samples',evidence:'evidence',faq:'faq'};
 function route(){
   const hash=location.hash.replace('#','');
   const pg=routes[hash]||'home';
