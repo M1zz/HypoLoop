@@ -39,7 +39,8 @@ a{color:inherit}
 button{font-family:inherit;cursor:pointer}
 
 /* ---------- LANG SWITCH ---------- */
-.lang-switch{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:2px;align-items:center;background:rgba(253,254,252,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:100px;padding:3px}
+.lang-switch{display:flex;gap:2px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:3px;flex-shrink:0;margin-left:12px}
+@media(max-width:820px){.lang-switch{margin-left:8px}.lang-switch a{padding:4px 7px;font-size:10px}}
 .lang-switch a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-decoration:none;padding:4px 9px;border-radius:100px;line-height:1.4;white-space:nowrap}
 .lang-switch a:hover{color:var(--loop)}
 .lang-switch a.on{background:var(--ink);color:#fff}
@@ -212,13 +213,6 @@ footer a{color:var(--loop);text-decoration:none;font-weight:600}
 </head>
 <body>
 
-<div class="lang-switch">
-  <a href="../ko/challenge-builder.html" hreflang="ko" lang="ko">한국어</a>
-  <a href="../challenge-builder.html" hreflang="en" lang="en">EN</a>
-  <a class="on" href="challenge-builder.html">日本語</a>
-  <a href="../zh/challenge-builder.html" hreflang="zh" lang="zh">中文</a>
-</div>
-
 <nav>
   <div class="nav-in">
     <a class="brand" href="index.html">Hypo<span>Loop</span></a>
@@ -228,6 +222,12 @@ footer a{color:var(--loop);text-decoration:none;font-weight:600}
       <a href="index.html#playbook">運用ガイド</a>
       <a href="visualization.html">ビジュアライゼーション</a>
       <a class="active" href="challenge-builder.html">チャレンジ設定</a>
+    </div>
+    <div class="lang-switch">
+      <a href="../ko/challenge-builder.html" hreflang="ko" lang="ko">한국어</a>
+      <a href="../challenge-builder.html" hreflang="en" lang="en">EN</a>
+      <a class="on" href="challenge-builder.html">日本語</a>
+      <a href="../zh/challenge-builder.html" hreflang="zh" lang="zh">中文</a>
     </div>
   </div>
 </nav>
@@ -829,14 +829,14 @@ const SAMPLE={
   branches:[
     {title:'空間を認識する',leaves:[
       {title:'ARKitアンカーの誤差限界を直接測定する',assignee:{name:'田中',learn:'AR座標系の実際の精度感覚',hypX:'ARKitアンカーは数分経っても位置を十分に保つだろう',hypY:'同じ地点を10分間隔で再訪して座標ドリフトを記録する',hypZ:'なぜ再ローカライズ補正が必要か'}},
-      {title:'点群を平面に単純化してみる',assignee:{name:'佐藤',learn:'3D点群を扱う感覚',hypX:'',hypY:'',hypZ:''}}
+      {title:'点群を平面に単純化してみる',assignee:{name:'佐藤',learn:'3D点群を扱う感覚',hypX:'点群を平面に単純化すれば、情報を失わずに経路計算がずっと軽くなるだろう',hypY:'同じ部屋のスキャンデータで、元の点群と平面化版の処理速度と精度を比較する',hypZ:'単純化をどこまで許容できるか — 情報損失と性能のトレードオフ'}}
     ]},
     {title:'目を使わず伝える',leaves:[
       {title:'VoiceOverのジェスチャーを目を閉じて1日使ってみる',assignee:{name:'鈴木',learn:'非視覚UXの実際の認知負荷',hypX:'VoiceOverだけでもアプリの主要な流れを無理なく使えるだろう',hypY:'目隠しで実際のタスク5つを行い時間を計る',hypZ:'どの時点で聴覚チャンネルが過負荷になるか'}}
     ]},
     {title:'道を知る',leaves:[
-      {title:'建物の図面をグラフのデータ構造でモデル化する',assignee:{name:'',learn:'',hypX:'',hypY:'',hypZ:''}},
-      {title:'経路探索をハプティックのリズムに翻訳してみる',assignee:{name:'高橋',learn:'経路情報を振動でエンコードする方法',hypX:'',hypY:'',hypZ:''}}
+      {title:'建物の図面をグラフのデータ構造でモデル化する',assignee:{name:'伊藤',learn:'グラフ構造を現実のデータに適用する感覚',hypX:'廊下と交差点をノードとエッジにすれば、実際の建物図面も十分に表現できるだろう',hypY:'学校の建物1フロアの図面をグラフに変換し、実際に最短経路を出してみる',hypZ:'エレベーターや階段のようなフロア間移動をグラフでどう扱うべきか'}},
+      {title:'経路探索をハプティックのリズムに翻訳してみる',assignee:{name:'高橋',learn:'経路情報を振動でエンコードする方法',hypX:'直進・左折・右折、3種類の振動リズムだけでも経路案内は可能だろう',hypY:'目を閉じた仲間を振動パターンだけで廊下一周案内してみる',hypZ:'リズムだけでは足りない情報は何か — 距離感と緊急停止信号の必要性'}}
     ]}
   ]
 };
