@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge Setup Studio — HypoLoop</title>
+<meta name="description" content="Declare one big team challenge, define each member's individual challenge, and visualize how each individual challenge connects to the team challenge through a lineage tree — the HypoLoop challenge-setting tool.">
+<meta property="og:title" content="Challenge Setup Studio — HypoLoop">
+<meta property="og:description" content="One team challenge → hierarchical decomposition → assign individual challenges → visualize the lineage. Design individual learning inside the team's problem, on purpose.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --paper:#F4F7F3;
+  --grid:rgba(20,50,38,.055);
+  --ink:#132B1F;
+  --ink-soft:#3D5A4C;
+  --loop:#1E6E5C;
+  --loop-soft:#DCEAE4;
+  --break:#E4572E;
+  --break-soft:#FBE9E1;
+  --line:rgba(19,43,31,.16);
+  --card:#FDFEFC;
+  --mint:#8FD3BE;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+  background:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;
+  color:var(--ink);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;
+}
+.serif{font-family:'Noto Serif KR',serif}
+.mono{font-family:'IBM Plex Mono',monospace}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- LANG SWITCH ---------- */
+.lang-switch{position:fixed;top:14px;right:14px;z-index:60;display:flex;gap:2px;align-items:center;background:rgba(253,254,252,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:100px;padding:3px}
+.lang-switch a{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-decoration:none;padding:4px 9px;border-radius:100px;line-height:1.4;white-space:nowrap}
+.lang-switch a:hover{color:var(--loop)}
+.lang-switch a.on{background:var(--ink);color:#fff}
+
+/* ---------- NAV ---------- */
+nav{position:sticky;top:0;z-index:50;background:rgba(244,247,243,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1180px;margin:0 auto;padding:13px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-family:'Noto Serif KR',serif;font-weight:900;font-size:17px;text-decoration:none;color:var(--ink);flex-shrink:0}
+.brand span{color:var(--loop)}
+.nav-links{display:flex;gap:20px;align-items:center;min-width:0}
+.nav-links a{font-size:13px;color:var(--ink-soft);text-decoration:none;font-weight:500;white-space:nowrap}
+.nav-links a:hover{color:var(--loop)}
+.nav-links a.active{color:var(--loop);font-weight:700}
+@media(max-width:820px){.nav-links{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex:1}.nav-links::-webkit-scrollbar{display:none}}
+
+/* ---------- HERO ---------- */
+.hero{max-width:1180px;margin:0 auto;padding:54px 22px 24px}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--loop);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--loop)}
+h1{font-family:'Noto Serif KR',serif;font-weight:900;font-size:clamp(28px,5vw,44px);line-height:1.24;letter-spacing:-.02em;margin-bottom:16px}
+h1 .hl{color:var(--loop)}
+.hero .lede{font-size:clamp(15px,2.2vw,17.5px);color:var(--ink-soft);max-width:720px}
+.hero .lede b{color:var(--ink)}
+
+/* ---------- STEPPER ---------- */
+.stepper{max-width:1180px;margin:26px auto 0;padding:0 22px;display:flex;gap:10px;flex-wrap:wrap}
+.stepper .st{flex:1;min-width:150px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.stepper .st .n{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:12px;color:#fff;background:var(--loop);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.stepper .st .t{font-weight:700;font-size:13.5px;display:block;margin-bottom:1px}
+.stepper .st .d{font-size:12px;color:var(--ink-soft);line-height:1.5}
+
+/* ---------- LAYOUT ---------- */
+.studio{max-width:1180px;margin:26px auto 60px;padding:0 22px;display:grid;grid-template-columns:minmax(0,410px) minmax(0,1fr);gap:22px;align-items:start}
+@media(max-width:960px){.studio{grid-template-columns:1fr}}
+
+/* panels */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.panel-hd{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.panel-hd h2{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:700}
+.panel-hd .sub{font-size:11.5px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;letter-spacing:.05em}
+.panel-bd{padding:18px 20px}
+
+/* editor column sticks under nav on wide screens? keep static for scroll */
+.edit-col{display:flex;flex-direction:column;gap:18px}
+
+/* form fields */
+.field{margin-bottom:14px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--ink)}
+.field label .hint{font-weight:400;color:var(--ink-soft);font-size:11.5px}
+.field input[type=text],.field textarea,.field select{
+  width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:10px;padding:10px 12px;line-height:1.55;resize:vertical;
+}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--loop);background:#fff}
+.field textarea{min-height:64px}
+.field .ph{color:var(--ink-soft)}
+
+/* team card */
+.team-problem{background:var(--break-soft);border:1px solid rgba(228,87,46,.28);border-radius:10px;padding:11px 13px;font-size:12.5px;color:#8a2f16;margin-top:4px}
+.team-problem b{color:var(--break)}
+
+/* branch/leaf tree in editor */
+.branch{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;background:var(--paper)}
+.branch-hd{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--loop-soft)}
+.branch-hd .dot{width:8px;height:8px;border-radius:50%;background:var(--loop);flex-shrink:0}
+.branch-hd input{flex:1;background:transparent!important;border:none!important;font-weight:700;font-size:13.5px;padding:2px 4px!important;color:var(--ink)}
+.branch-hd input:focus{background:#fff!important;border-radius:6px}
+.branch-bd{padding:10px 12px}
+.leaf-row{display:flex;gap:8px;align-items:flex-start;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--card);margin-bottom:8px}
+.leaf-row:last-of-type{margin-bottom:8px}
+.leaf-main{flex:1;min-width:0}
+.leaf-row .lf-title{width:100%;border:none!important;background:transparent!important;font-weight:600;font-size:13px;padding:0!important}
+.leaf-row .lf-title:focus{background:#fff!important}
+.leaf-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
+.chip-assign{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;background:var(--loop);color:#fff;border-radius:100px;padding:3px 9px;font-weight:600}
+.chip-assign.empty{background:transparent;color:var(--ink-soft);border:1px dashed var(--line)}
+.chip-hyp{font-size:11px;color:var(--loop);font-family:'IBM Plex Mono',monospace}
+.chip-hyp.empty{color:var(--break)}
+
+/* small buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;border-radius:100px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 13px;transition:all .15s}
+.btn:hover{border-color:var(--loop);color:var(--loop)}
+.btn-solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn-solid:hover{background:var(--loop);border-color:var(--loop);color:#fff}
+.btn-mini{font-size:11.5px;padding:5px 10px}
+.btn-add{width:100%;justify-content:center;border-style:dashed;color:var(--ink-soft);margin-top:2px}
+.btn-add:hover{border-style:solid}
+.icon-btn{border:none;background:transparent;color:var(--ink-soft);font-size:15px;line-height:1;padding:3px 5px;border-radius:6px;flex-shrink:0}
+.icon-btn:hover{background:var(--break-soft);color:var(--break)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ---------- VISUALIZATION (dark) ---------- */
+.viz{background:var(--ink);border:1px solid var(--ink);color:var(--paper)}
+.viz .panel-hd{border-bottom:1px solid rgba(255,255,255,.12)}
+.viz .panel-hd h2{color:#fff}
+.viz .panel-hd .sub{color:var(--mint)}
+.viz-tabs{display:flex;gap:4px}
+.viz-tab{font-size:12px;font-weight:600;color:rgba(244,247,243,.6);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:5px 12px}
+.viz-tab.on{background:var(--mint);color:var(--ink);border-color:var(--mint)}
+.canvas-wrap{overflow:auto;-webkit-overflow-scrolling:touch;max-height:70vh}
+.scroll-hint{display:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:rgba(244,247,243,.5);padding:8px 20px 0}
+@media(max-width:640px){.scroll-hint{display:block}}
+.canvas{position:relative;padding:24px;min-height:300px}
+.canvas svg.edges{position:absolute;inset:24px;overflow:visible;pointer-events:none}
+.edge{fill:none;stroke:rgba(244,247,243,.22);stroke-width:1.6;transition:stroke .3s,stroke-width .3s}
+.edge.lit{stroke:var(--mint);stroke-width:2.6}
+.edge.dim{stroke:rgba(244,247,243,.08)}
+
+/* nodes as absolutely positioned divs */
+.node{position:absolute;box-sizing:border-box;border-radius:11px;padding:10px 12px;border:1.3px solid rgba(244,247,243,.32);background:rgba(255,255,255,.05);transition:border-color .3s,background .3s,opacity .3s,transform .15s;cursor:pointer}
+.node:hover{border-color:var(--mint);transform:translateY(-1px)}
+.node .nd-k{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--mint);text-transform:uppercase;margin-bottom:3px;display:block}
+.node .nd-t{font-size:12.5px;line-height:1.4;color:rgba(244,247,243,.9);word-break:keep-all;font-weight:600}
+.node .nd-sub{font-size:11px;color:rgba(244,247,243,.55);margin-top:3px;line-height:1.4;word-break:keep-all}
+.node.root{border-color:var(--mint);background:rgba(143,211,190,.12)}
+.node.root .nd-t{font-family:'Noto Serif KR',serif;font-weight:700;font-size:14px;color:#fff}
+.node.root .nd-k{color:var(--mint)}
+.node.branch{background:rgba(255,255,255,.07)}
+.node.leaf{border-style:solid}
+.node.lit{border-color:var(--mint);background:var(--mint)}
+.node.lit .nd-t{color:var(--ink)}
+.node.lit .nd-sub{color:rgba(19,43,31,.7)}
+.node.lit .nd-k{color:var(--loop)}
+.node.dim{opacity:.25}
+.node .who{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:11px;font-weight:700;background:var(--loop);color:#fff;border-radius:100px;padding:2px 9px}
+.node.lit .who{background:var(--ink);color:#fff}
+.node.leaf.unassigned{border-style:dashed;opacity:.7}
+.node .av{width:15px;height:15px;border-radius:50%;background:#fff;color:var(--loop);font-size:9px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+
+/* readout */
+.readout{margin:0 20px 20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;font-size:13px;color:rgba(244,247,243,.8)}
+.readout .path{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--mint);display:block;margin-bottom:7px;word-break:keep-all;line-height:1.6}
+.readout b{color:#fff}
+.readout .hyp{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.15);font-size:12.5px;line-height:1.7}
+.readout .hyp .lbl{color:var(--mint);font-weight:700;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em}
+
+/* people view */
+.people{padding:20px}
+.person-card{border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:14px 16px;margin-bottom:12px;background:rgba(255,255,255,.04)}
+.person-card:last-child{margin-bottom:0}
+.person-hd{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.person-hd .av{width:30px;height:30px;font-size:13px;background:var(--mint);color:var(--ink)}
+.person-hd .nm{font-weight:700;font-size:15px;color:#fff}
+.person-hd .cnt{margin-left:auto;font-size:11px;color:rgba(244,247,243,.5);font-family:'IBM Plex Mono',monospace}
+.person-chal{font-size:12.5px;color:rgba(244,247,243,.82);padding:8px 0;border-top:1px dashed rgba(255,255,255,.12)}
+.person-chal .lin{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--mint);display:block;margin-top:3px}
+.empty-note{color:rgba(244,247,243,.5);font-size:13px;text-align:center;padding:30px 10px}
+
+/* modal */
+.modal-back{position:fixed;inset:0;background:rgba(19,43,31,.55);backdrop-filter:blur(3px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-back.on{display:flex}
+.modal{background:var(--card);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow:auto;border:1px solid var(--line)}
+.modal-hd{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.modal-hd h3{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700}
+.modal-bd{padding:20px 22px}
+.modal-ft{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end}
+.hyp-preview{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.7;margin-top:6px;color:var(--ink-soft)}
+.hyp-preview b{color:var(--ink)}
+.tmpl-note{font-size:12px;color:var(--ink-soft);background:var(--loop-soft);border-radius:9px;padding:9px 12px;margin-bottom:14px;line-height:1.6}
+
+/* toast */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:11px 20px;border-radius:100px;font-size:13px;font-weight:600;z-index:200;opacity:0;transition:all .25s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:30px 22px 46px;text-align:center;color:var(--ink-soft);font-size:13px}
+footer a{color:var(--loop);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <a href="ko/challenge-builder.html" hreflang="ko" lang="ko">한국어</a>
+  <a class="on" href="challenge-builder.html">EN</a>
+  <a href="ja/challenge-builder.html" hreflang="ja" lang="ja">日本語</a>
+  <a href="zh/challenge-builder.html" hreflang="zh" lang="zh">中文</a>
+</div>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="index.html">Hypo<span>Loop</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#concepts">Concepts</a>
+      <a href="index.html#playbook">Playbook</a>
+      <a href="visualization.html">Visualization</a>
+      <a class="active" href="challenge-builder.html">Challenge Setup</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Challenge Setup Studio</div>
+  <h1>Declare one big team challenge,<br>and plant each <span class="hl">individual challenge</span> inside it</h1>
+  <p class="lede">HypoLoop begins with <b>setting the challenge</b>. On the left, declare the team challenge and decompose it down to challengeable-sized leaves. Then each member picks a leaf that holds <b>something they want to learn</b> — and on the right, the tree shows exactly <b>where and how</b> that individual challenge connects up to the team challenge, lit as a lineage. Everything is saved automatically in this browser.</p>
+</header>
+
+<div class="stepper">
+  <div class="st"><span class="n">1</span><div><span class="t">Declare team challenge</span><span class="d">Aim at one real problem in the world</span></div></div>
+  <div class="st"><span class="n">2</span><div><span class="t">Decompose</span><span class="d">Break it down to challengeable-sized leaves</span></div></div>
+  <div class="st"><span class="n">3</span><div><span class="t">Assign individual challenge</span><span class="d">Pick a leaf to learn from + a hypothesis</span></div></div>
+  <div class="st"><span class="n">4</span><div><span class="t">Check the lineage</span><span class="d">Verify the individual–team link visually</span></div></div>
+</div>
+
+<main class="studio">
+  <!-- ================= EDITOR ================= -->
+  <div class="edit-col">
+    <!-- team challenge -->
+    <section class="panel">
+      <div class="panel-hd">
+        <h2>① Team Challenge</h2>
+        <span class="sub">ROOT · ULTIMATE</span>
+      </div>
+      <div class="panel-bd">
+        <div class="field">
+          <label>Team challenge name <span class="hint">— one per team</span></label>
+          <input type="text" id="teamTitle" placeholder="e.g. Indoor navigation app for the blind">
+        </div>
+        <div class="field">
+          <label>The real problem in the world this team aims at <span class="hint">— the ultimate challenge</span></label>
+          <textarea id="teamProblem" placeholder="e.g. Keep blind people from getting lost in unfamiliar indoor spaces"></textarea>
+          <div class="team-problem">Because this problem is <b>real</b>, every small challenge below becomes real too. The authenticity of the problem becomes the authenticity of the whole tree.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- decomposition -->
+    <section class="panel">
+      <div class="panel-hd">
+        <h2>②③ Decompose &amp; Individual Challenges</h2>
+        <span class="sub">BRANCH · LEAF</span>
+      </div>
+      <div class="panel-bd">
+        <p style="font-size:12.5px;color:var(--ink-soft);margin-bottom:14px;line-height:1.6">Split the team challenge into branches by asking <b>what must we be able to do</b> to solve it, then hang <b>challengeable-sized leaves</b> under each branch. Assign a member to a leaf and it becomes their individual challenge.</p>
+        <div id="branchList"></div>
+        <button class="btn btn-add" id="addBranch">＋ Add branch</button>
+      </div>
+    </section>
+
+    <!-- data tools -->
+    <section class="panel">
+      <div class="panel-hd"><h2>Export / Share</h2><span class="sub">DATA</span></div>
+      <div class="panel-bd">
+        <div class="toolbar">
+          <button class="btn btn-mini" id="btnShare">🔗 Copy share link</button>
+          <button class="btn btn-mini" id="btnExport">⬇ Save JSON</button>
+          <button class="btn btn-mini" id="btnImport">⬆ Load JSON</button>
+          <button class="btn btn-mini" id="btnSample">Fill example</button>
+          <button class="btn btn-mini" id="btnReset" style="color:var(--break)">Reset</button>
+        </div>
+        <input type="file" id="fileInput" accept="application/json" style="display:none">
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= VISUALIZATION ================= -->
+  <div>
+    <section class="panel viz">
+      <div class="panel-hd">
+        <h2>④ Lineage Visualization</h2>
+        <div class="viz-tabs">
+          <button class="viz-tab on" data-view="tree">Tree</button>
+          <button class="viz-tab" data-view="mindmap">Mind map</button>
+          <button class="viz-tab" data-view="people">By person</button>
+        </div>
+      </div>
+      <p class="scroll-hint">← Swipe sideways to see the whole tree →</p>
+
+      <div id="treeView">
+        <div class="canvas-wrap">
+          <div class="canvas" id="canvas">
+            <svg class="edges" id="edges"></svg>
+          </div>
+        </div>
+        <div class="readout" id="readout">
+          <span class="path">Click a node</span>
+          The meaning of a small challenge is proven by its <b>lineage</b>. Click a leaf and the path lights up, showing how that individual challenge connects all the way up to the team challenge.
+        </div>
+      </div>
+
+      <div id="peopleView" style="display:none">
+        <div class="people" id="peopleList"></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>This tool supports the challenge-setting stage of <a href="index.html">HypoLoop</a> · Your data is never sent to a server — it lives only in this browser.</p>
+</footer>
+
+<!-- assign modal -->
+<div class="modal-back" id="modalBack">
+  <div class="modal">
+    <div class="modal-hd">
+      <h3>Assign individual challenge</h3>
+      <button class="icon-btn" id="modalClose" style="font-size:20px">✕</button>
+    </div>
+    <div class="modal-bd">
+      <div class="tmpl-note">A leaf becomes an individual challenge when it is <b>not something you can already do, but something you want to learn</b>. The moment a hypothesis breaks is the peak of learning.</div>
+      <div class="field">
+        <label>Leaf challenge</label>
+        <input type="text" id="mLeaf" readonly style="background:var(--loop-soft);border-color:transparent">
+      </div>
+      <div class="field">
+        <label>Member name <span class="hint">— leave blank for unassigned</span></label>
+        <input type="text" id="mName" placeholder="e.g. Jamie">
+      </div>
+      <div class="field">
+        <label>What you want to learn <span class="hint">— what does this challenge teach you</span></label>
+        <input type="text" id="mLearn" placeholder="e.g. A feel for handling point clouds">
+      </div>
+      <p style="font-size:12px;font-weight:700;margin:16px 0 6px">Hypothesis</p>
+      <div class="field">
+        <label>① Right now I understand/expect [subject X] like this</label>
+        <textarea id="mHypX" placeholder="e.g. Raw LiDAR point clouds alone will separate indoor planes well enough"></textarea>
+      </div>
+      <div class="field">
+        <label>② Doing [test action Y] will reveal whether that holds</label>
+        <textarea id="mHypY" placeholder="e.g. Scan 3 real rooms and measure plane-detection accuracy directly"></textarea>
+      </div>
+      <div class="field">
+        <label>③ If this breaks, I will learn [what I will know]</label>
+        <textarea id="mHypZ" placeholder="e.g. Why planes smear without denoising — the need for preprocessing"></textarea>
+      </div>
+      <p style="font-size:11.5px;color:var(--ink-soft);margin-bottom:4px">Preview</p>
+      <div class="hyp-preview" id="hypPreview">Enter a hypothesis and it assembles into a sentence.</div>
+    </div>
+    <div class="modal-ft">
+      <button class="btn" id="mClear">Unassign</button>
+      <button class="btn btn-solid" id="mSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ---------------- state ---------------- */
+const LS_KEY='hypoloop-challenge-builder-v1';
+let idSeq=1;
+const uid=p=>(p||'n')+(idSeq++)+'x'+(Math.floor(performance.now())%9973);
+
+function blankState(){
+  return {
+    team:{title:'',problem:''},
+    branches:[]
+  };
+}
+function blankLeaf(){return {id:uid('l'),title:'',assignee:{name:'',learn:'',hypX:'',hypY:'',hypZ:''}};}
+function blankBranch(){return {id:uid('b'),title:'',leaves:[blankLeaf()]};}
+
+let state=blankState();
+
+/* ---------------- persistence ---------------- */
+function save(){
+  try{localStorage.setItem(LS_KEY,JSON.stringify(state));}catch(e){}
+}
+function load(){
+  // URL share takes priority
+  const h=location.hash;
+  if(h&&h.startsWith('#d=')){
+    try{
+      const json=decodeURIComponent(escape(atob(h.slice(3))));
+      const parsed=JSON.parse(json);
+      if(parsed&&parsed.team){state=normalize(parsed);history.replaceState(null,'',location.pathname);return;}
+    }catch(e){}
+  }
+  try{
+    const raw=localStorage.getItem(LS_KEY);
+    if(raw){state=normalize(JSON.parse(raw));return;}
+  }catch(e){}
+  state=blankState();
+}
+function normalize(o){
+  const s=blankState();
+  s.team.title=(o.team&&o.team.title)||'';
+  s.team.problem=(o.team&&o.team.problem)||'';
+  s.branches=(o.branches||[]).map(b=>({
+    id:b.id||uid('b'),
+    title:b.title||'',
+    leaves:(b.leaves||[]).map(l=>({
+      id:l.id||uid('l'),
+      title:l.title||'',
+      assignee:{
+        name:(l.assignee&&l.assignee.name)||'',
+        learn:(l.assignee&&l.assignee.learn)||'',
+        hypX:(l.assignee&&l.assignee.hypX)||'',
+        hypY:(l.assignee&&l.assignee.hypY)||'',
+        hypZ:(l.assignee&&l.assignee.hypZ)||''
+      }
+    }))
+  }));
+  return s;
+}
+
+/* ---------------- helpers ---------------- */
+const $=s=>document.querySelector(s);
+const el=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;};
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('on'),1900);}
+const initial=n=>((n||'').trim()[0]||'?').toUpperCase();
+
+/* ---------------- editor render ---------------- */
+function renderEditor(){
+  $('#teamTitle').value=state.team.title;
+  $('#teamProblem').value=state.team.problem;
+  const list=$('#branchList');list.innerHTML='';
+  state.branches.forEach((b,bi)=>{
+    const bx=el('div','branch');
+    // header
+    const hd=el('div','branch-hd');
+    hd.appendChild(el('span','dot'));
+    const bin=el('input');bin.type='text';bin.value=b.title;bin.placeholder='Branch — e.g. Perceive space';
+    bin.addEventListener('input',()=>{b.title=bin.value;save();renderViz();});
+    hd.appendChild(bin);
+    const del=el('button','icon-btn','🗑');del.title='Delete branch';
+    del.addEventListener('click',()=>{state.branches.splice(bi,1);commit();});
+    hd.appendChild(del);
+    bx.appendChild(hd);
+    // body
+    const bd=el('div','branch-bd');
+    b.leaves.forEach((l,li)=>{
+      const row=el('div','leaf-row');
+      const main=el('div','leaf-main');
+      const lin=el('input','lf-title');lin.type='text';lin.value=l.title;lin.placeholder='Leaf challenge — a challengeable-sized experiment';
+      lin.addEventListener('input',()=>{l.title=lin.value;save();renderViz();});
+      main.appendChild(lin);
+      const meta=el('div','leaf-meta');
+      const assigned=!!(l.assignee.name.trim());
+      const chip=el('button',assigned?'chip-assign':'chip-assign empty',
+        assigned?('<span class="av" style="width:14px;height:14px;font-size:8px">'+esc(initial(l.assignee.name))+'</span>'+esc(l.assignee.name)):'＋ Assign member');
+      chip.addEventListener('click',()=>openModal(bi,li));
+      meta.appendChild(chip);
+      const hasHyp=!!(l.assignee.hypX.trim()||l.assignee.hypY.trim()||l.assignee.hypZ.trim());
+      if(assigned){
+        const h=el('span',hasHyp?'chip-hyp':'chip-hyp empty',hasHyp?'hypothesis ✓':'no hypothesis');
+        meta.appendChild(h);
+      }
+      main.appendChild(meta);
+      row.appendChild(main);
+      const ld=el('button','icon-btn','✕');ld.title='Delete leaf';
+      ld.addEventListener('click',()=>{b.leaves.splice(li,1);commit();});
+      row.appendChild(ld);
+      bd.appendChild(row);
+    });
+    const addLeaf=el('button','btn btn-add btn-mini','＋ Add leaf');
+    addLeaf.addEventListener('click',()=>{b.leaves.push(blankLeaf());commit();});
+    bd.appendChild(addLeaf);
+    bx.appendChild(bd);
+    list.appendChild(bx);
+  });
+}
+
+/* commit = save + full re-render */
+function commit(){save();renderEditor();renderViz();}
+
+/* ---------------- layout + viz ---------------- */
+const NODE_W=168, LEAF_W=176, H_GAP=22, ROOT_Y=8, BRANCH_Y=150, LEAF_Y=300, PAD=24;
+const ROOT_TITLE='Team Challenge', ROOT_SUB='The ultimate challenge aimed at a real problem', BRANCH_TITLE='Branch', LEAF_TITLE='Leaf challenge';
+
+function computeLayout(){return vizMode==='mindmap'?computeRadial():computeTree();}
+
+function computeTree(){
+  const nodes=[],edges=[];
+  const branches=state.branches;
+  let slot=0;const leafPos={};
+  branches.forEach(b=>{
+    if(b.leaves.length===0){b._slots=[slot];slot+=1;}
+    else{const start=slot;b.leaves.forEach(l=>{leafPos[l.id]=slot;slot+=1;});b._slots=[start,slot-1];}
+  });
+  const totalSlots=Math.max(slot,1);
+  const slotW=LEAF_W+H_GAP;
+  const contentW=totalSlots*slotW;
+  const width=Math.max(contentW,620);
+  const offset=(width-contentW)/2;
+  const slotX=i=>offset+i*slotW+slotW/2;
+  const rootX=width/2;
+  nodes.push({id:'root',kind:'root',cx:rootX,y:ROOT_Y,w:Math.min(360,width-40),title:state.team.title||ROOT_TITLE,sub:state.team.problem||ROOT_SUB});
+  branches.forEach(b=>{
+    let bx;
+    if(b.leaves.length===0){bx=slotX(b._slots[0]);}else{bx=(slotX(b._slots[0])+slotX(b._slots[1]))/2;}
+    nodes.push({id:b.id,kind:'branch',cx:bx,y:BRANCH_Y,w:NODE_W,title:b.title||BRANCH_TITLE,branchRef:b});
+    edges.push({from:'root',to:b.id});
+    b.leaves.forEach(l=>{
+      const lx=slotX(leafPos[l.id]);
+      nodes.push({id:l.id,kind:'leaf',cx:lx,y:LEAF_Y,w:LEAF_W,title:l.title||LEAF_TITLE,leafRef:l,branchId:b.id});
+      edges.push({from:b.id,to:l.id});
+    });
+  });
+  return {mode:'tree',nodes,edges,width,height:LEAF_Y+140};
+}
+
+function computeRadial(){
+  const nodes=[],edges=[];
+  const branches=state.branches;
+  let totalLeaves=0;branches.forEach(b=>totalLeaves+=Math.max(b.leaves.length,1));
+  totalLeaves=Math.max(totalLeaves,1);
+  const rBranch=Math.max(230,30*totalLeaves);
+  const rLeaf=rBranch+Math.max(210,26*totalLeaves);
+  const EST_HALF=42;
+  nodes.push({id:'root',kind:'root',cx:0,cyc:0,w:Math.min(260,rBranch),title:state.team.title||ROOT_TITLE,sub:state.team.problem||ROOT_SUB});
+  let ang=-Math.PI/2;
+  branches.forEach(b=>{
+    const wgt=Math.max(b.leaves.length,1);
+    const sector=2*Math.PI*(wgt/totalLeaves);
+    const start=ang,end=ang+sector,mid=(start+end)/2;
+    nodes.push({id:b.id,kind:'branch',cx:rBranch*Math.cos(mid),cyc:rBranch*Math.sin(mid),w:NODE_W,title:b.title||BRANCH_TITLE,branchRef:b});
+    edges.push({from:'root',to:b.id});
+    const n=b.leaves.length;
+    b.leaves.forEach((l,i)=>{
+      let a;
+      if(n<=1){a=mid;}
+      else{const s=start+sector*0.14,e=end-sector*0.14;a=s+(e-s)*(i/(n-1));}
+      nodes.push({id:l.id,kind:'leaf',cx:rLeaf*Math.cos(a),cyc:rLeaf*Math.sin(a),w:LEAF_W,title:l.title||LEAF_TITLE,leafRef:l,branchId:b.id});
+      edges.push({from:b.id,to:l.id});
+    });
+    ang=end;
+  });
+  // shift into positive space with padding
+  let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+  nodes.forEach(n=>{minX=Math.min(minX,n.cx-n.w/2);maxX=Math.max(maxX,n.cx+n.w/2);minY=Math.min(minY,n.cyc-EST_HALF);maxY=Math.max(maxY,n.cyc+EST_HALF);});
+  const ox=PAD-minX, oy=PAD-minY;
+  nodes.forEach(n=>{n.cx+=ox;n.cyc+=oy;});
+  return {mode:'mindmap',nodes,edges,width:Math.max(maxX-minX+PAD*2,620),height:maxY-minY+PAD*2};
+}
+
+let layout=null, litSet=new Set(), vizMode='tree';
+
+function renderViz(){
+  const canvas=$('#canvas');
+  // remove old nodes
+  canvas.querySelectorAll('.node').forEach(n=>n.remove());
+  layout=computeLayout();
+  canvas.style.width=layout.width+'px';
+  canvas.style.height=layout.height+'px';
+
+  const nodeById={};
+  layout.nodes.forEach(n=>nodeById[n.id]=n);
+
+  // draw nodes
+  const isMap=layout.mode==='mindmap';
+  layout.nodes.forEach(n=>{
+    const d=el('div','node '+n.kind);
+    d.style.width=n.w+'px';
+    d.style.left=(n.cx-n.w/2)+'px';
+    d.style.top=(isMap?(n.cyc-42):n.y)+'px';
+    d.dataset.id=n.id;
+    let inner='';
+    if(n.kind==='root'){
+      inner='<span class="nd-k">Team Challenge</span><span class="nd-t">'+esc(n.title)+'</span>'+
+        (n.sub?'<span class="nd-sub">↳ '+esc(n.sub)+'</span>':'');
+    }else if(n.kind==='branch'){
+      inner='<span class="nd-k">Branch</span><span class="nd-t">'+esc(n.title)+'</span>';
+    }else{
+      const a=n.leafRef.assignee;
+      const assigned=!!a.name.trim();
+      inner='<span class="nd-k">Leaf · Individual</span><span class="nd-t">'+esc(n.title)+'</span>';
+      if(assigned){
+        inner+='<span class="who"><span class="av">'+esc(initial(a.name))+'</span>'+esc(a.name)+'</span>';
+      }
+      if(!assigned)d.classList.add('unassigned');
+    }
+    d.innerHTML=inner;
+    d.addEventListener('click',()=>selectNode(n.id));
+    canvas.appendChild(d);
+  });
+
+  // measure heights (after layout) then draw edges
+  requestAnimationFrame(()=>{
+    const geo={};
+    canvas.querySelectorAll('.node').forEach(nd=>{
+      if(isMap)nd.style.top=(parseFloat(nd.style.top)+42-nd.offsetHeight/2)+'px';
+      geo[nd.dataset.id]={top:nd.offsetTop,h:nd.offsetHeight};
+    });
+    drawEdges(nodeById,geo,isMap);
+    applyLit();
+    if(isMap){
+      const wrap=canvas.parentElement, root=nodeById['root'];
+      if(wrap&&root){wrap.scrollLeft=Math.max(0,root.cx-wrap.clientWidth/2);
+        const g=geo['root'];if(g)wrap.scrollTop=Math.max(0,(g.top+g.h/2)-wrap.clientHeight/2);}
+    }
+  });
+}
+
+function drawEdges(nodeById,geo,isMap){
+  const svg=$('#edges');
+  svg.innerHTML='';
+  svg.setAttribute('width',layout.width);
+  svg.setAttribute('height',layout.height);
+  svg.setAttribute('viewBox','0 0 '+layout.width+' '+layout.height);
+  layout.edges.forEach(e=>{
+    const a=nodeById[e.from],b=nodeById[e.to];
+    if(!a||!b)return;
+    const ga=geo[a.id]||{top:a.y,h:50}, gb=geo[b.id]||{top:b.y,h:50};
+    let d;
+    if(isMap){
+      const x1=a.cx,y1=ga.top+ga.h/2,x2=b.cx,y2=gb.top+gb.h/2,mx=(x1+x2)/2;
+      d=`M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`;
+    }else{
+      const x1=a.cx,y1=ga.top+ga.h,x2=b.cx,y2=gb.top,my=(y1+y2)/2;
+      d=`M${x1} ${y1} C ${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`;
+    }
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',d);
+    path.setAttribute('class','edge');
+    path.dataset.from=e.from;path.dataset.to=e.to;
+    svg.appendChild(path);
+  });
+}
+
+/* ---------------- selection / lineage ---------------- */
+function ancestryOf(id){
+  // returns [root, branch?, leaf?] chain of ids up to root
+  const chain=[id];
+  const node=layout.nodes.find(n=>n.id===id);
+  if(!node)return chain;
+  if(node.kind==='leaf'){chain.unshift(node.branchId);chain.unshift('root');}
+  else if(node.kind==='branch'){chain.unshift('root');}
+  else if(node.kind==='root'){/* just root */}
+  return chain; // ordered root->...->id
+}
+
+function selectNode(id){
+  const chain=ancestryOf(id);
+  litSet=new Set(chain);
+  applyLit();
+  writeReadout(id,chain);
+}
+
+function applyLit(){
+  const canvas=$('#canvas');
+  const any=litSet.size>0;
+  canvas.querySelectorAll('.node').forEach(n=>{
+    n.classList.toggle('lit',litSet.has(n.dataset.id));
+    n.classList.toggle('dim',any&&!litSet.has(n.dataset.id));
+  });
+  // edges lit if both endpoints in litSet AND adjacent in chain
+  $('#edges').querySelectorAll('.edge').forEach(p=>{
+    const on=litSet.has(p.dataset.from)&&litSet.has(p.dataset.to);
+    p.classList.toggle('lit',on);
+    p.classList.toggle('dim',any&&!on);
+  });
+}
+
+function nodeTitle(id){
+  if(id==='root')return state.team.title||'Team Challenge';
+  const n=layout.nodes.find(x=>x.id===id);
+  return n?n.title:'';
+}
+
+function writeReadout(id,chain){
+  const r=$('#readout');
+  const node=layout.nodes.find(n=>n.id===id);
+  const pathText=chain.map(cid=>nodeTitle(cid)||'…').join('  →  ');
+  let body='';
+  if(node.kind==='root'){
+    body='The lineage of every leaf converges here. Because this problem is real, every individual challenge below is real too.'+
+      (state.team.problem?'<div class="hyp"><span class="lbl">The real problem it aims at</span><br>'+esc(state.team.problem)+'</div>':'');
+  }else if(node.kind==='branch'){
+    body='Decompose this branch further and you get the leaves an individual can pick. Decomposition does not lose authenticity — it <b>lays stepping stones</b>.';
+  }else{
+    const a=node.leafRef.assignee;
+    if(a.name.trim()){
+      body='<b>'+esc(a.name)+'</b> — their individual challenge. It may look small, but follow the lineage up and the team challenge is there — the answer to "why does this matter" always lives on the path above.';
+      if(a.learn.trim())body+='<div class="hyp"><span class="lbl">What you want to learn</span><br>'+esc(a.learn)+'</div>';
+      const hyp=composeHyp(a);
+      if(hyp)body+='<div class="hyp"><span class="lbl">Hypothesis</span><br>'+hyp+'</div>';
+    }else{
+      body='A leaf with no member assigned yet. It becomes an individual challenge when someone with <b>something to learn</b> picks this challenge.';
+    }
+  }
+  r.innerHTML='<span class="path">'+esc(pathText)+'</span>'+body;
+}
+
+function composeHyp(a){
+  if(!a.hypX.trim()&&!a.hypY.trim()&&!a.hypZ.trim())return '';
+  const x=a.hypX.trim()||'[subject X] like this';
+  const y=a.hypY.trim()||'[test action Y]';
+  const z=a.hypZ.trim()||'[what I will know]';
+  return 'Right now I understand <b>'+esc(x)+'</b>. Doing <b>'+esc(y)+'</b> will reveal whether that holds. If this breaks, I will learn <b>'+esc(z)+'</b>.';
+}
+
+/* ---------------- people view ---------------- */
+function renderPeople(){
+  const box=$('#peopleList');box.innerHTML='';
+  const people={};
+  state.branches.forEach(b=>b.leaves.forEach(l=>{
+    const nm=l.assignee.name.trim();
+    if(!nm)return;
+    (people[nm]=people[nm]||[]).push({leaf:l,branch:b});
+  }));
+  const names=Object.keys(people);
+  if(names.length===0){
+    box.appendChild(el('div','empty-note','No individual challenges assigned yet.<br>Assign a member to a leaf and they will be grouped here by person.'));
+    return;
+  }
+  names.forEach(nm=>{
+    const card=el('div','person-card');
+    const hd=el('div','person-hd');
+    hd.innerHTML='<span class="av">'+esc(initial(nm))+'</span><span class="nm">'+esc(nm)+'</span><span class="cnt">'+people[nm].length+' challenge(s)</span>';
+    card.appendChild(hd);
+    people[nm].forEach(({leaf,branch})=>{
+      const c=el('div','person-chal');
+      const learn=leaf.assignee.learn.trim();
+      c.innerHTML='<b style="color:#fff">'+esc(leaf.title||'Leaf challenge')+'</b>'+
+        (learn?' — wants to learn: '+esc(learn):'')+
+        '<span class="lin">'+esc((state.team.title||'Team')+' → '+(branch.title||'Branch')+' → '+(leaf.title||'Leaf'))+'</span>';
+      card.appendChild(c);
+    });
+    box.appendChild(card);
+  });
+}
+
+/* ---------------- modal ---------------- */
+let modalCtx=null;
+function openModal(bi,li){
+  modalCtx={bi,li};
+  const l=state.branches[bi].leaves[li];
+  $('#mLeaf').value=l.title||'(untitled leaf)';
+  $('#mName').value=l.assignee.name;
+  $('#mLearn').value=l.assignee.learn;
+  $('#mHypX').value=l.assignee.hypX;
+  $('#mHypY').value=l.assignee.hypY;
+  $('#mHypZ').value=l.assignee.hypZ;
+  updateHypPreview();
+  $('#modalBack').classList.add('on');
+  setTimeout(()=>$('#mName').focus(),50);
+}
+function closeModal(){$('#modalBack').classList.remove('on');modalCtx=null;}
+function updateHypPreview(){
+  const a={hypX:$('#mHypX').value,hypY:$('#mHypY').value,hypZ:$('#mHypZ').value};
+  const h=composeHyp(a);
+  $('#hypPreview').innerHTML=h||'Enter a hypothesis and it assembles into a sentence.';
+}
+function saveModal(){
+  if(!modalCtx)return;
+  const l=state.branches[modalCtx.bi].leaves[modalCtx.li];
+  l.assignee.name=$('#mName').value;
+  l.assignee.learn=$('#mLearn').value;
+  l.assignee.hypX=$('#mHypX').value;
+  l.assignee.hypY=$('#mHypY').value;
+  l.assignee.hypZ=$('#mHypZ').value;
+  closeModal();commit();toast('Individual challenge saved');
+}
+function clearAssign(){
+  if(!modalCtx)return;
+  const l=state.branches[modalCtx.bi].leaves[modalCtx.li];
+  l.assignee={name:'',learn:'',hypX:'',hypY:'',hypZ:''};
+  closeModal();commit();toast('Assignment cleared');
+}
+
+/* ---------------- data tools ---------------- */
+function doExport(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=el('a');a.href=url;
+  const nm=(state.team.title||'challenge').replace(/[^\w가-힣\-]+/g,'_').slice(0,40);
+  a.download='hypoloop_'+nm+'.json';a.click();
+  URL.revokeObjectURL(url);toast('JSON saved');
+}
+function doShare(){
+  try{
+    const b64=btoa(unescape(encodeURIComponent(JSON.stringify(state))));
+    const url=location.origin+location.pathname+'#d='+b64;
+    navigator.clipboard.writeText(url).then(
+      ()=>toast('Share link copied'),
+      ()=>{prompt('Copy this link',url);}
+    );
+  }catch(e){toast('Failed to create link');}
+}
+function doImport(file){
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{state=normalize(JSON.parse(rd.result));commit();toast('Loaded');}
+    catch(e){toast('Could not read file');}
+  };
+  rd.readAsText(file);
+}
+function loadSample(){
+  state=normalize(SAMPLE);commit();toast('Example filled');
+}
+const SAMPLE={
+  team:{title:'Indoor navigation app for the blind',problem:'Keep blind people from getting lost in unfamiliar indoor spaces'},
+  branches:[
+    {title:'Perceive space',leaves:[
+      {title:'Measure the error limit of ARKit anchors directly',assignee:{name:'Jamie',learn:'A real feel for AR coordinate accuracy',hypX:'ARKit anchors will hold their position well enough over several minutes',hypY:'Revisit the same spot every 10 minutes and log coordinate drift',hypZ:'Why re-localization correction is needed'}},
+      {title:'Try simplifying the point cloud into planes',assignee:{name:'Alex',learn:'A feel for handling 3D point clouds',hypX:'',hypY:'',hypZ:''}}
+    ]},
+    {title:'Convey without sight',leaves:[
+      {title:'Use VoiceOver gestures blindfolded for a whole day',assignee:{name:'Sam',learn:'The real cognitive load of non-visual UX',hypX:'VoiceOver alone lets me run the core app flow without much trouble',hypY:'Perform 5 real tasks blindfolded and time them',hypZ:'Where the auditory channel overloads'}}
+    ]},
+    {title:'Know the way',leaves:[
+      {title:'Model a building floor plan as a graph data structure',assignee:{name:'',learn:'',hypX:'',hypY:'',hypZ:''}},
+      {title:'Translate route-finding into haptic rhythm',assignee:{name:'Riley',learn:'How to encode path info as vibration',hypX:'',hypY:'',hypZ:''}}
+    ]}
+  ]
+};
+
+/* ---------------- view switch ---------------- */
+function switchView(v){
+  document.querySelectorAll('.viz-tab').forEach(t=>t.classList.toggle('on',t.dataset.view===v));
+  const showCanvas=(v==='tree'||v==='mindmap');
+  $('#treeView').style.display=showCanvas?'block':'none';
+  $('#peopleView').style.display=v==='people'?'block':'none';
+  if(showCanvas){vizMode=(v==='mindmap')?'mindmap':'tree';renderViz();}
+  else if(v==='people')renderPeople();
+}
+
+/* ---------------- wire up ---------------- */
+$('#teamTitle').addEventListener('input',e=>{state.team.title=e.target.value;save();renderViz();});
+$('#teamProblem').addEventListener('input',e=>{state.team.problem=e.target.value;save();renderViz();});
+$('#addBranch').addEventListener('click',()=>{state.branches.push(blankBranch());commit();});
+$('#btnExport').addEventListener('click',doExport);
+$('#btnShare').addEventListener('click',doShare);
+$('#btnImport').addEventListener('click',()=>$('#fileInput').click());
+$('#fileInput').addEventListener('change',e=>{if(e.target.files[0])doImport(e.target.files[0]);e.target.value='';});
+$('#btnSample').addEventListener('click',loadSample);
+$('#btnReset').addEventListener('click',()=>{if(confirm('Clear everything and start over?')){state=blankState();commit();litSet=new Set();applyLit();toast('Reset done');}});
+document.querySelectorAll('.viz-tab').forEach(t=>t.addEventListener('click',()=>switchView(t.dataset.view)));
+$('#modalClose').addEventListener('click',closeModal);
+$('#modalBack').addEventListener('click',e=>{if(e.target===$('#modalBack'))closeModal();});
+$('#mSave').addEventListener('click',saveModal);
+$('#mClear').addEventListener('click',clearAssign);
+['mHypX','mHypY','mHypZ'].forEach(id=>$('#'+id).addEventListener('input',updateHypPreview));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+window.addEventListener('resize',()=>{clearTimeout(window._rz);window._rz=setTimeout(renderViz,120);});
+
+/* ---------------- init ---------------- */
+load();
+if(state.branches.length===0){state.branches=[blankBranch()];}
+renderEditor();renderViz();
+</script>
+</body>
+</html>
